@@ -177,7 +177,7 @@ export const ChatInterface = () => {
           <Input
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder="Écrivez ici la tâche que vous voulez automatiser..."
+            placeholder='« 200 factures/mois + relances » • « Onboarding 5 arrivées/mois » • « 3 rapports/sem → email »'
             disabled={isLoading}
             className="flex-1 rounded-full border-border focus:ring-primary text-base py-6 px-5 bg-background shadow-sm placeholder:text-muted-foreground/60"
           />

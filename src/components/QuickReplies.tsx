@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Zap, Sparkles, Users } from "lucide-react";
+import { Receipt, Users, Clock } from "lucide-react";
 
 interface QuickRepliesProps {
   onSelect: (message: string) => void;
@@ -8,23 +8,23 @@ interface QuickRepliesProps {
 
 const quickReplies = [
   {
-    icon: Zap,
-    label: "Montrez-moi comment facturer plus vite",
-    message: "Je veux automatiser ma facturation pour gagner du temps et me concentrer sur mon cœur de métier.",
-    color: "text-amber-500",
-  },
-  {
-    icon: Sparkles,
-    label: "Je veux retrouver du temps pour ma stratégie",
-    message: "J'aimerais automatiser mes tâches administratives pour me concentrer sur la stratégie et le développement de mon entreprise.",
-    color: "text-emerald-500",
+    icon: Receipt,
+    label: "Facturation & relances",
+    message: "Facturation & relances",
+    color: "text-blue-500"
   },
   {
     icon: Users,
-    label: "J'ai besoin d'automatiser mon RH/Onboarding",
-    message: "Je souhaite automatiser le processus d'onboarding et la gestion RH pour économiser du temps et améliorer l'expérience employé.",
-    color: "text-blue-500",
+    label: "Onboarding RH",
+    message: "Onboarding RH",
+    color: "text-green-500"
   },
+  {
+    icon: Clock,
+    label: "Reporting automatique",
+    message: "Reporting automatique",
+    color: "text-purple-500"
+  }
 ];
 
 export const QuickReplies = ({ onSelect, isVisible }: QuickRepliesProps) => {

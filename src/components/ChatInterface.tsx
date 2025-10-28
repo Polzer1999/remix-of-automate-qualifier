@@ -3,6 +3,8 @@ import { Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ChatMessage } from "./ChatMessage";
+import { ChatHeader } from "./ChatHeader";
+import { QuickReplies } from "./QuickReplies";
 import { supabase } from "@/integrations/supabase/client";
 import { v4 as uuidv4 } from "uuid";
 
@@ -15,7 +17,7 @@ export const ChatInterface = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: "assistant",
-      content: "Bonjour ! Bienvenue chez Parrit AI. Je suis là pour comprendre vos besoins en automatisation et intelligence artificielle. Comment puis-je vous aider aujourd'hui ?",
+      content: "Bienvenue chez Parrit.ai, votre accélérateur d'efficacité. ✨\n\nDécrivez-moi les tâches répétitives qui freinent votre entreprise. Automatisons ensemble l'évasion de l'administration.",
     },
   ]);
   const [input, setInput] = useState("");
@@ -24,6 +26,7 @@ export const ChatInterface = () => {
   const [sessionId] = useState(() => uuidv4());
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [streamingMessage, setStreamingMessage] = useState("");
+  const [showQuickReplies, setShowQuickReplies] = useState(true);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -33,11 +36,11 @@ export const ChatInterface = () => {
     scrollToBottom();
   }, [messages, streamingMessage]);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!input.trim() || isLoading) return;
+  const sendMessage = async (message: string) => {
+    if (!message.trim() || isLoading) return;
 
-    const userMessage = input.trim();
+    setShowQuickReplies(false);
+    const userMessage = message.trim();
     setInput("");
     setMessages((prev) => [...prev, { role: "user", content: userMessage }]);
     setIsLoading(true);
@@ -137,9 +140,25 @@ export const ChatInterface = () => {
     }
   };
 
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    await sendMessage(input);
+  };
+
+  const handleQuickReply = async (message: string) => {
+    setInput(message);
+    await sendMessage(message);
+  };
+
   return (
-    <div className="w-full max-w-2xl mx-auto flex flex-col h-[600px] bg-card rounded-3xl shadow-medium overflow-hidden border border-border">
-      <div className="flex-1 overflow-y-auto p-6 space-y-4">
+    <div className="w-full max-w-2xl mx-auto flex flex-col h-[650px] bg-card rounded-3xl shadow-medium overflow-hidden border border-border">
+      <ChatHeader />
+      <div className="flex-1 overflow-y-auto p-8 space-y-4 scroll-smooth"
+        style={{
+          scrollbarWidth: 'thin',
+          scrollbarColor: 'hsl(var(--primary) / 0.3) transparent'
+        }}
+      >
         {messages.map((msg, idx) => (
           <ChatMessage key={idx} role={msg.role} content={msg.content} />
         ))}
@@ -149,20 +168,24 @@ export const ChatInterface = () => {
         <div ref={messagesEndRef} />
       </div>
 
-      <form onSubmit={handleSubmit} className="p-4 border-t border-border bg-background/50">
+      <QuickReplies onSelect={handleQuickReply} isVisible={showQuickReplies} />
+
+      <form onSubmit={handleSubmit} className="p-4 border-t border-border bg-background/50"
+        style={{ backdropFilter: 'blur(10px)' }}
+      >
         <div className="flex gap-2">
           <Input
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder="Tapez votre message..."
+            placeholder="Décrivez une tâche à automatiser (ex: gestion des factures, onboarding RH)..."
             disabled={isLoading}
-            className="flex-1 rounded-full border-border focus:ring-primary"
+            className="flex-1 rounded-full border-border focus:ring-primary text-sm"
           />
           <Button
             type="submit"
             disabled={isLoading || !input.trim()}
             size="icon"
-            className="rounded-full w-10 h-10 flex-shrink-0"
+            className="rounded-full w-10 h-10 flex-shrink-0 hover:scale-105 active:scale-95 transition-transform duration-200"
           >
             <Send className="w-4 h-4" />
           </Button>

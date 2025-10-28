@@ -88,5 +88,26 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+}
+
+@layer utilities {
+  /* Custom scrollbar styles */
+  .scroll-smooth::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .scroll-smooth::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .scroll-smooth::-webkit-scrollbar-thumb {
+    background: hsl(var(--primary) / 0.3);
+    border-radius: 10px;
+  }
+  
+  .scroll-smooth::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--primary) / 0.5);
   }
 }

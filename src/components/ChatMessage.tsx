@@ -1,4 +1,5 @@
-import { Bot, User } from "lucide-react";
+import { User } from "lucide-react";
+import { ParritAvatar } from "./ParritAvatar";
 
 interface ChatMessageProps {
   role: "user" | "assistant";
@@ -15,11 +16,7 @@ export const ChatMessage = ({ role, content, isStreaming }: ChatMessageProps) =>
         isAssistant ? "justify-start" : "justify-end"
       }`}
     >
-      {isAssistant && (
-        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary flex items-center justify-center">
-          <Bot className="w-5 h-5 text-primary-foreground" />
-        </div>
-      )}
+      {isAssistant && <ParritAvatar size="md" />}
       <div
         className={`max-w-[80%] rounded-2xl px-4 py-3 ${
           isAssistant

@@ -1,15 +1,15 @@
 import { ChatInterface } from "@/components/ChatInterface";
+import parritLogo from "@/assets/parrit-logo.png";
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-secondary/30 flex flex-col items-center justify-center p-4">
       <div className="w-full max-w-4xl mx-auto text-center mb-8 animate-fade-in">
-        <h1 className="text-5xl font-bold text-foreground mb-3 tracking-tight">
-          Parit<span className="text-primary">.ai</span>
-        </h1>
-        <p className="text-muted-foreground text-lg">
-          Automatisation & Intelligence Artificielle pour votre entreprise
-        </p>
+        <img 
+          src={parritLogo} 
+          alt="Parrit.ai - L'Évasion de l'Administration" 
+          className="w-64 mx-auto mb-4"
+        />
       </div>
 
       <ChatInterface />

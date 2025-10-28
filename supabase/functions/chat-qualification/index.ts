@@ -7,7 +7,7 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
-const QUALIFICATION_SYSTEM_PROMPT = `Tu es un assistant expert en qualification de leads pour Parit AI, une entreprise spécialisée dans l'automatisation et l'intelligence artificielle.
+const QUALIFICATION_SYSTEM_PROMPT = `Tu es un assistant expert en qualification de leads pour Parrit AI, une entreprise spécialisée dans l'automatisation et l'intelligence artificielle.
 
 TON RÔLE:
 - Qualifier le besoin du prospect de manière conversationnelle et naturelle
@@ -67,7 +67,7 @@ Le lead est considéré comme qualifié quand tu as au minimum:
 - Email professionnel
 - Rôle du contact (décisionnaire ou non)
 
-Une fois qualifié, remercie chaleureusement et indique qu'un expert Parit AI les contactera rapidement.`;
+Une fois qualifié, remercie chaleureusement et indique qu'un expert Parrit AI les contactera rapidement.`;
 
 serve(async (req) => {
   if (req.method === 'OPTIONS') {

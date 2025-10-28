@@ -15,7 +15,7 @@ export const ChatInterface = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: "assistant",
-      content: "Bonjour ! Bienvenue chez Parit AI. Je suis là pour comprendre vos besoins en automatisation et intelligence artificielle. Comment puis-je vous aider aujourd'hui ?",
+      content: "Bonjour ! Bienvenue chez Parrit AI. Je suis là pour comprendre vos besoins en automatisation et intelligence artificielle. Comment puis-je vous aider aujourd'hui ?",
     },
   ]);
   const [input, setInput] = useState("");

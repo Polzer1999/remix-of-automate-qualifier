@@ -7,6 +7,61 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
+// Rate limiting configuration
+const RATE_LIMIT_WINDOW_MINUTES = 10;
+const RATE_LIMIT_MAX_REQUESTS = 20;
+
+async function checkRateLimit(supabase: any, sessionId: string): Promise<{ allowed: boolean; remainingRequests: number }> {
+  try {
+    const windowStart = new Date(Date.now() - RATE_LIMIT_WINDOW_MINUTES * 60 * 1000);
+    
+    // Get or create rate limit record
+    const { data: existingLimit } = await supabase
+      .from('rate_limits')
+      .select('*')
+      .eq('session_id', sessionId)
+      .single();
+    
+    if (!existingLimit) {
+      // First request from this session
+      await supabase
+        .from('rate_limits')
+        .insert({ session_id: sessionId, request_count: 1, window_start: new Date() });
+      return { allowed: true, remainingRequests: RATE_LIMIT_MAX_REQUESTS - 1 };
+    }
+    
+    const limitWindowStart = new Date(existingLimit.window_start);
+    
+    // Check if we're still in the same window
+    if (limitWindowStart > windowStart) {
+      // Same window - check count
+      if (existingLimit.request_count >= RATE_LIMIT_MAX_REQUESTS) {
+        return { allowed: false, remainingRequests: 0 };
+      }
+      
+      // Increment count
+      await supabase
+        .from('rate_limits')
+        .update({ request_count: existingLimit.request_count + 1 })
+        .eq('session_id', sessionId);
+      
+      return { allowed: true, remainingRequests: RATE_LIMIT_MAX_REQUESTS - existingLimit.request_count - 1 };
+    } else {
+      // New window - reset count
+      await supabase
+        .from('rate_limits')
+        .update({ request_count: 1, window_start: new Date() })
+        .eq('session_id', sessionId);
+      
+      return { allowed: true, remainingRequests: RATE_LIMIT_MAX_REQUESTS - 1 };
+    }
+  } catch (error) {
+    console.error('Rate limit check error:', error);
+    // On error, allow the request but log it
+    return { allowed: true, remainingRequests: RATE_LIMIT_MAX_REQUESTS };
+  }
+}
+
 const QUALIFICATION_SYSTEM_PROMPT = `Tu es Parrit, copilote d'onboarding pour Parrit.ai.
 Ta mission : transformer une demande d'automatisation en blueprint exploitable + estimations de ROI + prochaines étapes cliquables.
 
@@ -230,12 +285,49 @@ serve(async (req) => {
 
   try {
     const { conversationId, sessionId, message } = await req.json();
+    console.log('Received request:', { conversationId, sessionId, messageLength: message?.length });
+
+    if (!message || !sessionId) {
+      return new Response(
+        JSON.stringify({ error: 'Message and sessionId are required' }),
+        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    // Validate message length
+    const MAX_MESSAGE_LENGTH = 5000;
+    if (message.length > MAX_MESSAGE_LENGTH) {
+      return new Response(
+        JSON.stringify({ error: 'Message trop long (max 5000 caractères)' }),
+        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
     
     const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
     const supabaseKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
-    const lovableApiKey = Deno.env.get('LOVABLE_API_KEY')!;
     
     const supabase = createClient(supabaseUrl, supabaseKey);
+
+    // Check rate limit
+    const rateLimit = await checkRateLimit(supabase, sessionId);
+    if (!rateLimit.allowed) {
+      console.log('Rate limit exceeded for session:', sessionId);
+      return new Response(
+        JSON.stringify({ 
+          error: 'Trop de requêtes. Veuillez réessayer dans quelques minutes.',
+          retryAfter: RATE_LIMIT_WINDOW_MINUTES * 60 
+        }),
+        { 
+          status: 429, 
+          headers: { 
+            ...corsHeaders, 
+            'Content-Type': 'application/json',
+            'Retry-After': String(RATE_LIMIT_WINDOW_MINUTES * 60)
+          } 
+        }
+      );
+    }
+    const lovableApiKey = Deno.env.get('LOVABLE_API_KEY')!;
 
     // Get or create conversation
     let convId = conversationId;

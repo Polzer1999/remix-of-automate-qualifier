@@ -348,6 +348,67 @@ serve(async (req) => {
                 qualification_data: { messages: messages.length, timestamp: new Date().toISOString() }
               })
               .eq('id', convId);
+            
+            // Trigger n8n webhooks for qualified conversation
+            const { data: webhooks } = await supabase
+              .from('n8n_webhooks')
+              .select('*')
+              .eq('trigger_event', 'conversation_qualified')
+              .eq('is_active', true);
+            
+            if (webhooks && webhooks.length > 0) {
+              for (const webhook of webhooks) {
+                if (webhook.webhook_url) {
+                  try {
+                    await fetch(webhook.webhook_url, {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify({
+                        event: 'conversation_qualified',
+                        conversation_id: convId,
+                        session_id: sessionId,
+                        messages_count: messages.length,
+                        last_message: fullResponse,
+                        timestamp: new Date().toISOString()
+                      })
+                    });
+                  } catch (error) {
+                    console.error('Error triggering webhook:', error);
+                  }
+                }
+              }
+            }
+          }
+          
+          // Trigger blueprint generation webhook if blueprint detected
+          if (fullResponse.toLowerCase().includes('blueprint') || fullResponse.toLowerCase().includes('plan prêt')) {
+            const { data: webhooks } = await supabase
+              .from('n8n_webhooks')
+              .select('*')
+              .eq('trigger_event', 'blueprint_generated')
+              .eq('is_active', true);
+            
+            if (webhooks && webhooks.length > 0) {
+              for (const webhook of webhooks) {
+                if (webhook.webhook_url) {
+                  try {
+                    await fetch(webhook.webhook_url, {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify({
+                        event: 'blueprint_generated',
+                        conversation_id: convId,
+                        session_id: sessionId,
+                        response: fullResponse,
+                        timestamp: new Date().toISOString()
+                      })
+                    });
+                  } catch (error) {
+                    console.error('Error triggering webhook:', error);
+                  }
+                }
+              }
+            }
           }
         }
       }

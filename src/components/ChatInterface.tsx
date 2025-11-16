@@ -22,7 +22,7 @@ export const ChatInterface = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: "assistant",
-      content: "Quelle friction puis-je dissoudre pour vous ?",
+      content: "Pourquoi êtes-vous face à moi aujourd'hui ?",
     },
   ]);
   const [input, setInput] = useState("");

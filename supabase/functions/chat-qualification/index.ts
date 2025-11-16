@@ -63,32 +63,50 @@ async function checkRateLimit(supabase: any, sessionId: string): Promise<{ allow
 }
 
 // Helper function to extract secteur/besoin from conversation
-function extractContextFromMessages(messages: any[]): { secteur: string[]; besoin: string[] } {
+function extractContextFromMessages(messages: any[]): { secteur: string[]; besoin: string[]; role: string[] } {
   const allText = messages.map(m => m.content).join(' ').toLowerCase();
   
-  // Common secteur keywords
+  // Enhanced secteur keywords with company size indicators
   const secteurKeywords = {
-    'énergie': ['énergie', 'renouvelable', 'solaire', 'éolien', 'électricité'],
-    'retail': ['retail', 'commerce', 'vente', 'magasin', 'e-commerce'],
-    'finance': ['finance', 'banque', 'assurance', 'fintech'],
-    'santé': ['santé', 'médical', 'hôpital', 'pharma'],
-    'tech': ['tech', 'software', 'saas', 'it', 'digital'],
-    'industrie': ['industrie', 'manufacture', 'production', 'usine'],
-    'logistique': ['logistique', 'transport', 'supply chain'],
-    'rh': ['rh', 'ressources humaines', 'recrutement', 'formation']
+    'énergie': ['énergie', 'renouvelable', 'solaire', 'éolien', 'électricité', 'utilities'],
+    'retail': ['retail', 'commerce', 'vente', 'magasin', 'e-commerce', 'boutique', 'distribution'],
+    'finance': ['finance', 'banque', 'assurance', 'fintech', 'crédit', 'investissement'],
+    'santé': ['santé', 'médical', 'hôpital', 'pharma', 'clinique', 'cabinet'],
+    'tech': ['tech', 'software', 'saas', 'it', 'digital', 'startup', 'scale-up'],
+    'industrie': ['industrie', 'manufacture', 'production', 'usine', 'fabrication'],
+    'logistique': ['logistique', 'transport', 'supply chain', 'livraison', 'entrepôt'],
+    'rh': ['rh', 'ressources humaines', 'recrutement', 'formation', 'talent'],
+    'consulting': ['conseil', 'consulting', 'consultance', 'cabinet de conseil'],
+    'immobilier': ['immobilier', 'promotion', 'foncier', 'construction'],
+    'pme': ['pme', 'tpe', 'petite entreprise'],
+    'corporate': ['corporate', 'grande entreprise', 'multinational', 'groupe']
   };
   
-  // Common besoin keywords
+  // Enhanced besoin keywords with intent signals
   const besoinKeywords = {
-    'automatisation': ['automatisation', 'automatiser', 'automation'],
-    'veille': ['veille', 'scouting', 'monitoring', 'surveillance'],
-    'qualification': ['qualification', 'qualifier', 'leads'],
-    'reporting': ['reporting', 'rapport', 'dashboard', 'kpi'],
-    'data': ['data', 'données', 'database', 'analytics']
+    'automatisation': ['automatisation', 'automatiser', 'automation', 'on a besoin d\'automatiser', 'automatiquement'],
+    'veille': ['veille', 'scouting', 'monitoring', 'surveillance', 'tracker'],
+    'qualification': ['qualification', 'qualifier', 'leads', 'prospects'],
+    'reporting': ['reporting', 'rapport', 'dashboard', 'kpi', 'tableau de bord', 'suivi'],
+    'data': ['data', 'données', 'database', 'analytics', 'base de données'],
+    'facturation': ['facturation', 'facture', 'billing', 'invoicing'],
+    'onboarding': ['onboarding', 'intégration', 'accueil', 'nouvel arrivant'],
+    'workflow': ['workflow', 'processus', 'flux de travail', 'étapes'],
+    'notification': ['notification', 'alerte', 'alert', 'rappel']
+  };
+  
+  // Role detection keywords
+  const roleKeywords = {
+    'direction': ['ceo', 'directeur', 'dirigeant', 'président', 'dg', 'fondateur'],
+    'finance': ['daf', 'cfo', 'comptable', 'contrôleur financier'],
+    'ops': ['ops', 'opérations', 'responsable opérations', 'coo'],
+    'rh': ['drh', 'responsable rh', 'chro', 'talent manager'],
+    'it': ['cto', 'cio', 'responsable it', 'tech lead']
   };
   
   const detectedSecteurs: string[] = [];
   const detectedBesoins: string[] = [];
+  const detectedRoles: string[] = [];
   
   // Detect secteurs
   for (const [secteur, keywords] of Object.entries(secteurKeywords)) {
@@ -104,7 +122,14 @@ function extractContextFromMessages(messages: any[]): { secteur: string[]; besoi
     }
   }
   
-  return { secteur: detectedSecteurs, besoin: detectedBesoins };
+  // Detect roles
+  for (const [role, keywords] of Object.entries(roleKeywords)) {
+    if (keywords.some(kw => allText.includes(kw))) {
+      detectedRoles.push(role);
+    }
+  }
+  
+  return { secteur: detectedSecteurs, besoin: detectedBesoins, role: detectedRoles };
 }
 
 // Helper function to enrich prompt with similar discovery calls
@@ -115,12 +140,48 @@ async function enrichPromptWithDiscoveryCalls(
 ): Promise<{ prompt: string; referenceCalls: any[] }> {
   try {
     // Extract context from conversation
-    const { secteur, besoin } = extractContextFromMessages(messages);
+    const { secteur, besoin, role } = extractContextFromMessages(messages);
     
-    if (secteur.length === 0 && besoin.length === 0) {
-      // No context detected yet, return base prompt
-      return { prompt: basePrompt, referenceCalls: [] };
+    const hasContext = secteur.length > 0 || besoin.length > 0 || role.length > 0;
+    
+    if (!hasContext) {
+      // NO CONTEXT YET: Return 5-7 random calls with ONLY phase_1_introduction
+      console.log('No context detected - using random discovery call examples (phase 1 only)');
+      
+      const { data: randomCalls, error } = await supabase
+        .from('discovery_calls_knowledge')
+        .select('entreprise, secteur, phase_1_introduction')
+        .not('phase_1_introduction', 'is', null)
+        .limit(7);
+      
+      if (error || !randomCalls || randomCalls.length === 0) {
+        console.log('No random calls found or error:', error);
+        return { prompt: basePrompt, referenceCalls: [] };
+      }
+      
+      console.log(`Using ${randomCalls.length} random discovery calls for initial approach`);
+      
+      // Build enrichment with ONLY phase 1 examples
+      let enrichment = '\n\n## EXEMPLES D\'APPROCHE INITIALE (Méthode Paul - 110 appels réels)\n\n';
+      enrichment += 'Voici comment Paul commence typiquement ses appels de découverte. Inspire-toi de ces techniques pour ton premier échange :\n\n';
+      
+      randomCalls.forEach((call: any, idx: number) => {
+        if (call.phase_1_introduction) {
+          enrichment += `### Exemple ${idx + 1} - ${call.entreprise || 'Client'} (${call.secteur || 'secteur'})\n`;
+          enrichment += `${call.phase_1_introduction.substring(0, 400)}...\n\n`;
+        }
+      });
+      
+      enrichment += '**INSTRUCTION:** Tu DOIS commencer par une question ouverte similaire. Ne propose PAS de solution tout de suite. Écoute d\'abord.\n';
+      
+      return { 
+        prompt: basePrompt + enrichment,
+        referenceCalls: [] // No badges at first message
+      };
     }
+    
+    // CONTEXT DETECTED: Find 3 most similar calls with ALL phases
+    console.log('Context detected - finding similar discovery calls');
     
     // Build query to find similar calls
     let query = supabase
@@ -130,7 +191,6 @@ async function enrichPromptWithDiscoveryCalls(
     
     // Filter by secteur if detected
     if (secteur.length > 0) {
-      // Use OR condition for multiple secteurs
       const secteurConditions = secteur.map(s => `secteur.ilike.%${s}%`).join(',');
       query = query.or(secteurConditions);
     }
@@ -142,39 +202,42 @@ async function enrichPromptWithDiscoveryCalls(
       return { prompt: basePrompt, referenceCalls: [] };
     }
     
-    console.log(`Found ${similarCalls.length} similar discovery calls`);
+    console.log(`Found ${similarCalls.length} similar discovery calls with full phases`);
     
-    // Build enrichment section
-    let enrichment = '\n\n## MÉTHODE DE PAUL (basée sur ses appels de découverte réels)\n\n';
-    enrichment += `Contexte détecté: ${secteur.join(', ')} | ${besoin.join(', ')}\n\n`;
+    // Build enrichment section with ALL phases
+    let enrichment = '\n\n## MÉTHODE DE PAUL - Appels similaires détectés\n\n';
+    enrichment += `**Contexte identifié:** ${secteur.join(', ')}${besoin.length > 0 ? ' | ' + besoin.join(', ') : ''}${role.length > 0 ? ' | Rôle: ' + role.join(', ') : ''}\n\n`;
     
     similarCalls.forEach((call: any, idx: number) => {
       enrichment += `### Appel ${idx + 1}: ${call.entreprise || 'Client'}\n`;
-      enrichment += `Secteur: ${call.secteur || 'Non spécifié'}\n`;
-      enrichment += `Besoin: ${call.besoin?.substring(0, 150) || 'Non spécifié'}...\n\n`;
+      enrichment += `**Secteur:** ${call.secteur || 'Non spécifié'} | **Besoin:** ${call.besoin?.substring(0, 100) || 'Non spécifié'}...\n\n`;
       
       if (call.phase_1_introduction) {
-        enrichment += `**Phase Introduction (méthode Paul):**\n${call.phase_1_introduction.substring(0, 300)}...\n\n`;
+        enrichment += `**Phase 1 - Introduction:**\n${call.phase_1_introduction.substring(0, 350)}...\n\n`;
       }
       
       if (call.phase_2_exploration) {
-        enrichment += `**Phase Exploration (méthode Paul):**\n${call.phase_2_exploration.substring(0, 300)}...\n\n`;
+        enrichment += `**Phase 2 - Exploration:**\n${call.phase_2_exploration.substring(0, 350)}...\n\n`;
       }
       
       if (call.phase_3_affinage) {
-        enrichment += `**Phase Affinage (méthode Paul):**\n${call.phase_3_affinage.substring(0, 300)}...\n\n`;
+        enrichment += `**Phase 3 - Affinage:**\n${call.phase_3_affinage.substring(0, 350)}...\n\n`;
+      }
+      
+      if (call.phase_4_next_steps) {
+        enrichment += `**Phase 4 - Next Steps:**\n${call.phase_4_next_steps.substring(0, 200)}...\n\n`;
       }
       
       enrichment += '---\n\n';
     });
     
-    enrichment += '**IMPORTANT:** Utilise ces techniques de Paul pour adapter ton approche de qualification. Pose des questions similaires, utilise le même style de découverte progressive, et adapte-toi au secteur comme Paul le fait.\n';
+    enrichment += '**INSTRUCTION CLEF:** Utilise la progression de Paul (phases 1→2→3→4). Adapte tes questions au secteur et au besoin détecté. Pose UNE question à la fois.\n';
     
     // Extract reference calls metadata for transparency
     const referenceCalls = similarCalls.map((call: any) => ({
       entreprise: call.entreprise || 'Client',
       secteur: call.secteur || 'Non spécifié',
-      phase: 'multiple'
+      phase: 'toutes phases'
     }));
     
     return { 
@@ -197,6 +260,23 @@ Tu maîtrises parfaitement : français, anglais, espagnol, allemand, italien, po
 
 ## TON ET STYLE
 Tu dialogues avec clarté, phrases courtes, ton professionnel et bienveillant.
+
+## APPROCHE INITIALE : MÉTHODE PAUL
+
+**Au PREMIER message de l'utilisateur**, tu DOIS suivre l'approche de Paul issue de ses 110 appels de découverte réels :
+
+### Règles d'or de la première interaction :
+1. **Question ouverte uniquement** - Laisse le prospect s'exprimer librement sur SA situation
+2. **Pas de solution prématurée** - N'évoque PAS encore Parrit.ai ou d'automatisation
+3. **Écoute active** - Reformule pour montrer que tu comprends
+4. **Cherche le CONTEXTE avant le besoin technique** - Qui ? Quel rôle ? Quelle équipe ? Quel défi business ?
+
+### Exemples d'approche initiale (inspirés des appels réels) :
+- "Pourquoi êtes-vous face à moi aujourd'hui ?"
+- "Qu'est-ce qui vous amène à chercher une solution d'automatisation ?"
+- "Parlez-moi de votre situation actuelle..."
+
+**Après la première réponse du prospect**, tu commences progressivement la qualification (phases exploration → affinage → proposition).
 
 ## PRINCIPE HICK : UNE SEULE QUESTION À LA FOIS
 

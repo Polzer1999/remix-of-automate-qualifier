@@ -48,7 +48,8 @@ export const VoiceRecorder = ({ onTranscriptionComplete, disabled }: VoiceRecord
       };
 
       mediaRecorder.onstop = async () => {
-        const audioBlob = new Blob(chunksRef.current, { type: 'audio/webm' });
+        // Use the detected MIME type for the blob
+        const audioBlob = new Blob(chunksRef.current, { type: mimeTypeRef.current });
         await transcribeAudio(audioBlob);
         
         // Stop all tracks to release microphone
@@ -72,23 +73,37 @@ export const VoiceRecorder = ({ onTranscriptionComplete, disabled }: VoiceRecord
     if (mediaRecorderRef.current && isRecording) {
       const duration = Date.now() - (recordingStartTimeRef.current || 0);
       
-      // OpenAI Whisper requires minimum 0.1s, we enforce 0.5s for better quality
-      if (duration < 500) {
+      // OpenAI Whisper requires minimum 0.1s, we enforce 1s for better quality
+      if (duration < 1000) {
         toast({
           title: "Enregistrement trop court",
-          description: "Maintenez le bouton appuyé au moins une demi-seconde.",
+          description: "Maintenez le bouton appuyé au moins une seconde.",
           variant: "destructive",
         });
         
         // Cancel recording without processing
-        mediaRecorderRef.current.stop();
+        const recorder = mediaRecorderRef.current;
+        recorder.ondataavailable = null;
+        recorder.onstop = null;
+        recorder.stop();
         setIsRecording(false);
         recordingStartTimeRef.current = null;
         chunksRef.current = [];
         return;
       }
       
-      mediaRecorderRef.current.stop();
+      // Request any pending data before stopping
+      if (mediaRecorderRef.current.state === 'recording') {
+        mediaRecorderRef.current.requestData();
+      }
+      
+      // Small delay to ensure data is collected
+      setTimeout(() => {
+        if (mediaRecorderRef.current) {
+          mediaRecorderRef.current.stop();
+        }
+      }, 100);
+      
       setIsRecording(false);
       recordingStartTimeRef.current = null;
     }
@@ -176,7 +191,7 @@ export const VoiceRecorder = ({ onTranscriptionComplete, disabled }: VoiceRecord
           ? 'bg-destructive text-destructive-foreground animate-pulse' 
           : ''
       }`}
-      title="Appuyez et maintenez au moins 0.5s pour parler"
+      title="Appuyez et maintenez au moins 1s pour parler"
     >
       {isProcessing ? (
         <Loader2 className="h-4 w-4 animate-spin" />

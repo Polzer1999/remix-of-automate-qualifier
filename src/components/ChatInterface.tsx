@@ -237,7 +237,7 @@ export const ChatInterface = () => {
 
     const wantsBooking = bookingPatterns.some(pattern => pattern.test(userMessage));
     if (wantsBooking) {
-      window.open('https://calendar.app.google/tvTAVp1Ss3gdJrfH9', '_blank');
+      window.open('https://calendar.app.google/zpx5eazp9NmsvfD46', '_blank');
     }
 
     setInput("");

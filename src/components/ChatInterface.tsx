@@ -509,6 +509,3 @@ export const ChatInterface = () => {
           </div>
         )}
       </form>
-    </div>
-  );
-};

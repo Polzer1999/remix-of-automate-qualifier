@@ -1,127 +1,359 @@
-import { User, Sparkles } from "lucide-react";
-import { ParritGlyph } from "./ParritGlyph";
-import { Badge } from "@/components/ui/badge";
-import ReactMarkdown from "react-markdown";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
-interface ChatMessageProps {
-  role: "user" | "assistant";
+const corsHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+};
+
+const QUALIFICATION_SYSTEM_PROMPT = `Tu es Parrita, une assistante IA experte en qualification de leads pour une agence d'automatisation et d'intelligence artificielle. Tu travailles pour Paul.
+
+## Ta mission
+Qualifier les leads en identifiant leurs besoins d'automatisation et leur maturité IA, tout en les guidant vers un rendez-vous avec Paul si pertinent.
+
+## Ton style
+- Bienveillante mais directe
+- Tu poses des questions ouvertes pour comprendre le contexte
+- Tu reformules pour montrer que tu as compris
+- Tu identifies les "pain points" et le temps perdu sur des tâches répétitives
+
+## Phases de la conversation
+1. **Diagnostic** : Comprendre le contexte, l'entreprise, les frustrations quotidiennes
+2. **Projection** : Identifier des cas d'usage concrets, estimer le ROI potentiel
+3. **Closing** : Proposer un rendez-vous avec Paul via le lien : https://calendar.app.google/tvTAVp1Ss3gdJrfH9
+
+## Règles importantes
+- Ne jamais inventer de données ou de chiffres
+- Toujours rester factuelle sur les capacités de l'IA
+- Si le lead n'est pas qualifié ou pas intéressé, le remercier poliment
+- Quand le lead est prêt, proposer le rendez-vous avec le lien Google Calendar
+
+## Format des réponses
+- Réponses courtes et percutantes (max 3-4 phrases par message)
+- Utilise le markdown pour structurer si nécessaire
+- Une seule question par message pour garder le focus`;
+
+interface Message {
+  role: "user" | "assistant" | "system";
   content: string;
-  images?: string[];
-  isStreaming?: boolean;
-  referenceCalls?: Array<{
-    entreprise: string;
-    secteur: string;
-    phase: string;
-  }>;
 }
 
-// Filter out internal JSON qualification data from displayed content
-const filterInternalJson = (text: string): string => {
-  // Remove JSON blocks wrapped in markdown code blocks
-  let filtered = text.replace(/```json\s*\{[\s\S]*?\}\s*```/gi, '');
-  // Remove standalone JSON objects that look like lead qualification data
-  filtered = filtered.replace(/\[\s*\{\s*"lead_name"[\s\S]*?\}\s*\]/g, '');
-  filtered = filtered.replace(/\{\s*"lead_name"[\s\S]*?"calcom_link_clicked"[\s\S]*?\}/g, '');
-  // Clean up extra whitespace
-  filtered = filtered.replace(/\n{3,}/g, '\n\n').trim();
-  return filtered;
-};
+interface DiscoveryCall {
+  entreprise: string;
+  secteur: string;
+  besoin: string;
+  contexte: string;
+  phase_1_introduction: string;
+  phase_2_exploration: string;
+  phase_3_affinage: string;
+  phase_4_next_steps: string;
+}
 
-export const ChatMessage = ({ role, content, images, isStreaming, referenceCalls }: ChatMessageProps) => {
-  const isAssistant = role === "assistant";
-  const displayContent = isAssistant ? filterInternalJson(content) : content;
+// Extract context from conversation to find relevant discovery calls
+function extractContextFromMessages(messages: Message[]): { besoin: string | null; secteur: string | null } {
+  const userMessages = messages
+    .filter(m => m.role === "user")
+    .map(m => m.content.toLowerCase())
+    .join(" ");
 
-  return (
-    <div
-      className={`flex gap-4 mb-6 ${
-        isAssistant ? "justify-start" : "justify-end"
-      }`}
-    >
-      {isAssistant && (
-        <ParritGlyph isThinking={isStreaming} className="flex-shrink-0 mt-1" />
-      )}
-      <div
-        className={`max-w-[85%] rounded-2xl px-6 py-4 text-sm leading-relaxed ${
-          isAssistant
-            ? "bg-transparent text-foreground"
-            : "bg-primary/10 text-foreground ml-auto border border-primary/20"
-        }`}
-      >
-        {/* Reference calls badge for assistant messages */}
-        {isAssistant && referenceCalls && referenceCalls.length > 0 && (
-          <TooltipProvider>
-            <Tooltip delayDuration={200}>
-              <TooltipTrigger asChild>
-                <div className="inline-flex items-center gap-1.5 mb-2 px-2 py-1 rounded-md bg-primary/5 border border-primary/10 cursor-help hover:bg-primary/10 transition-colors">
-                  <Sparkles className="w-3 h-3 text-primary/70" />
-                  <span className="text-[10px] text-muted-foreground/80 font-medium tracking-wide uppercase">
-                    {referenceCalls.length} référence{referenceCalls.length > 1 ? 's' : ''}
-                  </span>
-                </div>
-              </TooltipTrigger>
-              <TooltipContent side="bottom" align="start" className="max-w-xs">
-                <div className="space-y-1.5">
-                  <p className="text-xs font-medium mb-2">Appels similaires utilisés :</p>
-                  <div className="flex flex-wrap gap-1">
-                    {referenceCalls.map((call, idx) => (
-                      <Badge key={idx} variant="secondary" className="text-[10px] font-normal">
-                        {call.entreprise} · {call.secteur}
-                      </Badge>
-                    ))}
-                  </div>
-                </div>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-        )}
+  // Detect common needs/besoins
+  const besoins = [
+    { keywords: ["factur", "comptab", "devis"], besoin: "facturation" },
+    { keywords: ["recrutement", "rh", "candidat", "cv"], besoin: "recrutement" },
+    { keywords: ["email", "mail", "newsletter"], besoin: "emailing" },
+    { keywords: ["crm", "client", "relation"], besoin: "crm" },
+    { keywords: ["stock", "inventaire", "logistique"], besoin: "logistique" },
+    { keywords: ["planning", "agenda", "rendez-vous", "rdv"], besoin: "planning" },
+    { keywords: ["support", "ticket", "sav"], besoin: "support" },
+    { keywords: ["rapport", "reporting", "dashboard"], besoin: "reporting" },
+  ];
 
-        {/* Images for user messages */}
-        {!isAssistant && images && images.length > 0 && (
-          <div className="mb-3 flex flex-wrap gap-2">
-            {images.map((img, idx) => (
-              <img
-                key={idx}
-                src={img}
-                alt={`Image ${idx + 1}`}
-                className="max-w-[200px] max-h-[150px] rounded-lg object-cover border border-white/10"
-              />
-            ))}
-          </div>
-        )}
+  let detectedBesoin: string | null = null;
+  for (const b of besoins) {
+    if (b.keywords.some(k => userMessages.includes(k))) {
+      detectedBesoin = b.besoin;
+      break;
+    }
+  }
 
-        {/* Message content */}
-        <div className="prose prose-sm max-w-none prose-p:my-2 prose-headings:my-2 prose-ul:my-2 prose-li:my-0 dark:prose-invert prose-strong:text-foreground prose-p:text-foreground">
-          {isAssistant ? (
-            <ReactMarkdown
-              components={{
-                p: ({ children }) => <p className="whitespace-pre-wrap">{children}</p>,
-                strong: ({ children }) => <strong className="font-semibold">{children}</strong>,
-                a: ({ href, children }) => (
-                  <a href={href} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
-                    {children}
-                  </a>
-                ),
-              }}
-            >
-              {displayContent}
-            </ReactMarkdown>
-          ) : (
-            <p className="whitespace-pre-wrap">{content}</p>
-          )}
-          {isStreaming && <span className="inline-block w-2 h-4 ml-1 bg-primary animate-pulse" />}
-        </div>
-      </div>
-      {!isAssistant && (
-        <div className="flex-shrink-0 w-8 h-8 mt-1 rounded-full bg-muted flex items-center justify-center">
-          <User className="w-4 h-4 text-muted-foreground" />
-        </div>
-      )}
-    </div>
-  );
-};
+  // Detect sectors
+  const secteurs = [
+    { keywords: ["immo", "agence", "location", "bien"], secteur: "immobilier" },
+    { keywords: ["restaurant", "cuisine", "chef", "réserv"], secteur: "restauration" },
+    { keywords: ["coach", "formation", "consultant"], secteur: "conseil" },
+    { keywords: ["e-commerce", "boutique", "vente", "produit"], secteur: "commerce" },
+    { keywords: ["santé", "médecin", "patient", "cabinet"], secteur: "santé" },
+    { keywords: ["avocat", "juridique", "droit"], secteur: "juridique" },
+    { keywords: ["artisan", "btp", "chantier"], secteur: "artisanat" },
+  ];
+
+  let detectedSecteur: string | null = null;
+  for (const s of secteurs) {
+    if (s.keywords.some(k => userMessages.includes(k))) {
+      detectedSecteur = s.secteur;
+      break;
+    }
+  }
+
+  return { besoin: detectedBesoin, secteur: detectedSecteur };
+}
+
+// Enrich prompt with relevant discovery calls from knowledge base
+async function enrichPromptWithDiscoveryCalls(
+  supabase: any,
+  context: { besoin: string | null; secteur: string | null }
+): Promise<{ enrichment: string; referenceCalls: Array<{ entreprise: string; secteur: string; phase: string }> }> {
+  const referenceCalls: Array<{ entreprise: string; secteur: string; phase: string }> = [];
+  
+  // Don't enrich if no context detected
+  if (!context.besoin && !context.secteur) {
+    return { enrichment: "", referenceCalls: [] };
+  }
+
+  try {
+    let query = supabase.from("discovery_calls_knowledge").select("*");
+
+    // Build query with fallback logic
+    if (context.besoin && context.secteur) {
+      query = query.or(`besoin.ilike.%${context.besoin}%,secteur.ilike.%${context.secteur}%`);
+    } else if (context.besoin) {
+      query = query.ilike("besoin", `%${context.besoin}%`);
+    } else if (context.secteur) {
+      query = query.ilike("secteur", `%${context.secteur}%`);
+    }
+
+    const { data: calls, error } = await query.limit(3);
+
+    if (error || !calls || calls.length === 0) {
+      // Fallback: get random calls
+      const { data: randomCalls } = await supabase
+        .from("discovery_calls_knowledge")
+        .select("*")
+        .limit(3);
+
+      if (!randomCalls || randomCalls.length === 0) {
+        return { enrichment: "", referenceCalls: [] };
+      }
+
+      const enrichment = buildEnrichmentFromCalls(randomCalls as DiscoveryCall[]);
+      randomCalls.forEach((call: DiscoveryCall) => {
+        referenceCalls.push({
+          entreprise: call.entreprise || "Inconnu",
+          secteur: call.secteur || "Général",
+          phase: "exploration"
+        });
+      });
+      return { enrichment, referenceCalls };
+    }
+
+    const enrichment = buildEnrichmentFromCalls(calls as DiscoveryCall[]);
+    calls.forEach((call: DiscoveryCall) => {
+      referenceCalls.push({
+        entreprise: call.entreprise || "Inconnu",
+        secteur: call.secteur || "Général",
+        phase: "exploration"
+      });
+    });
+    return { enrichment, referenceCalls };
+
+  } catch (err) {
+    console.error("Error fetching discovery calls:", err);
+    return { enrichment: "", referenceCalls: [] };
+  }
+}
+
+function buildEnrichmentFromCalls(calls: DiscoveryCall[]): string {
+  if (calls.length === 0) return "";
+
+  let enrichment = "\n\n## Contexte d'appels découverte similaires\n";
+  enrichment += "Voici des exemples de conversations passées avec des leads similaires pour t'inspirer :\n\n";
+
+  calls.forEach((call, idx) => {
+    enrichment += `### Exemple ${idx + 1}: ${call.entreprise || "Client"} (${call.secteur || "Général"})\n`;
+    if (call.besoin) enrichment += `- **Besoin identifié** : ${call.besoin}\n`;
+    if (call.contexte) enrichment += `- **Contexte** : ${call.contexte}\n`;
+    if (call.phase_2_exploration) enrichment += `- **Questions posées** : ${call.phase_2_exploration.substring(0, 200)}...\n`;
+    enrichment += "\n";
+  });
+
+  return enrichment;
+}
+
+Deno.serve(async (req) => {
+  // Handle CORS preflight
+  if (req.method === "OPTIONS") {
+    return new Response(null, { headers: corsHeaders });
+  }
+
+  try {
+    const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
+    const supabaseServiceRoleKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
+    const lovableApiKey = Deno.env.get("LOVABLE_API_KEY");
+
+    const supabase = createClient(supabaseUrl, supabaseServiceRoleKey);
+
+    const body = await req.json();
+    const { conversationId, sessionId, message, images } = body;
+
+    console.log("Received request:", { conversationId, sessionId, messageLength: message?.length });
+
+    // Get or create conversation
+    let convId = conversationId;
+    if (!convId) {
+      const { data: newConv, error: convError } = await supabase
+        .from("lead_conversations")
+        .insert({ session_id: sessionId })
+        .select()
+        .single();
+
+      if (convError) throw convError;
+      convId = newConv.id;
+    }
+
+    // Fetch conversation history
+    const { data: history, error: historyError } = await supabase
+      .from("chat_messages")
+      .select("role, content")
+      .eq("conversation_id", convId)
+      .order("created_at", { ascending: true });
+
+    if (historyError) throw historyError;
+
+    // Build messages array
+    const messages: Message[] = [
+      { role: "system", content: QUALIFICATION_SYSTEM_PROMPT }
+    ];
+
+    // Add history
+    if (history) {
+      history.forEach((msg: { role: string; content: string }) => {
+        messages.push({ role: msg.role as "user" | "assistant", content: msg.content });
+      });
+    }
+
+    // Extract context and enrich with discovery calls
+    const context = extractContextFromMessages(messages);
+    const { enrichment, referenceCalls } = await enrichPromptWithDiscoveryCalls(supabase, context);
+
+    // Update system prompt with enrichment
+    if (enrichment) {
+      messages[0].content += enrichment;
+    }
+
+    // Add current user message
+    messages.push({ role: "user", content: message });
+
+    // Save user message
+    await supabase.from("chat_messages").insert({
+      conversation_id: convId,
+      role: "user",
+      content: message
+    });
+
+    // Prepare API call to Lovable AI
+    const apiUrl = "https://api.lovable.dev/v1/chat/completions";
+    
+    const response = await fetch(apiUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${lovableApiKey}`
+      },
+      body: JSON.stringify({
+        model: "openai/gpt-5-mini",
+        messages: messages.map(m => ({
+          role: m.role,
+          content: m.content
+        })),
+        stream: true
+      })
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error("API Error:", errorText);
+      throw new Error(`API Error: ${response.status}`);
+    }
+
+    // Stream response back to client
+    const reader = response.body?.getReader();
+    if (!reader) throw new Error("No reader available");
+
+    const encoder = new TextEncoder();
+    const decoder = new TextDecoder();
+    let fullResponse = "";
+
+    const stream = new ReadableStream({
+      async start(controller) {
+        // Send reference calls first if any
+        if (referenceCalls.length > 0) {
+          controller.enqueue(encoder.encode(`data: ${JSON.stringify({ reference_calls: referenceCalls })}\n\n`));
+        }
+
+        try {
+          while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+
+            const chunk = decoder.decode(value, { stream: true });
+            const lines = chunk.split("\n");
+
+            for (const line of lines) {
+              if (line.startsWith("data: ")) {
+                const data = line.slice(6);
+                if (data === "[DONE]") {
+                  controller.enqueue(encoder.encode("data: [DONE]\n\n"));
+                  continue;
+                }
+
+                try {
+                  const parsed = JSON.parse(data);
+                  const content = parsed.choices?.[0]?.delta?.content;
+                  if (content) {
+                    fullResponse += content;
+                  }
+                  controller.enqueue(encoder.encode(line + "\n\n"));
+                } catch {
+                  // Forward as-is
+                  controller.enqueue(encoder.encode(line + "\n\n"));
+                }
+              }
+            }
+          }
+
+          // Save assistant response
+          if (fullResponse) {
+            await supabase.from("chat_messages").insert({
+              conversation_id: convId,
+              role: "assistant",
+              content: fullResponse
+            });
+          }
+
+        } finally {
+          controller.close();
+        }
+      }
+    });
+
+    return new Response(stream, {
+      headers: {
+        ...corsHeaders,
+        "Content-Type": "text/event-stream",
+        "Cache-Control": "no-cache",
+        "Connection": "keep-alive",
+        "X-Conversation-Id": convId
+      }
+    });
+
+  } catch (error) {
+    console.error("Error in chat-qualification:", error);
+    const errorMessage = error instanceof Error ? error.message : "Unknown error";
+    return new Response(
+      JSON.stringify({ error: errorMessage }),
+      {
+        status: 500,
+        headers: { ...corsHeaders, "Content-Type": "application/json" }
+      }
+    );
+  }
+});

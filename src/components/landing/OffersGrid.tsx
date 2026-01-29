@@ -3,6 +3,11 @@ import { Bot, Rocket, Puzzle, GraduationCap } from "lucide-react";
 import { OfferCard } from "./OfferCard";
 import { ContactModal, OfferType } from "./ContactModal";
 
+interface TwoColumnsData {
+  left: { title: string; items: string[] };
+  right: { title: string; items: string[] };
+}
+
 interface Offer {
   id: OfferType;
   icon: typeof Bot;
@@ -17,6 +22,7 @@ interface Offer {
   mention?: string;
   legalMention?: string;
   accentColor?: string;
+  twoColumns?: TwoColumnsData;
 }
 
 const offers: Offer[] = [
@@ -32,6 +38,7 @@ const offers: Offer[] = [
     bullets: [
       "\"Comment créer une commande d'achat ?\" → Réponse instantanée",
       "\"Erreur M7001, je fais quoi ?\" → Solution étape par étape",
+      "Transactions, procédures, support fonctionnel",
       "Modules MM, FI, SD couverts",
       "Base de connaissances validée par consultants seniors",
       "Déploiement on-premise sécurisé ou test cloud immédiat",
@@ -42,16 +49,29 @@ const offers: Offer[] = [
     id: "prospection",
     icon: Rocket,
     title: "Prospection Signaux d'Intention",
-    description: "On remplit votre pipeline de RDV qualifiés",
+    description: "On génère votre croissance et on remplit votre pipeline",
     badge: "Setup 5K€",
     cta: "Découvrir l'offre",
-    steps: [
-      "Décrivez votre cible et votre ICP",
-      "Partagez vos valeurs et votre offre",
-      "On détecte les signaux d'intention",
-      "On alimente votre pipeline en leads chauds",
-    ],
-    mention: "Coaching acquisition + automatisation inclus",
+    twoColumns: {
+      left: {
+        title: "Ce que vous nous donnez :",
+        items: [
+          "Votre ICP (client idéal)",
+          "Votre produit et ses bénéfices",
+          "Les problèmes qu'il résout",
+          "Vos valeurs et votre positionnement",
+        ],
+      },
+      right: {
+        title: "Ce qu'on fait pour vous :",
+        items: [
+          "Détection des signaux d'intention",
+          "Système d'acquisition automatisé",
+          "Pipeline alimenté en leads chauds",
+          "Coaching acquisition inclus",
+        ],
+      },
+    },
   },
   {
     id: "agentique",
@@ -113,6 +133,7 @@ export const OffersGrid = () => {
               mention={offer.mention}
               legalMention={offer.legalMention}
               accentColor={offer.accentColor}
+              twoColumns={offer.twoColumns}
               onClick={() => handleCardClick(offer)}
             />
           ))}

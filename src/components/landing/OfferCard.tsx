@@ -1,6 +1,11 @@
 import { LucideIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
+interface TwoColumnsData {
+  left: { title: string; items: string[] };
+  right: { title: string; items: string[] };
+}
+
 interface OfferCardProps {
   icon: LucideIcon;
   title: string;
@@ -14,6 +19,7 @@ interface OfferCardProps {
   mention?: string;
   legalMention?: string;
   accentColor?: string;
+  twoColumns?: TwoColumnsData;
   onClick: () => void;
 }
 
@@ -30,6 +36,7 @@ export const OfferCard = ({
   mention,
   legalMention,
   accentColor,
+  twoColumns,
   onClick,
 }: OfferCardProps) => {
   const accent = accentColor || "#9ACD32";
@@ -94,6 +101,34 @@ export const OfferCard = ({
             </li>
           ))}
         </ol>
+      )}
+      
+      {/* Two columns layout */}
+      {twoColumns && (
+        <div className="text-sm text-muted-foreground mb-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <p className="font-semibold text-foreground mb-2">{twoColumns.left.title}</p>
+            <ul className="space-y-1">
+              {twoColumns.left.items.map((item, index) => (
+                <li key={index} className="flex items-start gap-2">
+                  <span className="text-[#9ACD32] mt-1">•</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <p className="font-semibold text-foreground mb-2">{twoColumns.right.title}</p>
+            <ul className="space-y-1">
+              {twoColumns.right.items.map((item, index) => (
+                <li key={index} className="flex items-start gap-2">
+                  <span className="text-[#9ACD32] mt-1">•</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
       )}
       
       {/* Examples in italic */}

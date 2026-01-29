@@ -21,7 +21,7 @@ interface ContactModalProps {
   offerTitle: string;
 }
 
-const WEBHOOK_URL = "https://WEBHOOK_PLACEHOLDER.com";
+const WEBHOOK_URL = "https://n8n.parrit.ai/webhook/landing-form";
 
 export const ContactModal = ({
   isOpen,
@@ -49,6 +49,7 @@ export const ContactModal = ({
 
     try {
       const payload = {
+        source: "landing",
         offer: offerType,
         name: formData.name.trim(),
         email: formData.email.trim(),
@@ -63,12 +64,16 @@ export const ContactModal = ({
           "Content-Type": "application/json",
         },
         body: JSON.stringify(payload),
-        mode: "no-cors", // Pour éviter les erreurs CORS avec un webhook externe
+        mode: "no-cors",
       });
 
       toast.success("Merci ! On vous recontacte rapidement.");
       setFormData({ name: "", email: "", company: "", message: "" });
-      onClose();
+      
+      // Fermer le modal après 2 secondes
+      setTimeout(() => {
+        onClose();
+      }, 2000);
     } catch (error) {
       console.error("Error submitting form:", error);
       toast.error("Une erreur est survenue. Veuillez réessayer.");

@@ -12,7 +12,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 
-export type OfferType = "sap" | "growth" | "custom" | "formation";
+export type OfferType = "pay" | "prospection" | "agentique" | "formation";
 
 interface ContactModalProps {
   isOpen: boolean;

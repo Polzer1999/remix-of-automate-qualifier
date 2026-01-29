@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 interface OfferCardProps {
   icon: LucideIcon;
   title: string;
+  subtitle?: string;
   description: string;
   badge?: string;
   cta: string;
@@ -11,12 +12,15 @@ interface OfferCardProps {
   steps?: string[];
   examples?: string[];
   mention?: string;
+  legalMention?: string;
+  accentColor?: string;
   onClick: () => void;
 }
 
 export const OfferCard = ({
   icon: Icon,
   title,
+  subtitle,
   description,
   badge,
   cta,
@@ -24,25 +28,53 @@ export const OfferCard = ({
   steps,
   examples,
   mention,
+  legalMention,
+  accentColor,
   onClick,
 }: OfferCardProps) => {
+  const accent = accentColor || "#9ACD32";
+  const accentHover = accentColor ? accentColor : "#808000";
+  
   return (
     <button
       onClick={onClick}
-      className="group relative p-6 md:p-8 rounded-2xl bg-[#111111] border border-[#333333] text-left transition-all duration-300 hover:border-[#808000] hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(128,128,0,0.15)] backdrop-blur-sm w-full flex flex-col"
+      className="group relative p-6 md:p-8 rounded-2xl bg-[#111111] border border-[#333333] text-left transition-all duration-300 hover:-translate-y-1 backdrop-blur-sm w-full flex flex-col"
+      style={{
+        ["--accent-color" as string]: accent,
+        ["--accent-hover" as string]: accentHover,
+      }}
     >
+      <style>{`
+        .offer-card-${accent.replace("#", "")}:hover {
+          border-color: ${accentHover};
+          box-shadow: 0 8px 30px ${accent}26;
+        }
+      `}</style>
       <div className="flex items-start justify-between mb-4">
-        <div className="p-3 rounded-xl bg-[#1a1a1a] text-[#9ACD32] group-hover:bg-[#808000]/10 transition-colors">
+        <div 
+          className="p-3 rounded-xl bg-[#1a1a1a] transition-colors"
+          style={{ color: accent }}
+        >
           <Icon className="w-6 h-6" />
         </div>
         {badge && (
-          <Badge className="bg-[#9ACD32]/20 text-[#9ACD32] border-[#9ACD32]/30 hover:bg-[#9ACD32]/30">
+          <Badge 
+            className="border"
+            style={{ 
+              backgroundColor: `${accent}33`, 
+              color: accent, 
+              borderColor: `${accent}4D` 
+            }}
+          >
             {badge}
           </Badge>
         )}
       </div>
       
-      <h3 className="text-xl font-semibold text-foreground mb-2">{title}</h3>
+      <h3 className="text-xl font-semibold text-foreground mb-1">{title}</h3>
+      {subtitle && (
+        <p className="text-sm mb-2" style={{ color: accent }}>{subtitle}</p>
+      )}
       <p className="text-muted-foreground mb-4">{description}</p>
       
       {/* Bullets list */}
@@ -83,11 +115,19 @@ export const OfferCard = ({
       
       {/* Mention */}
       {mention && (
-        <p className="text-sm text-[#9ACD32]/80 mb-4">{mention}</p>
+        <p className="text-sm mb-4" style={{ color: `${accent}CC` }}>{mention}</p>
+      )}
+      
+      {/* Legal Mention */}
+      {legalMention && (
+        <p className="text-xs text-muted-foreground/60 mb-4 italic">{legalMention}</p>
       )}
       
       <div className="mt-auto">
-        <span className="inline-flex items-center text-[#9ACD32] font-medium group-hover:underline">
+        <span 
+          className="inline-flex items-center font-medium group-hover:underline"
+          style={{ color: accent }}
+        >
           {cta}
           <svg
             className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1"

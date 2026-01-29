@@ -1,13 +1,1 @@
-project_id = "ugnfzogmtidjbcwlczug"
-
-[functions.chat-qualification]
-verify_jwt = false
-
-[functions.import-discovery-calls]
-verify_jwt = false
-
-[functions.save-qualified-lead]
-verify_jwt = false
-
-[functions.voice-to-text]
-verify_jwt = false
+project_id = "tllqmhjxjhhactynylii"

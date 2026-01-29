@@ -3,26 +3,26 @@ import { Bot, Rocket, Puzzle, GraduationCap } from "lucide-react";
 import { OfferCard } from "./OfferCard";
 import { ContactModal, OfferType } from "./ContactModal";
 
-interface TwoColumnsData {
-  left: { title: string; items: string[] };
-  right: { title: string; items: string[] };
-}
+const CALENDAR_URL = "https://calendar.app.google/L153uVn5hqFgnQ6U9";
 
 interface Offer {
   id: OfferType;
   icon: typeof Bot;
   title: string;
-  subtitle?: string;
+  subtitle: string;
   description: string;
   badge?: string;
+  badgeColor?: string;
   cta: string;
+  ctaAction: "modal" | "external";
+  ctaUrl?: string;
   bullets?: string[];
-  steps?: string[];
-  examples?: string[];
   mention?: string;
   legalMention?: string;
-  accentColor?: string;
-  twoColumns?: TwoColumnsData;
+  twoColumns?: {
+    left: { title: string; items: string[] };
+    right: { title: string; items: string[] };
+  };
 }
 
 const offers: Offer[] = [
@@ -33,75 +33,80 @@ const offers: Offer[] = [
     subtitle: "Pour utilisateurs SAP & consultants",
     description: "Trouvez vos réponses en 10 secondes au lieu de 20 minutes.",
     badge: "Accès Bêta",
-    cta: "Tester gratuitement",
-    accentColor: "#4F46E5",
+    badgeColor: "#4F46E5",
+    cta: "Demander l'accès bêta",
+    ctaAction: "modal",
     bullets: [
       "\"Comment créer une commande d'achat ?\" → Réponse instantanée",
       "\"Erreur M7001, je fais quoi ?\" → Solution étape par étape",
-      "Transactions, procédures, support fonctionnel",
       "Modules MM, FI, SD couverts",
-      "Base de connaissances validée par consultants seniors",
-      "Déploiement on-premise sécurisé ou test cloud immédiat",
     ],
+    mention: "Base de connaissances validée par consultants seniors",
     legalMention: "PaY n'est pas affilié à SAP SE.",
   },
   {
     id: "prospection",
     icon: Rocket,
     title: "Prospection Signaux d'Intention",
-    description: "On génère votre croissance et on remplit votre pipeline",
+    subtitle: "On remplit votre pipeline de RDV qualifiés",
+    description: "Vous nous donnez votre ICP, on détecte ceux qui sont prêts à acheter.",
     badge: "Setup 5K€",
     cta: "Découvrir l'offre",
+    ctaAction: "modal",
     twoColumns: {
       left: {
-        title: "Ce que vous nous donnez :",
+        title: "Ce que vous fournissez :",
         items: [
-          "Votre ICP (client idéal)",
-          "Votre produit et ses bénéfices",
-          "Les problèmes qu'il résout",
-          "Vos valeurs et votre positionnement",
+          "Votre client idéal (ICP)",
+          "Votre offre et ses bénéfices",
+          "Les problèmes que vous résolvez",
         ],
       },
       right: {
-        title: "Ce qu'on fait pour vous :",
+        title: "Ce qu'on livre :",
         items: [
-          "Détection des signaux d'intention",
-          "Système d'acquisition automatisé",
-          "Pipeline alimenté en leads chauds",
-          "Coaching acquisition inclus",
+          "Système de détection des signaux",
+          "Pipeline alimenté en continu",
+          "Leads chauds dans votre CRM",
         ],
       },
     },
+    mention: "Coaching acquisition inclus dans le setup",
   },
   {
     id: "agentique",
     icon: Puzzle,
-    title: "Projets Agentiques",
-    description: "Solutions IA & Automatisation sur-mesure pour défis uniques",
+    title: "Projets Agentiques Sur-Mesure",
+    subtitle: "Solutions IA pour vos défis uniques",
+    description: "Automatisation, agents IA, workflows complexes — on construit ce qui n'existe pas encore.",
     badge: "Sur devis",
     cta: "Prendre RDV",
-    examples: [
-      "SEO & génération d'articles depuis briefs d'agence",
-      "Contenu automatisé pour réseaux sociaux",
-      "Assistant WhatsApp connecté à votre CRM",
-      "Remplissage automatique de catalogues",
-      "Process métier complexes (franchises, juridique...)",
-      "Votre projet sur-mesure",
+    ctaAction: "external",
+    ctaUrl: CALENDAR_URL,
+    bullets: [
+      "Catalogues automatisés (maisons de vente aux enchères)",
+      "Assistants WhatsApp connectés à votre CRM",
+      "Process métier : franchises, juridique, RH",
+      "Génération de contenu : SEO, réseaux sociaux",
     ],
-    mention: "High-ticket • Demandes inédites • Accompagnement premium",
+    mention: "Accompagnement premium de A à Z",
   },
   {
     id: "formation",
     icon: GraduationCap,
-    title: "Formation & Prise de parole",
-    description: "Maîtrisez l'IA et transformez votre quotidien",
+    title: "Formation & Prise de Parole",
+    subtitle: "Montez en compétence sur l'IA et l'agentique",
+    description: "Pour équipes, dirigeants, ou événements — on forme et on inspire.",
+    badge: "Sur demande",
     cta: "En savoir plus",
+    ctaAction: "modal",
     bullets: [
-      "Formation : déployer agents & automatisations par métier",
-      "Masterclass : de l'IA générative à l'agentique",
-      "Coaching individuel : outils optimaux, mindset, démos live",
-      "Prise de parole : conférences et ateliers pour vos équipes",
+      "Formation déploiement d'agents IA",
+      "Masterclass \"De l'IA à l'Agentique\"",
+      "Coaching individuel (outils, mindset, démos)",
+      "Conférences et ateliers en entreprise",
     ],
+    mention: "Formats adaptés à vos contraintes",
   },
 ];
 
@@ -109,32 +114,32 @@ export const OffersGrid = () => {
   const [selectedOffer, setSelectedOffer] = useState<Offer | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleCardClick = (offer: Offer) => {
+  const handleOpenModal = (offer: Offer) => {
     setSelectedOffer(offer);
     setIsModalOpen(true);
   };
 
   return (
     <>
-      <section className="px-4 pb-16 md:pb-24">
-        <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 auto-rows-fr">
+      <section id="offers-section" className="px-4 pb-16 md:pb-24">
+        <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
           {offers.map((offer) => (
-          <OfferCard
+            <OfferCard
               key={offer.id}
               icon={offer.icon}
               title={offer.title}
               subtitle={offer.subtitle}
               description={offer.description}
               badge={offer.badge}
+              badgeColor={offer.badgeColor}
               cta={offer.cta}
+              ctaAction={offer.ctaAction}
+              ctaUrl={offer.ctaUrl}
               bullets={offer.bullets}
-              steps={offer.steps}
-              examples={offer.examples}
               mention={offer.mention}
               legalMention={offer.legalMention}
-              accentColor={offer.accentColor}
               twoColumns={offer.twoColumns}
-              onClick={() => handleCardClick(offer)}
+              onModalOpen={() => handleOpenModal(offer)}
             />
           ))}
         </div>

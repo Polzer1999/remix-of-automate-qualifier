@@ -67,10 +67,9 @@ export const ContactModal = ({
         mode: "no-cors",
       });
 
-      toast.success("Merci ! On vous recontacte rapidement.");
+      toast.success("Merci ! On vous recontacte sous 24h.");
       setFormData({ name: "", email: "", company: "", message: "" });
       
-      // Fermer le modal après 2 secondes
       setTimeout(() => {
         onClose();
       }, 2000);
@@ -87,7 +86,7 @@ export const ContactModal = ({
       <DialogContent className="bg-[#111111] border-[#333333] sm:max-w-md">
         <DialogHeader>
           <DialogTitle className="text-foreground text-xl">
-            {offerTitle}
+            Intéressé par {offerTitle} ?
           </DialogTitle>
           <DialogDescription className="text-muted-foreground">
             Laissez-nous vos coordonnées, on vous recontacte rapidement.
@@ -105,7 +104,7 @@ export const ContactModal = ({
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
               placeholder="Votre nom"
               required
-              className="bg-[#0a0a0a] border-[#333333] text-foreground placeholder:text-muted-foreground focus:border-[#808000]"
+              className="bg-[#0a0a0a] border-[#333333] text-foreground placeholder:text-muted-foreground focus:border-[#9ACD32]"
             />
           </div>
 
@@ -120,7 +119,7 @@ export const ContactModal = ({
               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
               placeholder="votre@email.com"
               required
-              className="bg-[#0a0a0a] border-[#333333] text-foreground placeholder:text-muted-foreground focus:border-[#808000]"
+              className="bg-[#0a0a0a] border-[#333333] text-foreground placeholder:text-muted-foreground focus:border-[#9ACD32]"
             />
           </div>
 
@@ -133,7 +132,7 @@ export const ContactModal = ({
               value={formData.company}
               onChange={(e) => setFormData({ ...formData, company: e.target.value })}
               placeholder="Votre entreprise"
-              className="bg-[#0a0a0a] border-[#333333] text-foreground placeholder:text-muted-foreground focus:border-[#808000]"
+              className="bg-[#0a0a0a] border-[#333333] text-foreground placeholder:text-muted-foreground focus:border-[#9ACD32]"
             />
           </div>
 
@@ -145,18 +144,18 @@ export const ContactModal = ({
               id="message"
               value={formData.message}
               onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-              placeholder="Décrivez votre projet..."
+              placeholder="Décrivez brièvement votre besoin..."
               rows={3}
-              className="bg-[#0a0a0a] border-[#333333] text-foreground placeholder:text-muted-foreground focus:border-[#808000] resize-none"
+              className="bg-[#0a0a0a] border-[#333333] text-foreground placeholder:text-muted-foreground focus:border-[#9ACD32] resize-none"
             />
           </div>
 
           <Button
             type="submit"
             disabled={isSubmitting}
-            className="w-full bg-[#9ACD32] text-[#0a0a0a] hover:bg-[#808000] font-semibold"
+            className="w-full bg-[#9ACD32] text-[#0a0a0a] hover:bg-[#b8e04a] font-semibold"
           >
-            {isSubmitting ? "Envoi en cours..." : "Envoyer"}
+            {isSubmitting ? "Envoi en cours..." : "Envoyer ma demande"}
           </Button>
         </form>
       </DialogContent>

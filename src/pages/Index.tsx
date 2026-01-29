@@ -1,7 +1,10 @@
-import { ChatInterface } from "@/components/ChatInterface";
 import { Header } from "@/components/landing/Header";
 import { HeroSection } from "@/components/landing/HeroSection";
+import { TrustBar } from "@/components/landing/TrustBar";
 import { OffersGrid } from "@/components/landing/OffersGrid";
+import { WhySection } from "@/components/landing/WhySection";
+import { FinalCTA } from "@/components/landing/FinalCTA";
+import { ChatbotSection } from "@/components/landing/ChatbotSection";
 
 const Index = () => {
   return (
@@ -12,14 +15,11 @@ const Index = () => {
       <div className="pt-16" />
       
       <HeroSection />
+      <TrustBar />
       <OffersGrid />
-      
-      {/* Existing Parrita Chatbot */}
-      <section className="px-2 md:px-4 pb-8">
-        <div className="max-w-5xl mx-auto animate-fade-in">
-          <ChatInterface />
-        </div>
-      </section>
+      <WhySection />
+      <FinalCTA />
+      <ChatbotSection />
     </div>
   );
 };

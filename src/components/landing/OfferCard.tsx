@@ -1,5 +1,6 @@
 import { LucideIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 
 interface TwoColumnsData {
   left: { title: string; items: string[] };
@@ -12,15 +13,15 @@ interface OfferCardProps {
   subtitle?: string;
   description: string;
   badge?: string;
+  badgeColor?: string;
   cta: string;
+  ctaAction: "modal" | "external";
+  ctaUrl?: string;
   bullets?: string[];
-  steps?: string[];
-  examples?: string[];
   mention?: string;
   legalMention?: string;
-  accentColor?: string;
   twoColumns?: TwoColumnsData;
-  onClick: () => void;
+  onModalOpen?: () => void;
 }
 
 export const OfferCard = ({
@@ -29,43 +30,37 @@ export const OfferCard = ({
   subtitle,
   description,
   badge,
+  badgeColor = "#9ACD32",
   cta,
+  ctaAction,
+  ctaUrl,
   bullets,
-  steps,
-  examples,
   mention,
   legalMention,
-  accentColor,
   twoColumns,
-  onClick,
+  onModalOpen,
 }: OfferCardProps) => {
-  const accent = accentColor || "#9ACD32";
-  const accentHover = accentColor ? accentColor : "#808000";
-  
+  const handleCtaClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (ctaAction === "external" && ctaUrl) {
+      window.open(ctaUrl, "_blank");
+    } else if (ctaAction === "modal" && onModalOpen) {
+      onModalOpen();
+    }
+  };
+
   return (
-    <div
-      onClick={onClick}
-      className="group relative p-6 md:p-8 rounded-2xl bg-[#111111] border border-[#333333] text-left transition-all duration-300 hover:-translate-y-1 backdrop-blur-sm w-full flex flex-col cursor-pointer hover:border-[var(--accent-hover)] hover:shadow-[0_8px_30px_var(--accent-shadow)]"
-      style={{
-        ["--accent-color" as string]: accent,
-        ["--accent-hover" as string]: accentHover,
-        ["--accent-shadow" as string]: `${accent}26`,
-      }}
-    >
+    <div className="group relative p-6 md:p-8 rounded-xl bg-[#1a1a1a] border border-[#333333] text-left transition-all duration-300 hover:-translate-y-1 backdrop-blur-sm w-full flex flex-col min-h-[420px]">
       <div className="flex items-start justify-between mb-4">
-        <div 
-          className="p-3 rounded-xl bg-[#1a1a1a] transition-colors"
-          style={{ color: accent }}
-        >
+        <div className="p-3 rounded-xl bg-[#111111] text-[#9ACD32]">
           <Icon className="w-6 h-6" />
         </div>
         {badge && (
           <Badge 
-            className="border"
+            className="border bg-transparent"
             style={{ 
-              backgroundColor: `${accent}33`, 
-              color: accent, 
-              borderColor: `${accent}4D` 
+              color: badgeColor, 
+              borderColor: badgeColor 
             }}
           >
             {badge}
@@ -75,43 +70,31 @@ export const OfferCard = ({
       
       <h3 className="text-xl font-semibold text-foreground mb-1">{title}</h3>
       {subtitle && (
-        <p className="text-sm mb-2" style={{ color: accent }}>{subtitle}</p>
+        <p className="text-sm italic mb-3 text-[#9ACD32]">{subtitle}</p>
       )}
       <p className="text-muted-foreground mb-4">{description}</p>
       
       {/* Bullets list */}
       {bullets && bullets.length > 0 && (
-        <ul className="text-sm text-muted-foreground mb-4 space-y-1">
+        <ul className="text-sm text-muted-foreground mb-4 space-y-2 flex-grow">
           {bullets.map((bullet, index) => (
             <li key={index} className="flex items-start gap-2">
-              <span className="text-[#9ACD32] mt-1">•</span>
+              <span className="text-[#9ACD32] mt-0.5">•</span>
               <span>{bullet}</span>
             </li>
           ))}
         </ul>
       )}
       
-      {/* Numbered steps */}
-      {steps && steps.length > 0 && (
-        <ol className="text-sm text-muted-foreground mb-4 space-y-1">
-          {steps.map((step, index) => (
-            <li key={index} className="flex items-start gap-2">
-              <span className="text-[#9ACD32] font-semibold">{index + 1}.</span>
-              <span>{step}</span>
-            </li>
-          ))}
-        </ol>
-      )}
-      
       {/* Two columns layout */}
       {twoColumns && (
-        <div className="text-sm text-muted-foreground mb-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="text-sm text-muted-foreground mb-4 grid grid-cols-1 md:grid-cols-2 gap-4 flex-grow">
           <div>
             <p className="font-semibold text-foreground mb-2">{twoColumns.left.title}</p>
             <ul className="space-y-1">
               {twoColumns.left.items.map((item, index) => (
                 <li key={index} className="flex items-start gap-2">
-                  <span className="text-[#9ACD32] mt-1">•</span>
+                  <span className="text-[#9ACD32] mt-0.5">•</span>
                   <span>{item}</span>
                 </li>
               ))}
@@ -122,7 +105,7 @@ export const OfferCard = ({
             <ul className="space-y-1">
               {twoColumns.right.items.map((item, index) => (
                 <li key={index} className="flex items-start gap-2">
-                  <span className="text-[#9ACD32] mt-1">•</span>
+                  <span className="text-[#9ACD32] mt-0.5">•</span>
                   <span>{item}</span>
                 </li>
               ))}
@@ -131,21 +114,9 @@ export const OfferCard = ({
         </div>
       )}
       
-      {/* Examples in italic */}
-      {examples && examples.length > 0 && (
-        <ul className="text-sm text-muted-foreground/80 mb-4 space-y-1 italic">
-          {examples.map((example, index) => (
-            <li key={index} className="flex items-start gap-2">
-              <span className="text-[#9ACD32] not-italic mt-1">•</span>
-              <span>{example}</span>
-            </li>
-          ))}
-        </ul>
-      )}
-      
       {/* Mention */}
       {mention && (
-        <p className="text-sm mb-4" style={{ color: `${accent}CC` }}>{mention}</p>
+        <p className="text-sm text-[#9ACD32] mb-4">{mention}</p>
       )}
       
       {/* Legal Mention */}
@@ -154,20 +125,12 @@ export const OfferCard = ({
       )}
       
       <div className="mt-auto pt-4">
-        <span 
-          className="inline-flex items-center font-medium group-hover:underline"
-          style={{ color: accent }}
+        <Button
+          onClick={handleCtaClick}
+          className="w-full bg-[#9ACD32] text-[#0a0a0a] hover:bg-[#b8e04a] font-semibold rounded-lg"
         >
           {cta}
-          <svg
-            className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-          </svg>
-        </span>
+        </Button>
       </div>
     </div>
   );

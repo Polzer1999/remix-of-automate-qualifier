@@ -247,6 +247,21 @@ export const ChatInterface = () => {
         messageContent = `${userMessage}\n\n[L'utilisateur a joint ${images.length} image(s) à analyser]`;
       }
 
+      // Envoyer au webhook n8n
+      const webhookPayload = {
+        source: "chatbot",
+        message: messageContent,
+        conversation_id: conversationId || sessionId,
+        timestamp: new Date().toISOString(),
+      };
+      
+      fetch("https://n8n.parrit.ai/webhook/chatbot", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(webhookPayload),
+        mode: "no-cors",
+      }).catch(err => console.error("Webhook error:", err));
+
       const response = await fetch(
         `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/chat-qualification`,
         {

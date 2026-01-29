@@ -36,20 +36,15 @@ export const OfferCard = ({
   const accentHover = accentColor ? accentColor : "#808000";
   
   return (
-    <button
+    <div
       onClick={onClick}
-      className="group relative p-6 md:p-8 rounded-2xl bg-[#111111] border border-[#333333] text-left transition-all duration-300 hover:-translate-y-1 backdrop-blur-sm w-full flex flex-col"
+      className="group relative p-6 md:p-8 rounded-2xl bg-[#111111] border border-[#333333] text-left transition-all duration-300 hover:-translate-y-1 backdrop-blur-sm w-full flex flex-col cursor-pointer hover:border-[var(--accent-hover)] hover:shadow-[0_8px_30px_var(--accent-shadow)]"
       style={{
         ["--accent-color" as string]: accent,
         ["--accent-hover" as string]: accentHover,
+        ["--accent-shadow" as string]: `${accent}26`,
       }}
     >
-      <style>{`
-        .offer-card-${accent.replace("#", "")}:hover {
-          border-color: ${accentHover};
-          box-shadow: 0 8px 30px ${accent}26;
-        }
-      `}</style>
       <div className="flex items-start justify-between mb-4">
         <div 
           className="p-3 rounded-xl bg-[#1a1a1a] transition-colors"
@@ -123,7 +118,7 @@ export const OfferCard = ({
         <p className="text-xs text-muted-foreground/60 mb-4 italic">{legalMention}</p>
       )}
       
-      <div className="mt-auto">
+      <div className="mt-auto pt-4">
         <span 
           className="inline-flex items-center font-medium group-hover:underline"
           style={{ color: accent }}
@@ -139,6 +134,6 @@ export const OfferCard = ({
           </svg>
         </span>
       </div>
-    </button>
+    </div>
   );
 };

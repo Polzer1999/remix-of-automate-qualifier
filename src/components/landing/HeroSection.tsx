@@ -35,14 +35,14 @@ export const HeroSection = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start mb-6">
             <Button
               onClick={handleScrollToCalendar}
-              className="bg-primary text-primary-foreground hover:bg-primary/90 font-semibold px-6 py-3 rounded-lg text-base"
+              className="bg-primary text-primary-foreground hover:bg-primary/90 font-semibold px-6 py-3 rounded-lg text-base transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_10px_30px_rgba(154,205,50,0.4)] active:translate-y-0"
             >
               Réserver un appel découverte
             </Button>
             <Button
               onClick={handleScrollToOffers}
               variant="outline"
-              className="border-foreground text-foreground hover:bg-foreground hover:text-background font-semibold px-6 py-3 rounded-lg text-base"
+              className="border-foreground text-foreground hover:bg-foreground hover:text-background font-semibold px-6 py-3 rounded-lg text-base transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0"
             >
               Voir les offres
             </Button>
@@ -62,7 +62,7 @@ export const HeroSection = () => {
             <img 
               src={paulPhoto} 
               alt="Paul - Parrit.ai" 
-              className="relative w-48 md:w-64 lg:w-80 h-auto object-contain bg-transparent"
+              className="relative w-48 md:w-64 lg:w-80 h-auto object-contain bg-transparent animate-float"
               style={{ 
                 filter: "drop-shadow(0 20px 40px rgba(0, 0, 0, 0.3))",
                 background: "transparent"

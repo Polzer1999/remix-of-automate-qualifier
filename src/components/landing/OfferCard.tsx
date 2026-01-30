@@ -1,6 +1,7 @@
 import { LucideIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 
 interface TwoColumnsData {
   left: { title: string; items: string[] };
@@ -22,6 +23,7 @@ interface OfferCardProps {
   legalMention?: string;
   twoColumns?: TwoColumnsData;
   onModalOpen?: () => void;
+  staggerIndex?: number;
 }
 
 export const OfferCard = ({
@@ -39,7 +41,10 @@ export const OfferCard = ({
   legalMention,
   twoColumns,
   onModalOpen,
+  staggerIndex = 0,
 }: OfferCardProps) => {
+  const { ref, isVisible } = useIntersectionObserver({ threshold: 0.1 });
+  
   const handleCtaClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     if (ctaAction === "external" && ctaUrl) {
@@ -49,8 +54,17 @@ export const OfferCard = ({
     }
   };
 
+  const staggerClass = `stagger-${staggerIndex + 1}`;
+
   return (
-    <div className="group relative p-6 md:p-8 rounded-2xl bg-card text-left transition-all duration-300 hover:-translate-y-1 w-full flex flex-col min-h-[480px] border border-primary/30 hover:border-primary hover:shadow-[0_0_30px_rgba(154,205,50,0.15)]">
+    <div 
+      ref={ref}
+      className={`group relative p-6 md:p-8 rounded-2xl bg-card text-left w-full flex flex-col min-h-[480px] border border-primary/30 transition-all duration-300 ease-out ${staggerClass} ${
+        isVisible 
+          ? 'opacity-100 translate-y-0' 
+          : 'opacity-0 translate-y-8'
+      } hover:-translate-y-2 hover:border-primary hover:shadow-[0_20px_40px_rgba(154,205,50,0.15)]`}
+    >
       <div className="flex items-start justify-between mb-5">
         <div className="p-3 rounded-xl bg-background text-primary">
           <Icon className="w-6 h-6" />
@@ -127,7 +141,7 @@ export const OfferCard = ({
       <div className="mt-auto pt-5">
         <Button
           onClick={handleCtaClick}
-          className="w-full bg-primary text-primary-foreground hover:bg-primary/90 font-semibold rounded-lg"
+          className="w-full bg-primary text-primary-foreground hover:bg-primary/90 font-semibold rounded-lg transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_10px_30px_rgba(154,205,50,0.4)] active:translate-y-0"
         >
           {cta}
         </Button>

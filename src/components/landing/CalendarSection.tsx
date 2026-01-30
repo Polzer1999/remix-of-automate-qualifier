@@ -8,8 +8,9 @@ export const CalendarSection = () => {
         Choisissez un horaire qui vous convient — 15 min, sans engagement.
       </p>
       
-      <div className="max-w-[900px] mx-auto rounded-xl overflow-hidden">
+      <div className="max-w-[900px] mx-auto rounded-xl overflow-hidden bg-white">
         <iframe 
+          className="block bg-white"
           src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ2HBmZmHiPcgY2v_EgpbDKJjMAovbOicgDd2cbFblBSM9NIC0qfXlyfLH6ubjE630_olQvmDWi-?gv=true"
           width="100%"
           height="600"

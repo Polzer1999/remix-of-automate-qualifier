@@ -2,6 +2,7 @@ import { useState } from "react";
 import { X, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 
 export type OfferType = "pay" | "prospection" | "agentique" | "formation";
@@ -50,6 +51,8 @@ export const LeadCaptureModal = ({
   const [formData, setFormData] = useState({
     firstName: "",
     email: "",
+    phone: "",
+    need: "",
   });
 
   const config = offerType && offerType !== "agentique" ? modalConfigs[offerType] : null;
@@ -57,8 +60,8 @@ export const LeadCaptureModal = ({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!formData.firstName.trim() || !formData.email.trim()) {
-      toast.error("Veuillez remplir tous les champs");
+    if (!formData.firstName.trim() || !formData.email.trim() || !formData.phone.trim()) {
+      toast.error("Veuillez remplir tous les champs obligatoires");
       return;
     }
 
@@ -68,8 +71,11 @@ export const LeadCaptureModal = ({
       const payload = {
         source: "landing",
         offer: offerType,
+        offerTitle: offerTitle,
         firstName: formData.firstName.trim(),
         email: formData.email.trim(),
+        phone: formData.phone.trim(),
+        need: formData.need.trim(),
         timestamp: new Date().toISOString(),
       };
 
@@ -83,7 +89,7 @@ export const LeadCaptureModal = ({
       });
 
       setIsSuccess(true);
-      setFormData({ firstName: "", email: "" });
+      setFormData({ firstName: "", email: "", phone: "", need: "" });
       
       setTimeout(() => {
         setIsSuccess(false);
@@ -99,7 +105,7 @@ export const LeadCaptureModal = ({
 
   const handleClose = () => {
     setIsSuccess(false);
-    setFormData({ firstName: "", email: "" });
+    setFormData({ firstName: "", email: "", phone: "", need: "" });
     onClose();
   };
 
@@ -147,7 +153,7 @@ export const LeadCaptureModal = ({
               <Input
                 value={formData.firstName}
                 onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-                placeholder="Prénom"
+                placeholder="Votre prénom"
                 required
                 className="bg-background border-primary/30 text-foreground placeholder:text-muted-foreground focus:border-primary"
               />
@@ -156,9 +162,26 @@ export const LeadCaptureModal = ({
                 type="email"
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                placeholder="Email professionnel"
+                placeholder="Votre email professionnel"
                 required
                 className="bg-background border-primary/30 text-foreground placeholder:text-muted-foreground focus:border-primary"
+              />
+
+              <Input
+                type="tel"
+                value={formData.phone}
+                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                placeholder="Votre téléphone"
+                required
+                className="bg-background border-primary/30 text-foreground placeholder:text-muted-foreground focus:border-primary"
+              />
+
+              <Textarea
+                value={formData.need}
+                onChange={(e) => setFormData({ ...formData, need: e.target.value })}
+                placeholder="Décrivez brièvement votre besoin ou projet..."
+                rows={3}
+                className="bg-background border-primary/30 text-foreground placeholder:text-muted-foreground focus:border-primary resize-y min-h-[80px]"
               />
 
               <Button

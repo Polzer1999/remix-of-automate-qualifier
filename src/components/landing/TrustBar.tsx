@@ -1,9 +1,9 @@
 import { Check } from "lucide-react";
 
 const trustItems = [
-  "+15 projets déployés",
-  "3 secteurs d'activité",
-  "100% sur-mesure",
+  "2,5 ans d'expertise",
+  "Multi-secteurs",
+  "Expertise Growth",
   "Coaching inclus",
 ];
 

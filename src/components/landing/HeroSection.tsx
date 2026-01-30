@@ -50,7 +50,7 @@ export const HeroSection = () => {
           
           {/* Social proof */}
           <p className="text-sm text-muted-foreground">
-            Déjà 15+ projets livrés • Maisons de vente • Restauration • Services B2B
+            2,5 ans d'expertise IA & Automatisation • Retail • FMCG • Industrie • Énergie
           </p>
         </div>
         

@@ -1,8 +1,11 @@
 import { Button } from "@/components/ui/button";
 
 export const FinalCTA = () => {
-  const handleBookCall = () => {
-    window.open("https://calendar.app.google/L153uVn5hqFgnQ6U9", "_blank");
+  const handleScrollToCalendar = () => {
+    const calendarSection = document.getElementById("calendar-section");
+    if (calendarSection) {
+      calendarSection.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   return (
@@ -16,7 +19,7 @@ export const FinalCTA = () => {
         </p>
         
         <Button
-          onClick={handleBookCall}
+          onClick={handleScrollToCalendar}
           className="w-full sm:w-auto bg-primary text-primary-foreground hover:bg-primary/90 hover:-translate-y-0.5 hover:shadow-[0_4px_20px_rgba(154,205,50,0.4)] font-semibold px-8 py-4 text-base rounded-lg transition-all duration-200"
         >
           Réserver un créneau

@@ -16,13 +16,12 @@ interface OfferCardProps {
   badge?: string;
   badgeColor?: string;
   cta: string;
-  ctaAction: "modal" | "external";
-  ctaUrl?: string;
+  ctaAction: "modal" | "scroll";
   bullets?: string[];
   mention?: string;
   legalMention?: string;
   twoColumns?: TwoColumnsData;
-  onModalOpen?: () => void;
+  onCtaClick?: () => void;
   staggerIndex?: number;
 }
 
@@ -35,24 +34,14 @@ export const OfferCard = ({
   badgeColor = "#9ACD32",
   cta,
   ctaAction,
-  ctaUrl,
   bullets,
   mention,
   legalMention,
   twoColumns,
-  onModalOpen,
+  onCtaClick,
   staggerIndex = 0,
 }: OfferCardProps) => {
   const { ref, isVisible } = useIntersectionObserver({ threshold: 0.1 });
-  
-  const handleCtaClick = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    if (ctaAction === "external" && ctaUrl) {
-      window.open(ctaUrl, "_blank");
-    } else if (ctaAction === "modal" && onModalOpen) {
-      onModalOpen();
-    }
-  };
 
   const staggerClass = `stagger-${staggerIndex + 1}`;
 
@@ -140,7 +129,7 @@ export const OfferCard = ({
       
       <div className="mt-auto pt-5">
         <Button
-          onClick={handleCtaClick}
+          onClick={onCtaClick}
           className="w-full bg-primary text-primary-foreground hover:bg-primary/90 font-semibold rounded-lg transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_10px_30px_rgba(154,205,50,0.4)] active:translate-y-0"
         >
           {cta}

@@ -12,8 +12,7 @@ interface Offer {
   badge?: string;
   badgeColor?: string;
   cta: string;
-  ctaAction: "modal" | "external";
-  ctaUrl?: string;
+  ctaAction: "modal" | "scroll";
   bullets?: string[];
   mention?: string;
   legalMention?: string;
@@ -79,7 +78,7 @@ const offers: Offer[] = [
     description: "Automatisation, agents IA, workflows complexes — on construit ce qui n'existe pas encore.",
     badge: "Sur devis",
     cta: "Prendre RDV",
-    ctaAction: "modal",
+    ctaAction: "scroll",
     bullets: [
       "Catalogues automatisés (maisons de vente aux enchères)",
       "Assistants WhatsApp connectés à votre CRM",
@@ -111,9 +110,13 @@ export const OffersGrid = () => {
   const [selectedOffer, setSelectedOffer] = useState<Offer | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleOpenModal = (offer: Offer) => {
-    setSelectedOffer(offer);
-    setIsModalOpen(true);
+  const handleCtaClick = (offer: Offer) => {
+    if (offer.ctaAction === "scroll") {
+      document.getElementById("calendrier")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    } else {
+      setSelectedOffer(offer);
+      setIsModalOpen(true);
+    }
   };
 
   return (
@@ -131,12 +134,11 @@ export const OffersGrid = () => {
               badgeColor={offer.badgeColor}
               cta={offer.cta}
               ctaAction={offer.ctaAction}
-              ctaUrl={offer.ctaUrl}
               bullets={offer.bullets}
               mention={offer.mention}
               legalMention={offer.legalMention}
               twoColumns={offer.twoColumns}
-              onModalOpen={() => handleOpenModal(offer)}
+              onCtaClick={() => handleCtaClick(offer)}
               staggerIndex={index}
             />
           ))}

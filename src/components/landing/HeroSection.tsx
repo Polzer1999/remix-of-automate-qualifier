@@ -3,20 +3,21 @@ import paulPhoto from "@/assets/paul-photo.png";
 
 export const HeroSection = () => {
   const handleScrollToCalendar = () => {
-    document.getElementById('calendrier')?.scrollIntoView({ behavior: 'smooth' });
+    const element = document.getElementById('calendrier');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   };
 
   const handleScrollToOffers = () => {
-    const offersSection = document.getElementById('offres');
-    if (offersSection) {
-      const yOffset = -20;
-      const y = offersSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
-      window.scrollTo({ top: y, behavior: 'smooth' });
+    const element = document.getElementById('offres');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
 
   return (
-    <section className="py-10 md:py-14 px-4 md:px-5">
+    <section className="pt-[60px] pb-8 md:pt-20 md:pb-10 px-4 md:px-5">
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
         {/* Text content */}
         <div className="flex-1 text-center md:text-left">

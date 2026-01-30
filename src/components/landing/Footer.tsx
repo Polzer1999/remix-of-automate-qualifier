@@ -1,6 +1,6 @@
 export const Footer = () => {
   return (
-    <footer className="py-8 px-4 md:px-5 border-t border-primary/20 text-center">
+    <footer className="py-6 px-4 md:px-5 border-t border-primary/20 text-center">
       <div className="flex justify-center items-center gap-6 flex-wrap">
         <p className="text-muted-foreground text-sm m-0">
           © 2025 Parrit.ai — Tous droits réservés

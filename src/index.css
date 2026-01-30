@@ -8,6 +8,12 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
+    /* Spacing variables */
+    --section-padding-desktop: 60px;
+    --section-padding-mobile: 40px;
+    --grid-gap: 24px;
+    --content-max-width: 1200px;
+    
     /* Noir Premium - #0a0a0a */
     --background: 0 0% 4%;
     --foreground: 0 0% 100%;

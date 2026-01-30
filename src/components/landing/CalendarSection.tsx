@@ -1,6 +1,6 @@
 export const CalendarSection = () => {
   return (
-    <section id="calendrier" className="py-10 md:py-14 px-4 md:px-5 text-center">
+    <section id="calendrier" className="py-10 md:py-[60px] px-4 md:px-5 text-center">
       <h2 className="text-[28px] md:text-[32px] font-semibold text-foreground mb-3">
         Réserver un créneau
       </h2>

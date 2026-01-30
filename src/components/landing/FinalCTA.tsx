@@ -12,7 +12,7 @@ export const FinalCTA = () => {
           Prêt à accélérer ?
         </h2>
         <p className="text-muted-foreground mb-8 text-lg max-w-xl mx-auto">
-          Réservez un appel de 15 min pour discuter de votre projet. Pas de slide, pas de pitch — juste une conversation honnête.
+          15 minutes pour repartir avec des pistes concrètes — que nous travaillions ensemble ou non.
         </p>
         
         <Button

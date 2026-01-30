@@ -121,7 +121,7 @@ export const OffersGrid = () => {
 
   return (
     <>
-      <section id="offers-section" className="px-4 pb-16 md:pb-24">
+      <section id="offers-section" className="px-4 pt-16 pb-16 md:pt-20 md:pb-20">
         <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
           {offers.map((offer) => (
             <OfferCard

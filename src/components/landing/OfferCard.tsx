@@ -50,14 +50,14 @@ export const OfferCard = ({
   };
 
   return (
-    <div className="group relative p-6 md:p-8 rounded-xl bg-[#1a1a1a] border border-[#333333] text-left transition-all duration-300 hover:-translate-y-1 backdrop-blur-sm w-full flex flex-col min-h-[420px]">
-      <div className="flex items-start justify-between mb-4">
-        <div className="p-3 rounded-xl bg-[#111111] text-[#9ACD32]">
+    <div className="group relative p-6 md:p-8 rounded-xl bg-secondary border border-border text-left transition-all duration-300 hover:-translate-y-1 backdrop-blur-sm w-full flex flex-col min-h-[480px]">
+      <div className="flex items-start justify-between mb-5">
+        <div className="p-3 rounded-xl bg-background text-primary">
           <Icon className="w-6 h-6" />
         </div>
         {badge && (
           <Badge 
-            className="border bg-transparent"
+            className="border bg-transparent text-xs font-medium"
             style={{ 
               color: badgeColor, 
               borderColor: badgeColor 
@@ -68,18 +68,18 @@ export const OfferCard = ({
         )}
       </div>
       
-      <h3 className="text-xl font-semibold text-foreground mb-1">{title}</h3>
+      <h3 className="text-xl md:text-2xl font-semibold text-foreground mb-2">{title}</h3>
       {subtitle && (
-        <p className="text-sm italic mb-3 text-[#9ACD32]">{subtitle}</p>
+        <p className="text-base italic mb-3 text-primary font-medium">{subtitle}</p>
       )}
-      <p className="text-muted-foreground mb-4">{description}</p>
+      <p className="text-muted-foreground mb-5">{description}</p>
       
       {/* Bullets list */}
       {bullets && bullets.length > 0 && (
-        <ul className="text-sm text-muted-foreground mb-4 space-y-2 flex-grow">
+        <ul className="text-sm text-muted-foreground mb-5 space-y-2 flex-grow">
           {bullets.map((bullet, index) => (
             <li key={index} className="flex items-start gap-2">
-              <span className="text-[#9ACD32] mt-0.5">•</span>
+              <span className="text-primary mt-0.5">•</span>
               <span>{bullet}</span>
             </li>
           ))}
@@ -88,13 +88,13 @@ export const OfferCard = ({
       
       {/* Two columns layout */}
       {twoColumns && (
-        <div className="text-sm text-muted-foreground mb-4 grid grid-cols-1 md:grid-cols-2 gap-4 flex-grow">
+        <div className="text-sm text-muted-foreground mb-5 grid grid-cols-1 md:grid-cols-2 gap-4 flex-grow">
           <div>
             <p className="font-semibold text-foreground mb-2">{twoColumns.left.title}</p>
             <ul className="space-y-1">
               {twoColumns.left.items.map((item, index) => (
                 <li key={index} className="flex items-start gap-2">
-                  <span className="text-[#9ACD32] mt-0.5">•</span>
+                  <span className="text-primary mt-0.5">•</span>
                   <span>{item}</span>
                 </li>
               ))}
@@ -105,7 +105,7 @@ export const OfferCard = ({
             <ul className="space-y-1">
               {twoColumns.right.items.map((item, index) => (
                 <li key={index} className="flex items-start gap-2">
-                  <span className="text-[#9ACD32] mt-0.5">•</span>
+                  <span className="text-primary mt-0.5">•</span>
                   <span>{item}</span>
                 </li>
               ))}
@@ -116,7 +116,7 @@ export const OfferCard = ({
       
       {/* Mention */}
       {mention && (
-        <p className="text-sm text-[#9ACD32] mb-4">{mention}</p>
+        <p className="text-sm text-primary mb-4 font-medium">{mention}</p>
       )}
       
       {/* Legal Mention */}
@@ -124,10 +124,10 @@ export const OfferCard = ({
         <p className="text-xs text-muted-foreground/60 mb-4 italic">{legalMention}</p>
       )}
       
-      <div className="mt-auto pt-4">
+      <div className="mt-auto pt-5">
         <Button
           onClick={handleCtaClick}
-          className="w-full bg-[#9ACD32] text-[#0a0a0a] hover:bg-[#b8e04a] font-semibold rounded-lg"
+          className="w-full bg-primary text-primary-foreground hover:bg-primary/90 font-semibold rounded-lg"
         >
           {cta}
         </Button>

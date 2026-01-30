@@ -6,9 +6,9 @@ export const FinalCTA = () => {
   };
 
   return (
-    <section className="py-16 md:py-20 px-4 bg-[#111111]">
+    <section className="py-16 md:py-20 px-4 bg-card mt-10 md:mt-16">
       <div className="max-w-3xl mx-auto text-center">
-        <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
+        <h2 className="text-[28px] md:text-[32px] font-semibold text-foreground mb-4">
           Prêt à accélérer ?
         </h2>
         <p className="text-muted-foreground mb-8 text-lg">
@@ -17,7 +17,7 @@ export const FinalCTA = () => {
         
         <Button
           onClick={handleBookCall}
-          className="w-full sm:w-auto bg-[#9ACD32] text-[#0a0a0a] hover:bg-[#b8e04a] font-semibold px-8 py-4 text-lg rounded-lg"
+          className="w-full sm:w-auto bg-primary text-primary-foreground hover:bg-primary/90 font-semibold px-8 py-4 text-base rounded-lg"
         >
           Réserver un créneau
         </Button>

@@ -501,16 +501,6 @@ export const ChatInterface = () => {
         )}
       </form>
 
-      <div className="py-2 px-4 text-center border-t border-white/5">
-        <a
-          href="https://docs.google.com/document/d/1q6Pq_KgNOZAkn1fE7WwD-phGn_26HVU_/edit"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-xs text-muted-foreground/60 hover:text-muted-foreground transition-colors"
-        >
-          Mentions légales
-        </a>
-      </div>
     </div>
   );
 };

@@ -12,7 +12,7 @@ export const ChatModal = ({ isOpen, onClose }: ChatModalProps) => {
 
   return (
     <div 
-      className="fixed inset-0 bg-black/85 flex items-center justify-center z-[1001] p-4 md:p-5 overflow-y-auto"
+      className="fixed inset-0 bg-black/90 flex items-center justify-center z-[1001] p-4 md:p-5 overflow-y-auto"
       onClick={onClose}
     >
       <div 
@@ -22,12 +22,12 @@ export const ChatModal = ({ isOpen, onClose }: ChatModalProps) => {
         {/* Header - fixed */}
         <div className="flex justify-between items-center px-5 py-4 border-b border-primary/20 flex-shrink-0">
           <div className="flex items-center gap-3">
-            <img src={parritLogo} alt="Parrit.ai" className="w-8 h-8" />
+            <img src={parritLogo} alt="Parrit" className="w-7 h-7" />
             <span className="text-foreground font-medium">parrit.ai</span>
           </div>
           <button
             onClick={onClose}
-            className="text-muted-foreground hover:text-foreground text-2xl transition-colors p-1"
+            className="text-muted-foreground hover:text-foreground transition-colors p-1"
             aria-label="Fermer le chat"
           >
             <X className="w-6 h-6" />

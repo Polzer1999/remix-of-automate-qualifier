@@ -6,6 +6,30 @@ import { toast } from "sonner";
 
 export type OfferType = "pay" | "prospection" | "agentique" | "formation";
 
+interface OfferModalConfig {
+  title: string;
+  subtitle: string;
+  buttonText: string;
+}
+
+const modalConfigs: Record<Exclude<OfferType, "agentique">, OfferModalConfig> = {
+  pay: {
+    title: "Accès bêta PaY",
+    subtitle: "Recevez un accès prioritaire à l'assistant IA pour SAP",
+    buttonText: "Demander mon accès",
+  },
+  prospection: {
+    title: "Prospection par signaux",
+    subtitle: "Recevez la documentation complète et un exemple de pipeline",
+    buttonText: "Recevoir la documentation",
+  },
+  formation: {
+    title: "Formation IA & Agentique",
+    subtitle: "Recevez le programme détaillé et les tarifs",
+    buttonText: "Recevoir le programme",
+  },
+};
+
 interface LeadCaptureModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -27,6 +51,8 @@ export const LeadCaptureModal = ({
     firstName: "",
     email: "",
   });
+
+  const config = offerType && offerType !== "agentique" ? modalConfigs[offerType] : null;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -62,7 +88,7 @@ export const LeadCaptureModal = ({
       setTimeout(() => {
         setIsSuccess(false);
         onClose();
-      }, 3000);
+      }, 2000);
     } catch (error) {
       console.error("Error submitting form:", error);
       toast.error("Une erreur est survenue. Veuillez réessayer.");
@@ -77,15 +103,15 @@ export const LeadCaptureModal = ({
     onClose();
   };
 
-  if (!isOpen) return null;
+  if (!isOpen || !config) return null;
 
   return (
     <div 
-      className="fixed inset-0 bg-black/80 flex items-center justify-center z-[1001] p-4"
+      className="fixed inset-0 bg-black/90 flex items-center justify-center z-[1001] p-4 animate-fade-in"
       onClick={handleClose}
     >
       <div 
-        className="bg-card border border-primary/30 rounded-2xl w-full max-w-[400px] p-8 relative"
+        className="bg-card border border-primary/30 rounded-2xl w-full max-w-[450px] p-8 md:p-10 relative animate-scale-in"
         onClick={(e) => e.stopPropagation()}
       >
         <button
@@ -105,16 +131,16 @@ export const LeadCaptureModal = ({
               C'est envoyé !
             </h3>
             <p className="text-muted-foreground">
-              Vous allez recevoir un email avec toutes les informations.
+              Vous recevrez un email sous 24h avec toutes les informations.
             </p>
           </div>
         ) : (
           <>
             <h3 className="text-2xl font-semibold text-foreground mb-2">
-              Recevoir les informations
+              {config.title}
             </h3>
-            <p className="text-sm text-primary italic mb-6">
-              {offerTitle}
+            <p className="text-muted-foreground mb-6">
+              {config.subtitle}
             </p>
 
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -123,29 +149,29 @@ export const LeadCaptureModal = ({
                 onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
                 placeholder="Prénom"
                 required
-                className="bg-background border-primary/30 text-foreground placeholder:text-muted-foreground focus:border-primary py-3.5 px-4"
+                className="bg-background border-primary/30 text-foreground placeholder:text-muted-foreground focus:border-primary"
               />
 
               <Input
                 type="email"
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                placeholder="Email"
+                placeholder="Email professionnel"
                 required
-                className="bg-background border-primary/30 text-foreground placeholder:text-muted-foreground focus:border-primary py-3.5 px-4"
+                className="bg-background border-primary/30 text-foreground placeholder:text-muted-foreground focus:border-primary"
               />
 
               <Button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-primary text-primary-foreground hover:bg-primary/90 font-semibold py-4"
+                className="w-full bg-primary text-primary-foreground hover:bg-primary/90 font-semibold transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(154,205,50,0.3)]"
               >
-                {isSubmitting ? "Envoi..." : "Recevoir la documentation"}
+                {isSubmitting ? "Envoi en cours..." : config.buttonText}
               </Button>
             </form>
 
             <p className="text-xs text-muted-foreground/60 text-center mt-4">
-              Vous recevrez un email avec toutes les infos + mes disponibilités.
+              Vous recevrez un email sous 24h avec toutes les informations.
             </p>
           </>
         )}

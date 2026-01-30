@@ -1,6 +1,5 @@
 import { Header } from "@/components/landing/Header";
 import { HeroSection } from "@/components/landing/HeroSection";
-import { TrustBar } from "@/components/landing/TrustBar";
 import { OffersGrid } from "@/components/landing/OffersGrid";
 import { WhySection } from "@/components/landing/WhySection";
 import { FinalCTA } from "@/components/landing/FinalCTA";
@@ -21,11 +20,6 @@ const Index = () => {
         {/* Hero fills remaining space */}
         <div className="flex-1 flex flex-col">
           <HeroSection />
-        </div>
-        
-        {/* Trust bar at bottom of 100vh section */}
-        <div className="flex-shrink-0">
-          <TrustBar />
         </div>
       </div>
       

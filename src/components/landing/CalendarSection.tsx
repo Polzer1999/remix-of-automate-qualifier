@@ -11,7 +11,7 @@ export const CalendarSection = () => {
         
         <div className="rounded-xl overflow-hidden border border-primary/30">
           <iframe
-            src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ3qHp7vN7F-FwJ7F4sB1sKQXDFEtFLvFxxx?gv=true"
+            src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ2HBmZmHiPcgY2v_EgpbDKJjMAovbOicgDd2cbFblBSM9NIC0qfXlyfLH6ubjE630_olQvmDWi-?gv=true"
             style={{ border: 0 }}
             width="100%"
             height="600"

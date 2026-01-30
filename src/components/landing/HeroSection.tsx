@@ -54,16 +54,15 @@ export const HeroSection = () => {
         {/* Photo - hidden on small mobile, visible from md */}
         <div className="hidden sm:flex flex-shrink-0 relative">
           <div className="relative">
-            {/* Subtle glow effect behind the photo */}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#9ACD32]/10 to-transparent blur-2xl scale-110" />
-            {/* Bottom fade gradient */}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent z-10 pointer-events-none" />
+            {/* Bottom fade gradient only */}
+            <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-background to-transparent z-10 pointer-events-none" />
             <img 
               src={paulPhoto} 
               alt="Paul - Parrit.ai" 
-              className="relative w-48 md:w-64 lg:w-80 h-auto object-contain"
+              className="relative w-48 md:w-64 lg:w-80 h-auto object-contain bg-transparent"
               style={{ 
-                filter: "drop-shadow(0 20px 40px rgba(0, 0, 0, 0.5))"
+                filter: "drop-shadow(0 20px 40px rgba(0, 0, 0, 0.3))",
+                background: "transparent"
               }}
             />
           </div>

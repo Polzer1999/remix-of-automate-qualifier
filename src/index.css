@@ -8,49 +8,54 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* La Jungle Toxophile - Noir Volcanique (#111211) */
-    --background: 210 5% 7%;
-    --foreground: 0 0% 96%;
-    --card: 210 8% 10%;
-    --card-foreground: 0 0% 96%;
-    --popover: 210 8% 10%;
-    --popover-foreground: 0 0% 96%;
+    /* Noir Premium - #0a0a0a */
+    --background: 0 0% 4%;
+    --foreground: 0 0% 100%;
+    /* Card background - #111111 */
+    --card: 0 0% 7%;
+    --card-foreground: 0 0% 100%;
+    --popover: 0 0% 7%;
+    --popover-foreground: 0 0% 100%;
     /* Jaune-Vert Toxophile (#CCFF00) - 74° 100% 50% */
     --primary: 74 100% 50%;
-    --primary-foreground: 210 5% 7%;
-    --secondary: 210 8% 15%;
-    --secondary-foreground: 0 0% 96%;
-    --muted: 210 8% 15%;
-    --muted-foreground: 0 0% 64%;
+    --primary-foreground: 0 0% 7%;
+    /* Secondary - same as card #111111 */
+    --secondary: 0 0% 7%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 0 0% 7%;
+    /* Muted foreground - #9CA3AF */
+    --muted-foreground: 220 9% 65%;
     --accent: 74 100% 50%;
-    --accent-foreground: 210 5% 7%;
+    --accent-foreground: 0 0% 7%;
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 98%;
-    --border: 210 8% 20%;
-    --input: 210 8% 15%;
+    /* Border - olive with opacity */
+    --border: 74 100% 50%;
+    --border-opacity: 0.3;
+    --input: 0 0% 7%;
     --ring: 74 100% 50%;
-    --radius: 1.5rem;
+    --radius: 1rem;
   }
 
   .dark {
-    --background: 210 5% 7%;
-    --foreground: 0 0% 96%;
-    --card: 210 8% 10%;
-    --card-foreground: 0 0% 96%;
-    --popover: 210 8% 10%;
-    --popover-foreground: 0 0% 96%;
+    --background: 0 0% 4%;
+    --foreground: 0 0% 100%;
+    --card: 0 0% 7%;
+    --card-foreground: 0 0% 100%;
+    --popover: 0 0% 7%;
+    --popover-foreground: 0 0% 100%;
     --primary: 74 100% 50%;
-    --primary-foreground: 210 5% 7%;
-    --secondary: 210 8% 15%;
-    --secondary-foreground: 0 0% 96%;
-    --muted: 210 8% 15%;
-    --muted-foreground: 0 0% 64%;
+    --primary-foreground: 0 0% 7%;
+    --secondary: 0 0% 7%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 0 0% 7%;
+    --muted-foreground: 220 9% 65%;
     --accent: 74 100% 50%;
-    --accent-foreground: 210 5% 7%;
+    --accent-foreground: 0 0% 7%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
-    --border: 210 8% 20%;
-    --input: 210 8% 15%;
+    --border: 74 100% 50%;
+    --input: 0 0% 7%;
     --ring: 74 100% 50%;
   }
 }

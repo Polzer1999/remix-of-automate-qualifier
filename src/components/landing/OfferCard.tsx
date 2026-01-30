@@ -50,7 +50,7 @@ export const OfferCard = ({
   };
 
   return (
-    <div className="group relative p-6 md:p-8 rounded-xl bg-secondary border border-border text-left transition-all duration-300 hover:-translate-y-1 backdrop-blur-sm w-full flex flex-col min-h-[480px]">
+    <div className="group relative p-6 md:p-8 rounded-2xl bg-card text-left transition-all duration-300 hover:-translate-y-1 w-full flex flex-col min-h-[480px] border border-primary/30 hover:border-primary hover:shadow-[0_0_30px_rgba(154,205,50,0.15)]">
       <div className="flex items-start justify-between mb-5">
         <div className="p-3 rounded-xl bg-background text-primary">
           <Icon className="w-6 h-6" />

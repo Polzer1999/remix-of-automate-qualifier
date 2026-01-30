@@ -20,22 +20,22 @@ const reasons = [
 
 export const WhySection = () => {
   return (
-    <section className="py-16 md:py-20 px-4 mt-10 md:mt-16">
+    <section className="py-20 md:py-24 px-4 mt-24 md:mt-28">
       <div className="max-w-6xl mx-auto">
         <h2 className="text-[28px] md:text-[32px] font-semibold text-foreground text-center mb-12 md:mb-16">
           Pourquoi travailler avec Parrit.ai ?
         </h2>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
           {reasons.map((reason, index) => (
-            <div key={index} className="text-center">
-              <div className="inline-flex items-center justify-center p-4 rounded-xl bg-secondary mb-5">
+            <div key={index} className="text-center p-6">
+              <div className="w-[72px] h-[72px] mx-auto rounded-2xl bg-card flex items-center justify-center mb-6">
                 <reason.icon className="w-8 h-8 text-primary" />
               </div>
-              <h3 className="text-xl md:text-2xl font-semibold text-foreground mb-3">
+              <h3 className="text-xl font-semibold text-foreground mb-3">
                 {reason.title}
               </h3>
-              <p className="text-muted-foreground text-base">
+              <p className="text-muted-foreground text-sm leading-relaxed">
                 {reason.text}
               </p>
             </div>

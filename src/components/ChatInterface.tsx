@@ -374,11 +374,7 @@ export const ChatInterface = () => {
   const canSend = (input.trim() || pendingImages.length > 0) && !isLoading;
 
   return (
-    <div className="w-full max-w-3xl mx-auto flex flex-col h-[90vh] md:h-[680px] frosted-glass overflow-hidden"
-      style={{
-        borderRadius: '1.5rem',
-        boxShadow: '0 25px 60px -15px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05)'
-      }}
+    <div className="w-full h-full flex flex-col overflow-hidden bg-card"
     >
       <div className="flex-1 overflow-y-auto p-4 md:p-10 space-y-4 md:space-y-6 scroll-smooth"
         style={{

@@ -2,8 +2,11 @@ import { Button } from "@/components/ui/button";
 import paulPhoto from "@/assets/paul-photo.png";
 
 export const HeroSection = () => {
-  const handleBookCall = () => {
-    window.open("https://calendar.app.google/L153uVn5hqFgnQ6U9", "_blank");
+  const handleScrollToCalendar = () => {
+    const calendarSection = document.getElementById("calendar-section");
+    if (calendarSection) {
+      calendarSection.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   const handleScrollToOffers = () => {
@@ -31,7 +34,7 @@ export const HeroSection = () => {
           {/* CTAs */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start mb-6">
             <Button
-              onClick={handleBookCall}
+              onClick={handleScrollToCalendar}
               className="bg-primary text-primary-foreground hover:bg-primary/90 font-semibold px-6 py-3 rounded-lg text-base"
             >
               Réserver un appel découverte

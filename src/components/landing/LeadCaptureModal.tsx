@@ -1,0 +1,155 @@
+import { useState } from "react";
+import { X, Check } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { toast } from "sonner";
+
+export type OfferType = "pay" | "prospection" | "agentique" | "formation";
+
+interface LeadCaptureModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  offerType: OfferType | null;
+  offerTitle: string;
+}
+
+const WEBHOOK_URL = "https://n8n.parrit.ai/webhook/landing-form";
+
+export const LeadCaptureModal = ({
+  isOpen,
+  onClose,
+  offerType,
+  offerTitle,
+}: LeadCaptureModalProps) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [formData, setFormData] = useState({
+    firstName: "",
+    email: "",
+  });
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!formData.firstName.trim() || !formData.email.trim()) {
+      toast.error("Veuillez remplir tous les champs");
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      const payload = {
+        source: "landing",
+        offer: offerType,
+        firstName: formData.firstName.trim(),
+        email: formData.email.trim(),
+        timestamp: new Date().toISOString(),
+      };
+
+      await fetch(WEBHOOK_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+        mode: "no-cors",
+      });
+
+      setIsSuccess(true);
+      setFormData({ firstName: "", email: "" });
+      
+      setTimeout(() => {
+        setIsSuccess(false);
+        onClose();
+      }, 3000);
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      toast.error("Une erreur est survenue. Veuillez réessayer.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleClose = () => {
+    setIsSuccess(false);
+    setFormData({ firstName: "", email: "" });
+    onClose();
+  };
+
+  if (!isOpen) return null;
+
+  return (
+    <div 
+      className="fixed inset-0 bg-black/80 flex items-center justify-center z-[1001] p-4"
+      onClick={handleClose}
+    >
+      <div 
+        className="bg-card border border-primary/30 rounded-2xl w-full max-w-[400px] p-8 relative"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button
+          onClick={handleClose}
+          className="absolute top-4 right-4 w-8 h-8 rounded-full bg-background/80 flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
+          aria-label="Fermer"
+        >
+          <X className="w-5 h-5" />
+        </button>
+
+        {isSuccess ? (
+          <div className="text-center py-8">
+            <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-6">
+              <Check className="w-8 h-8 text-primary-foreground" />
+            </div>
+            <h3 className="text-2xl font-semibold text-foreground mb-2">
+              C'est envoyé !
+            </h3>
+            <p className="text-muted-foreground">
+              Vous allez recevoir un email avec toutes les informations.
+            </p>
+          </div>
+        ) : (
+          <>
+            <h3 className="text-2xl font-semibold text-foreground mb-2">
+              Recevoir les informations
+            </h3>
+            <p className="text-sm text-primary italic mb-6">
+              {offerTitle}
+            </p>
+
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <Input
+                value={formData.firstName}
+                onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
+                placeholder="Prénom"
+                required
+                className="bg-background border-primary/30 text-foreground placeholder:text-muted-foreground focus:border-primary py-3.5 px-4"
+              />
+
+              <Input
+                type="email"
+                value={formData.email}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                placeholder="Email"
+                required
+                className="bg-background border-primary/30 text-foreground placeholder:text-muted-foreground focus:border-primary py-3.5 px-4"
+              />
+
+              <Button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full bg-primary text-primary-foreground hover:bg-primary/90 font-semibold py-4"
+              >
+                {isSubmitting ? "Envoi..." : "Recevoir la documentation"}
+              </Button>
+            </form>
+
+            <p className="text-xs text-muted-foreground/60 text-center mt-4">
+              Vous recevrez un email avec toutes les infos + mes disponibilités.
+            </p>
+          </>
+        )}
+      </div>
+    </div>
+  );
+};

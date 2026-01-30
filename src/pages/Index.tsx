@@ -4,7 +4,7 @@ import { TrustBar } from "@/components/landing/TrustBar";
 import { OffersGrid } from "@/components/landing/OffersGrid";
 import { WhySection } from "@/components/landing/WhySection";
 import { FinalCTA } from "@/components/landing/FinalCTA";
-import { ChatbotSection } from "@/components/landing/ChatbotSection";
+import { CalendarSection } from "@/components/landing/CalendarSection";
 import { FloatingChatButton } from "@/components/landing/FloatingChatButton";
 
 const Index = () => {
@@ -20,7 +20,7 @@ const Index = () => {
       <OffersGrid />
       <WhySection />
       <FinalCTA />
-      <ChatbotSection />
+      <CalendarSection />
       <FloatingChatButton />
     </div>
   );

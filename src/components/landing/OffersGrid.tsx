@@ -1,9 +1,7 @@
 import { useState } from "react";
 import { Bot, Rocket, Puzzle, GraduationCap } from "lucide-react";
 import { OfferCard } from "./OfferCard";
-import { ContactModal, OfferType } from "./ContactModal";
-
-const CALENDAR_URL = "https://calendar.app.google/L153uVn5hqFgnQ6U9";
+import { LeadCaptureModal, OfferType } from "./LeadCaptureModal";
 
 interface Offer {
   id: OfferType;
@@ -81,8 +79,7 @@ const offers: Offer[] = [
     description: "Automatisation, agents IA, workflows complexes — on construit ce qui n'existe pas encore.",
     badge: "Sur devis",
     cta: "Prendre RDV",
-    ctaAction: "external",
-    ctaUrl: CALENDAR_URL,
+    ctaAction: "modal",
     bullets: [
       "Catalogues automatisés (maisons de vente aux enchères)",
       "Assistants WhatsApp connectés à votre CRM",
@@ -145,7 +142,7 @@ export const OffersGrid = () => {
         </div>
       </section>
 
-      <ContactModal
+      <LeadCaptureModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         offerType={selectedOffer?.id ?? null}

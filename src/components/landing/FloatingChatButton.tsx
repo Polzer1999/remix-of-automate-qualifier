@@ -9,7 +9,7 @@ export const FloatingChatButton = () => {
     <>
       <button
         onClick={() => setIsChatOpen(true)}
-        className="fixed bottom-6 right-6 w-[60px] h-[60px] bg-primary rounded-full flex items-center justify-center cursor-pointer shadow-[0_4px_20px_rgba(154,205,50,0.4)] z-50 transition-all duration-200 hover:scale-110 hover:shadow-[0_6px_30px_rgba(154,205,50,0.6)] border-none"
+        className="fixed bottom-6 right-6 w-[60px] h-[60px] bg-primary rounded-full flex items-center justify-center cursor-pointer z-50 border-none transition-all duration-200 animate-pulse-glow hover:scale-110 hover:shadow-[0_8px_30px_rgba(154,205,50,0.5)] hover:animate-none"
         aria-label="Ouvrir le chatbot"
       >
         <MessageCircle className="w-7 h-7 text-primary-foreground" />

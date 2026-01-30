@@ -120,7 +120,7 @@ export const OffersGrid = () => {
     <>
       <section id="offres" className="py-10 md:py-[60px] px-4 md:px-5">
         <div className="max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
-          {offers.map((offer) => (
+          {offers.map((offer, index) => (
             <OfferCard
               key={offer.id}
               icon={offer.icon}
@@ -137,6 +137,7 @@ export const OffersGrid = () => {
               legalMention={offer.legalMention}
               twoColumns={offer.twoColumns}
               onModalOpen={() => handleOpenModal(offer)}
+              staggerIndex={index}
             />
           ))}
         </div>

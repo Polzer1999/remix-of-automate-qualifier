@@ -97,6 +97,44 @@ All colors MUST be HSL.
   }
 }
 
+/* Pulse animation for chat button */
+@keyframes pulse-chat {
+  0%, 100% {
+    box-shadow: 0 4px 20px rgba(154, 205, 50, 0.4);
+  }
+  50% {
+    box-shadow: 0 4px 30px rgba(154, 205, 50, 0.6);
+  }
+}
+
+/* Float animation for hero photo */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Scroll reveal animation */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.animate-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger delays for offer cards */
+.stagger-1 { transition-delay: 0s; }
+.stagger-2 { transition-delay: 0.1s; }
+.stagger-3 { transition-delay: 0.2s; }
+.stagger-4 { transition-delay: 0.3s; }
+
 @layer utilities {
   /* Custom scrollbar styles */
   .scroll-smooth::-webkit-scrollbar {

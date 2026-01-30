@@ -13,8 +13,8 @@ export const TrustBar = () => {
       <div className="max-w-6xl mx-auto">
         <div className="flex flex-wrap justify-center items-center gap-4 md:gap-8">
           {trustItems.map((item, index) => (
-            <div key={index} className="flex items-center gap-3">
-              <Check className="w-5 h-5 text-primary flex-shrink-0" />
+            <div key={index} className="group flex items-center gap-3 transition-transform duration-200 hover:scale-105">
+              <Check className="w-5 h-5 text-primary flex-shrink-0 transition-transform duration-300 group-hover:rotate-12 group-hover:scale-125" />
               <span className="text-muted-foreground text-sm md:text-base font-medium">{item}</span>
             </div>
           ))}

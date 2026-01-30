@@ -6,6 +6,7 @@ import { WhySection } from "@/components/landing/WhySection";
 import { FinalCTA } from "@/components/landing/FinalCTA";
 import { CalendarSection } from "@/components/landing/CalendarSection";
 import { FloatingChatButton } from "@/components/landing/FloatingChatButton";
+import { Footer } from "@/components/landing/Footer";
 
 const Index = () => {
   return (
@@ -21,6 +22,7 @@ const Index = () => {
       <WhySection />
       <FinalCTA />
       <CalendarSection />
+      <Footer />
       <FloatingChatButton />
     </div>
   );

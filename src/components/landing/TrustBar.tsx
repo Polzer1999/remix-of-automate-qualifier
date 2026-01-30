@@ -9,9 +9,9 @@ const trustItems = [
 
 export const TrustBar = () => {
   return (
-    <section className="py-6 px-4 bg-card mt-20 md:mt-20">
+    <section className="py-5 px-4 bg-card">
       <div className="max-w-6xl mx-auto">
-        <div className="flex flex-wrap justify-center items-center gap-6 md:gap-12">
+        <div className="flex flex-wrap justify-center items-center gap-8">
           {trustItems.map((item, index) => (
             <div key={index} className="flex items-center gap-3">
               <Check className="w-5 h-5 text-primary flex-shrink-0" />

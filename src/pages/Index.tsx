@@ -11,13 +11,25 @@ import { Footer } from "@/components/landing/Footer";
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">
-      <Header />
+      {/* Hero wrapper - takes exactly 100vh */}
+      <div className="min-h-screen flex flex-col">
+        <Header />
+        
+        {/* Spacer for fixed header */}
+        <div className="pt-16 flex-shrink-0" />
+        
+        {/* Hero fills remaining space */}
+        <div className="flex-1 flex flex-col">
+          <HeroSection />
+        </div>
+        
+        {/* Trust bar at bottom of 100vh section */}
+        <div className="flex-shrink-0">
+          <TrustBar />
+        </div>
+      </div>
       
-      {/* Spacer for fixed header */}
-      <div className="pt-16" />
-      
-      <HeroSection />
-      <TrustBar />
+      {/* Content below the fold */}
       <OffersGrid />
       <WhySection />
       <FinalCTA />

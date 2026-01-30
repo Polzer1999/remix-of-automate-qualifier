@@ -17,8 +17,8 @@ export const HeroSection = () => {
   };
 
   return (
-    <section className="pt-12 pb-8 md:pt-16 md:pb-10 px-4 md:px-10">
-      <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
+    <section className="flex-1 flex items-center px-4 md:px-10">
+      <div className="max-w-6xl mx-auto w-full flex flex-col md:flex-row items-center justify-between gap-8">
         {/* Text content */}
         <div className="flex-1 text-center md:text-left">
           <h1 className="text-[32px] md:text-[38px] lg:text-[42px] font-bold text-foreground mb-4 leading-tight">
@@ -48,7 +48,7 @@ export const HeroSection = () => {
           </div>
         </div>
         
-        {/* Photo - hidden on small mobile, visible from md */}
+        {/* Photo - hidden on small mobile, visible from sm */}
         <div className="hidden sm:flex flex-shrink-0 relative">
           <div className="relative">
             {/* Bottom fade gradient only */}
@@ -56,7 +56,7 @@ export const HeroSection = () => {
             <img 
               src={paulPhoto} 
               alt="Paul - Parrit.ai" 
-              className="relative w-48 md:w-64 lg:w-80 h-auto object-contain bg-transparent animate-float"
+              className="relative w-48 md:w-64 lg:w-72 h-auto object-contain bg-transparent animate-float"
               style={{ 
                 filter: "drop-shadow(0 20px 40px rgba(0, 0, 0, 0.3))",
                 background: "transparent"

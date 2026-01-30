@@ -17,22 +17,21 @@ export const HeroSection = () => {
   };
 
   return (
-    <section className="pt-[60px] pb-8 md:pt-20 md:pb-10 px-4 md:px-5">
+    <section className="pt-12 pb-8 md:pt-16 md:pb-10 px-4 md:px-10">
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
         {/* Text content */}
         <div className="flex-1 text-center md:text-left">
-          <h1 className="text-[40px] md:text-[44px] lg:text-[48px] font-bold text-foreground mb-6 leading-tight">
-            Parrit.ai donne vie à vos projets de croissance
+          <h1 className="text-[32px] md:text-[38px] lg:text-[42px] font-bold text-foreground mb-4 leading-tight">
+            <span className="text-primary">IA, Automatisation & Agentique</span>
+            <br />
+            pour accélérer votre business
           </h1>
-          <p className="text-lg md:text-xl text-muted-foreground mb-4">
-            Déploiement produit • Automatisation • Prospection par signaux d'intention
-          </p>
-          <p className="text-base md:text-lg text-primary font-medium italic mb-8">
-            Coaching IA & Agentique inclus dans chaque projet
+          <p className="text-base md:text-lg text-muted-foreground mb-6">
+            Prospection automatisée • Agents IA sur-mesure • Coaching inclus
           </p>
           
           {/* CTAs */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start mb-6">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
             <Button
               onClick={handleScrollToCalendar}
               className="bg-primary text-primary-foreground hover:bg-primary/90 font-semibold px-6 py-3 rounded-lg text-base transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_10px_30px_rgba(154,205,50,0.4)] active:translate-y-0"
@@ -47,11 +46,6 @@ export const HeroSection = () => {
               Voir les offres
             </Button>
           </div>
-          
-          {/* Social proof */}
-          <p className="text-sm text-muted-foreground">
-            2,5 ans d'expertise IA & Automatisation • Retail • FMCG • Industrie • Énergie
-          </p>
         </div>
         
         {/* Photo - hidden on small mobile, visible from md */}

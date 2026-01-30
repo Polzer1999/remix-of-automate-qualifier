@@ -7,11 +7,16 @@ export const HeroSection = () => {
   };
 
   const handleScrollToOffers = () => {
-    document.getElementById("offers-section")?.scrollIntoView({ behavior: "smooth" });
+    const offersSection = document.getElementById('offres');
+    if (offersSection) {
+      const yOffset = -20;
+      const y = offersSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
   };
 
   return (
-    <section className="py-10 md:py-16 lg:py-20 px-4">
+    <section className="py-10 md:py-14 px-4 md:px-5">
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
         {/* Text content */}
         <div className="flex-1 text-center md:text-left">

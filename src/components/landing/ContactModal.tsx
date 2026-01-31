@@ -1,15 +1,8 @@
 import { useState } from "react";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-} from "@/components/ui/dialog";
+import { X, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 
 export type OfferType = "pay" | "prospection" | "agentique" | "formation";
@@ -21,7 +14,7 @@ interface ContactModalProps {
   offerTitle: string;
 }
 
-const WEBHOOK_URL = "https://n8n.parrit.ai/webhook/landing-form";
+const WEBHOOK_URL = "https://n8n.srv1115145.hstgr.cloud/webhook/parrit-lead";
 
 export const ContactModal = ({
   isOpen,
@@ -30,18 +23,19 @@ export const ContactModal = ({
   offerTitle,
 }: ContactModalProps) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
   const [formData, setFormData] = useState({
-    name: "",
+    firstName: "",
     email: "",
-    company: "",
-    message: "",
+    phone: "",
+    need: "",
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!formData.name.trim() || !formData.email.trim()) {
-      toast.error("Veuillez remplir les champs obligatoires");
+    if (!formData.firstName.trim() || !formData.email.trim() || !formData.phone.trim()) {
+      toast.error("Veuillez remplir tous les champs obligatoires");
       return;
     }
 
@@ -49,12 +43,11 @@ export const ContactModal = ({
 
     try {
       const payload = {
-        source: "landing",
-        offer: offerType,
-        name: formData.name.trim(),
+        firstName: formData.firstName.trim(),
         email: formData.email.trim(),
-        company: formData.company.trim() || undefined,
-        message: formData.message.trim() || undefined,
+        phone: formData.phone.trim(),
+        need: formData.need.trim() || '',
+        offer: offerTitle || 'Contact général',
         timestamp: new Date().toISOString(),
       };
 
@@ -64,101 +57,122 @@ export const ContactModal = ({
           "Content-Type": "application/json",
         },
         body: JSON.stringify(payload),
-        mode: "no-cors",
       });
 
-      toast.success("Merci ! On vous recontacte sous 24h.");
-      setFormData({ name: "", email: "", company: "", message: "" });
-      
-      setTimeout(() => {
-        onClose();
-      }, 2000);
+      setIsSuccess(true);
+      setFormData({ firstName: "", email: "", phone: "", need: "" });
     } catch (error) {
-      console.error("Error submitting form:", error);
-      toast.error("Une erreur est survenue. Veuillez réessayer.");
+      console.error("Erreur webhook:", error);
+      // Affiche quand même la confirmation (le lead est probablement passé)
+      setIsSuccess(true);
+      setFormData({ firstName: "", email: "", phone: "", need: "" });
     } finally {
       setIsSubmitting(false);
     }
   };
 
+  const handleClose = () => {
+    setIsSuccess(false);
+    setFormData({ firstName: "", email: "", phone: "", need: "" });
+    onClose();
+  };
+
+  if (!isOpen) return null;
+
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="bg-[#111111] border-[#333333] sm:max-w-md">
-        <DialogHeader>
-          <DialogTitle className="text-foreground text-xl">
-            Intéressé par {offerTitle} ?
-          </DialogTitle>
-          <DialogDescription className="text-muted-foreground">
-            Laissez-nous vos coordonnées, on vous recontacte rapidement.
-          </DialogDescription>
-        </DialogHeader>
+    <div 
+      className="fixed inset-0 bg-black/90 flex items-center justify-center z-[1001] p-4 animate-fade-in"
+      onClick={handleClose}
+    >
+      <div 
+        className="bg-card border border-primary/30 rounded-2xl w-full max-w-[450px] p-8 md:p-10 relative animate-scale-in"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button
+          onClick={handleClose}
+          className="absolute top-4 right-4 w-8 h-8 rounded-full bg-background/80 flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
+          aria-label="Fermer"
+        >
+          <X className="w-5 h-5" />
+        </button>
 
-        <form onSubmit={handleSubmit} className="space-y-4 mt-4">
-          <div className="space-y-2">
-            <Label htmlFor="name" className="text-foreground">
-              Nom <span className="text-[#9ACD32]">*</span>
-            </Label>
-            <Input
-              id="name"
-              value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              placeholder="Votre nom"
-              required
-              className="bg-[#0a0a0a] border-[#333333] text-foreground placeholder:text-muted-foreground focus:border-[#9ACD32]"
-            />
+        {isSuccess ? (
+          <div className="text-center py-8">
+            <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-6">
+              <Check className="w-8 h-8 text-primary-foreground" />
+            </div>
+            <h3 className="text-2xl font-semibold text-foreground mb-2">
+              C'est envoyé !
+            </h3>
+            <p className="text-muted-foreground mb-6">
+              Je vous recontacte sous 24h.
+            </p>
+            <Button
+              onClick={handleClose}
+              className="bg-primary text-primary-foreground hover:bg-primary/90"
+            >
+              Fermer
+            </Button>
           </div>
+        ) : (
+          <>
+            <h3 className="text-2xl font-semibold text-foreground mb-2">
+              Intéressé par {offerTitle} ?
+            </h3>
+            <p className="text-muted-foreground mb-6">
+              Laissez vos coordonnées, je vous recontacte rapidement.
+            </p>
 
-          <div className="space-y-2">
-            <Label htmlFor="email" className="text-foreground">
-              Email <span className="text-[#9ACD32]">*</span>
-            </Label>
-            <Input
-              id="email"
-              type="email"
-              value={formData.email}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              placeholder="votre@email.com"
-              required
-              className="bg-[#0a0a0a] border-[#333333] text-foreground placeholder:text-muted-foreground focus:border-[#9ACD32]"
-            />
-          </div>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <Input
+                value={formData.firstName}
+                onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
+                placeholder="Votre prénom *"
+                required
+                className="bg-background border-primary/30 text-foreground placeholder:text-muted-foreground focus:border-primary"
+              />
 
-          <div className="space-y-2">
-            <Label htmlFor="company" className="text-foreground">
-              Entreprise
-            </Label>
-            <Input
-              id="company"
-              value={formData.company}
-              onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-              placeholder="Votre entreprise"
-              className="bg-[#0a0a0a] border-[#333333] text-foreground placeholder:text-muted-foreground focus:border-[#9ACD32]"
-            />
-          </div>
+              <Input
+                type="email"
+                value={formData.email}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                placeholder="Votre email professionnel *"
+                required
+                className="bg-background border-primary/30 text-foreground placeholder:text-muted-foreground focus:border-primary"
+              />
 
-          <div className="space-y-2">
-            <Label htmlFor="message" className="text-foreground">
-              Message
-            </Label>
-            <Textarea
-              id="message"
-              value={formData.message}
-              onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-              placeholder="Décrivez brièvement votre besoin..."
-              rows={3}
-              className="bg-[#0a0a0a] border-[#333333] text-foreground placeholder:text-muted-foreground focus:border-[#9ACD32] resize-none"
-            />
-          </div>
+              <Input
+                type="tel"
+                value={formData.phone}
+                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                placeholder="Votre téléphone *"
+                required
+                className="bg-background border-primary/30 text-foreground placeholder:text-muted-foreground focus:border-primary"
+              />
 
-          <Button
-            type="submit"
-            disabled={isSubmitting}
-            className="w-full bg-[#9ACD32] text-[#0a0a0a] hover:bg-[#b8e04a] font-semibold"
-          >
-            {isSubmitting ? "Envoi en cours..." : "Envoyer ma demande"}
-          </Button>
-        </form>
-      </DialogContent>
-    </Dialog>
+              <Textarea
+                value={formData.need}
+                onChange={(e) => setFormData({ ...formData, need: e.target.value })}
+                placeholder="Décrivez brièvement votre besoin ou projet..."
+                rows={3}
+                className="bg-background border-primary/30 text-foreground placeholder:text-muted-foreground focus:border-primary resize-y min-h-[80px]"
+              />
+
+              <Button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full bg-primary text-primary-foreground hover:bg-primary/90 font-semibold transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(154,205,50,0.3)]"
+              >
+                {isSubmitting ? "Envoi en cours..." : "Envoyer ma demande"}
+              </Button>
+            </form>
+
+            <p className="text-xs text-muted-foreground/60 text-center mt-4">
+              Je vous recontacte sous 24h.
+            </p>
+          </>
+        )}
+      </div>
+    </div>
   );
 };

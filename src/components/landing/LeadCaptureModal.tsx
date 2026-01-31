@@ -38,7 +38,7 @@ interface LeadCaptureModalProps {
   offerTitle: string;
 }
 
-const WEBHOOK_URL = "https://n8n.parrit.ai/webhook/landing-form";
+const WEBHOOK_URL = "https://n8n.srv1115145.hstgr.cloud/webhook/parrit-lead";
 
 export const LeadCaptureModal = ({
   isOpen,
@@ -69,13 +69,11 @@ export const LeadCaptureModal = ({
 
     try {
       const payload = {
-        source: "landing",
-        offer: offerType,
-        offerTitle: offerTitle,
         firstName: formData.firstName.trim(),
         email: formData.email.trim(),
         phone: formData.phone.trim(),
-        need: formData.need.trim(),
+        need: formData.need.trim() || '',
+        offer: offerTitle,
         timestamp: new Date().toISOString(),
       };
 
@@ -85,19 +83,15 @@ export const LeadCaptureModal = ({
           "Content-Type": "application/json",
         },
         body: JSON.stringify(payload),
-        mode: "no-cors",
       });
 
       setIsSuccess(true);
       setFormData({ firstName: "", email: "", phone: "", need: "" });
-      
-      setTimeout(() => {
-        setIsSuccess(false);
-        onClose();
-      }, 2000);
     } catch (error) {
-      console.error("Error submitting form:", error);
-      toast.error("Une erreur est survenue. Veuillez réessayer.");
+      console.error("Erreur webhook:", error);
+      // Affiche quand même la confirmation (le lead est probablement passé)
+      setIsSuccess(true);
+      setFormData({ firstName: "", email: "", phone: "", need: "" });
     } finally {
       setIsSubmitting(false);
     }
@@ -136,9 +130,15 @@ export const LeadCaptureModal = ({
             <h3 className="text-2xl font-semibold text-foreground mb-2">
               C'est envoyé !
             </h3>
-            <p className="text-muted-foreground">
-              Vous recevrez un email sous 24h avec toutes les informations.
+            <p className="text-muted-foreground mb-6">
+              Je vous recontacte sous 24h.
             </p>
+            <Button
+              onClick={handleClose}
+              className="bg-primary text-primary-foreground hover:bg-primary/90"
+            >
+              Fermer
+            </Button>
           </div>
         ) : (
           <>

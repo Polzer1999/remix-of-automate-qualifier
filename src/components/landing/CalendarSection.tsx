@@ -1,11 +1,15 @@
-export const CalendarSection = () => {
+ import { useLanguage } from "@/i18n/LanguageContext";
+ 
+ export const CalendarSection = () => {
+   const { t } = useLanguage();
+ 
   return (
     <section id="calendrier" className="py-10 md:py-[60px] px-4 md:px-5 text-center">
       <h2 className="text-[28px] md:text-[32px] font-semibold text-foreground mb-3">
-        Réserver un créneau
+         {t.calendar.title}
       </h2>
       <p className="text-base text-[#9CA3AF] mb-10">
-        Choisissez un horaire qui vous convient — 15 min, sans engagement.
+         {t.calendar.subtitle}
       </p>
       
       <div className="max-w-[800px] mx-auto rounded-xl overflow-hidden bg-white">

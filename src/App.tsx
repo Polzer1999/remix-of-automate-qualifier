@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
+ import LocalizedIndex from "./pages/LocalizedIndex";
 import NotFound from "./pages/NotFound";
 import WebhookConfig from "./pages/WebhookConfig";
 import ImportDiscoveryCalls from "./pages/ImportDiscoveryCalls";
@@ -18,6 +19,8 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
+           <Route path="/en" element={<LocalizedIndex lang="en" />} />
+           <Route path="/zh" element={<LocalizedIndex lang="zh" />} />
           <Route path="/config" element={<WebhookConfig />} />
           <Route path="/import-calls" element={<ImportDiscoveryCalls />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

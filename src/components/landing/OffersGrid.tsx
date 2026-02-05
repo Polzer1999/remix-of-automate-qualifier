@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Bot, Rocket, Puzzle, GraduationCap } from "lucide-react";
 import { OfferCard } from "./OfferCard";
 import { LeadCaptureModal, OfferType } from "./LeadCaptureModal";
+ import { useLanguage } from "@/i18n/LanguageContext";
 
 interface Offer {
   id: OfferType;
@@ -14,102 +15,77 @@ interface Offer {
   cta: string;
   ctaAction: "modal" | "scroll";
   bullets?: string[];
+   twoColumns?: {
+     left: { title: string; items: readonly string[] };
+     right: { title: string; items: readonly string[] };
+   };
   mention?: string;
   legalMention?: string;
-  twoColumns?: {
-    left: { title: string; items: string[] };
-    right: { title: string; items: string[] };
-  };
 }
 
-const offers: Offer[] = [
-  {
-    id: "pay",
-    icon: Bot,
-    title: "PaY — Your SAP AI Assistant",
-    subtitle: "Pour utilisateurs SAP & consultants",
-    description: "Trouvez vos réponses en 10 secondes au lieu de 20 minutes.",
-    badge: "Accès Bêta",
-    badgeColor: "#4F46E5",
-    cta: "Demander l'accès bêta",
-    ctaAction: "modal",
-    bullets: [
-      "\"Comment créer une commande d'achat ?\" → Réponse instantanée",
-      "\"Erreur M7001, je fais quoi ?\" → Solution étape par étape",
-      "Modules MM, FI, SD couverts",
-    ],
-    mention: "Base de connaissances validée par consultants seniors",
-    legalMention: "PaY n'est pas affilié à SAP SE.",
-  },
-  {
-    id: "prospection",
-    icon: Rocket,
-    title: "Prospection Signaux d'Intention",
-    subtitle: "On remplit votre pipeline de RDV qualifiés",
-    description: "Vous nous donnez votre ICP, on détecte ceux qui sont prêts à acheter.",
-    badge: "Setup 5K€",
-    cta: "Découvrir l'offre",
-    ctaAction: "modal",
-    twoColumns: {
-      left: {
-        title: "Ce que vous fournissez :",
-        items: [
-          "Votre client idéal (ICP)",
-          "Votre offre et ses bénéfices",
-          "Les problèmes que vous résolvez",
-        ],
-      },
-      right: {
-        title: "Ce qu'on livre :",
-        items: [
-          "Système de détection des signaux",
-          "Pipeline alimenté en continu",
-          "Leads chauds dans votre CRM",
-        ],
-      },
-    },
-    mention: "Coaching acquisition inclus dans le setup",
-  },
-  {
-    id: "agentique",
-    icon: Puzzle,
-    title: "Projets Agentiques Sur-Mesure",
-    subtitle: "Solutions IA pour vos défis uniques",
-    description: "Automatisation, agents IA, workflows complexes — on construit ce qui n'existe pas encore.",
-    badge: "Sur devis",
-    cta: "Prendre RDV",
-    ctaAction: "scroll",
-    bullets: [
-      "Catalogues automatisés (maisons de vente aux enchères)",
-      "Assistants WhatsApp connectés à votre CRM",
-      "Process métier : franchises, juridique, RH",
-      "Génération de contenu : SEO, réseaux sociaux",
-    ],
-    mention: "Accompagnement premium de A à Z",
-  },
-  {
-    id: "formation",
-    icon: GraduationCap,
-    title: "Formation & Prise de Parole",
-    subtitle: "Montez en compétence sur l'IA et l'agentique",
-    description: "Pour équipes, dirigeants, ou événements — on forme et on inspire.",
-    badge: "Sur demande",
-    cta: "En savoir plus",
-    ctaAction: "modal",
-    bullets: [
-      "Formation déploiement d'agents IA",
-      "Masterclass \"De l'IA à l'Agentique\"",
-      "Coaching individuel (outils, mindset, démos)",
-      "Conférences et ateliers en entreprise",
-    ],
-    mention: "Formats adaptés à vos contraintes",
-  },
-];
+ const icons = [Bot, Rocket, Puzzle, GraduationCap];
+ const offerIds: OfferType[] = ["pay", "prospection", "agentique", "formation"];
+ const ctaActions: ("modal" | "scroll")[] = ["modal", "modal", "scroll", "modal"];
 
 export const OffersGrid = () => {
+   const { t } = useLanguage();
   const [selectedOffer, setSelectedOffer] = useState<Offer | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+   // Build offers from translations
+   const offers: Offer[] = [
+     {
+       id: "pay",
+       icon: icons[0],
+       title: t.offers.pay.title,
+       subtitle: t.offers.pay.subtitle,
+       description: t.offers.pay.description,
+       badge: t.offers.pay.badge,
+       badgeColor: "#4F46E5",
+       cta: t.offers.pay.cta,
+       ctaAction: "modal",
+       bullets: [...t.offers.pay.bullets],
+       mention: t.offers.pay.mention,
+       legalMention: t.offers.pay.legalMention,
+     },
+     {
+       id: "prospection",
+       icon: icons[1],
+       title: t.offers.prospection.title,
+       subtitle: t.offers.prospection.subtitle,
+       description: t.offers.prospection.description,
+       badge: t.offers.prospection.badge,
+       cta: t.offers.prospection.cta,
+       ctaAction: "modal",
+       twoColumns: t.offers.prospection.twoColumns,
+       mention: t.offers.prospection.mention,
+     },
+     {
+       id: "agentique",
+       icon: icons[2],
+       title: t.offers.agentique.title,
+       subtitle: t.offers.agentique.subtitle,
+       description: t.offers.agentique.description,
+       badge: t.offers.agentique.badge,
+       cta: t.offers.agentique.cta,
+       ctaAction: "scroll",
+       bullets: [...t.offers.agentique.bullets],
+       mention: t.offers.agentique.mention,
+     },
+     {
+       id: "formation",
+       icon: icons[3],
+       title: t.offers.formation.title,
+       subtitle: t.offers.formation.subtitle,
+       description: t.offers.formation.description,
+       badge: t.offers.formation.badge,
+       cta: t.offers.formation.cta,
+       ctaAction: "modal",
+       bullets: [...t.offers.formation.bullets],
+       mention: t.offers.formation.mention,
+     },
+   ];
+ 
   const handleCtaClick = (offer: Offer) => {
     if (offer.ctaAction === "scroll") {
       document.getElementById("calendrier")?.scrollIntoView({ behavior: "smooth", block: "start" });

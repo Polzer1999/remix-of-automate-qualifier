@@ -4,8 +4,8 @@ import { Button } from "@/components/ui/button";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 
 interface TwoColumnsData {
-  left: { title: string; items: string[] };
-  right: { title: string; items: string[] };
+   left: { title: string; items: readonly string[] };
+   right: { title: string; items: readonly string[] };
 }
 
 interface OfferCardProps {

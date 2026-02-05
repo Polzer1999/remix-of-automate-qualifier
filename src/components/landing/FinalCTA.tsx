@@ -1,6 +1,9 @@
 import { Button } from "@/components/ui/button";
+ import { useLanguage } from "@/i18n/LanguageContext";
 
 export const FinalCTA = () => {
+   const { t } = useLanguage();
+ 
   const scrollToCalendar = () => {
     document.getElementById('calendrier')?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -9,21 +12,21 @@ export const FinalCTA = () => {
     <section className="py-10 md:py-[60px] px-4 md:px-5">
       <div className="max-w-3xl mx-auto text-center">
         <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-          Prêt à accélérer ?
+         {t.finalCta.title}
         </h2>
         <p className="text-muted-foreground mb-8 text-lg max-w-xl mx-auto">
-          15 minutes pour repartir avec des pistes concrètes — que nous travaillions ensemble ou non.
+         {t.finalCta.subtitle}
         </p>
         
         <Button
           onClick={scrollToCalendar}
           className="w-full sm:w-auto bg-primary text-primary-foreground hover:bg-primary/90 hover:-translate-y-0.5 hover:shadow-[0_4px_20px_rgba(154,205,50,0.4)] font-semibold px-8 py-4 text-base rounded-lg transition-all duration-200"
         >
-          Réserver un créneau
+         {t.finalCta.cta}
         </Button>
         
         <p className="text-sm text-muted-foreground/70 mt-4">
-          Réponse sous 24h • 100% gratuit • Sans engagement
+         {t.finalCta.proof}
         </p>
       </div>
     </section>

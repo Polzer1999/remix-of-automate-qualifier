@@ -1,27 +1,16 @@
 import { MessageCircle, Zap, GraduationCap } from "lucide-react";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
+ import { useLanguage } from "@/i18n/LanguageContext";
 
-const reasons = [
-  {
-    icon: MessageCircle,
-    title: "Pas de bullshit",
-    text: "On parle vrai. Si un projet n'a pas de sens, on vous le dit.",
-  },
-  {
-    icon: Zap,
-    title: "Exécution rapide",
-    text: "POC en 2 semaines, déploiement en 4-8 semaines selon le scope.",
-  },
-  {
-    icon: GraduationCap,
-    title: "Coaching inclus",
-    text: "On ne livre pas juste un outil. On vous rend autonome.",
-  },
-];
+ const icons = [MessageCircle, Zap, GraduationCap];
 
-const WhyCard = ({ reason, index }: { reason: typeof reasons[0]; index: number }) => {
+ interface Reason {
+   title: string;
+   text: string;
+ }
+ 
+ const WhyCard = ({ reason, index, icon: Icon }: { reason: Reason; index: number; icon: typeof MessageCircle }) => {
   const { ref, isVisible } = useIntersectionObserver({ threshold: 0.1 });
-  const Icon = reason.icon;
   
   return (
     <div 
@@ -44,16 +33,18 @@ const WhyCard = ({ reason, index }: { reason: typeof reasons[0]; index: number }
 };
 
 export const WhySection = () => {
+   const { t } = useLanguage();
+ 
   return (
     <section className="py-10 md:py-[60px] px-4 md:px-5">
       <div className="max-w-[1000px] mx-auto">
         <h2 className="text-[28px] md:text-[32px] font-semibold text-foreground text-center mb-8 md:mb-10">
-          Pourquoi travailler avec Parrit.ai ?
+           {t.why.title}
         </h2>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
-          {reasons.map((reason, index) => (
-            <WhyCard key={index} reason={reason} index={index} />
+           {t.why.reasons.map((reason, index) => (
+             <WhyCard key={index} reason={reason} index={index} icon={icons[index]} />
           ))}
         </div>
       </div>

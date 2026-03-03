@@ -132,16 +132,16 @@
       title: 'L\'expertise Parrit au service des leaders :',
     },
     // About
-     about: {
-       title: 'De San Francisco à Paris',
-       text: 'De la Silicon Valley (ex-Lime) aux grands comptes français. Paul Larmaraud apporte une culture de l\'automatisation sans compromis pour transformer vos opérations.',
-       tagline: 'La méthode Silicon Valley, appliquée à votre business.',
-       timeline: {
-         step1: 'San Francisco — Lime. Culture de l\'hyper-croissance et de l\'automatisation à grande échelle.',
-         step2: 'Paris — Consulting grands comptes. Déploiement de solutions IA pour des leaders français.',
-         step3: 'Parrit.ai — L\'IA Agentique au service du ROI. Solutions sur-mesure, coaching inclus.',
-       },
-     },
+      about: {
+        title: 'Une méthode Silicon Valley, appliquée ici',
+        text: 'Après avoir travaillé pour Lime (San Francisco) et accompagné des grands comptes français, Paul Larmaraud a fondé Parrit.ai pour apporter une culture de l\'automatisation sans compromis à vos opérations.',
+        tagline: 'L\'exigence tech de la Silicon Valley, au service de votre business.',
+        timeline: {
+          step1: 'Lime (San Francisco) — Culture de l\'hyper-croissance et de l\'automatisation à grande échelle.',
+          step2: 'Paris — Consulting grands comptes. Déploiement de solutions IA pour des leaders français.',
+          step3: 'Parrit.ai — L\'IA Agentique au service du ROI. Solutions sur-mesure, coaching inclus.',
+        },
+      },
     // Trust Results
     trustResults: {
       title: 'Résultats Garantis',
@@ -301,16 +301,16 @@
       title: 'Parrit expertise serving industry leaders:',
     },
     // About
-     about: {
-       title: 'From San Francisco to Paris',
-       text: 'From Silicon Valley (ex-Lime) to major French corporations. Paul Larmaraud brings a no-compromise automation culture to transform your operations.',
-       tagline: 'The Silicon Valley method, applied to your business.',
-       timeline: {
-         step1: 'San Francisco — Lime. Hyper-growth culture and large-scale automation.',
-         step2: 'Paris — Enterprise consulting. Deploying AI solutions for French industry leaders.',
-         step3: 'Parrit.ai — Agentic AI serving ROI. Custom solutions, coaching included.',
-       },
-     },
+      about: {
+        title: 'A Silicon Valley method, applied here',
+        text: 'After working for Lime (San Francisco) and supporting major French corporations, Paul Larmaraud founded Parrit.ai to bring a no-compromise automation culture to your operations.',
+        tagline: 'Silicon Valley tech standards, serving your business.',
+        timeline: {
+          step1: 'Lime (San Francisco) — Hyper-growth culture and large-scale automation.',
+          step2: 'Paris — Enterprise consulting. Deploying AI solutions for French industry leaders.',
+          step3: 'Parrit.ai — Agentic AI serving ROI. Custom solutions, coaching included.',
+        },
+      },
     // Trust Results
     trustResults: {
       title: 'Guaranteed Results',
@@ -471,16 +471,16 @@
       title: 'Parrit 专业服务行业领袖：',
     },
     // About
-     about: {
-       title: '从旧金山到巴黎',
-       text: '从硅谷（前Lime）到法国大型企业。Paul Larmaraud 带来毫不妥协的自动化文化，改变您的运营。',
-       tagline: '硅谷方法，应用于您的业务。',
-       timeline: {
-         step1: '旧金山 — Lime。超高速增长文化和大规模自动化。',
-         step2: '巴黎 — 大型企业咨询。为法国行业领袖部署AI解决方案。',
-         step3: 'Parrit.ai — 智能代理AI服务于ROI。定制解决方案，包含辅导。',
-       },
-     },
+      about: {
+        title: '硅谷方法，在这里应用',
+        text: '在为Lime（旧金山）工作并服务法国大型企业之后，Paul Larmaraud创立了Parrit.ai，将毫不妥协的自动化文化带入您的运营。',
+        tagline: '硅谷技术标准，服务于您的业务。',
+        timeline: {
+          step1: 'Lime（旧金山）— 超高速增长文化和大规模自动化。',
+          step2: '巴黎 — 大型企业咨询。为法国行业领袖部署AI解决方案。',
+          step3: 'Parrit.ai — 智能代理AI服务于ROI。定制解决方案，包含辅导。',
+        },
+      },
     // Trust Results
     trustResults: {
       title: '保证结果',

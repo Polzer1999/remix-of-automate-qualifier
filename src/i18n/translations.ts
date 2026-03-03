@@ -121,11 +121,31 @@
        title: 'Réservez votre appel découverte',
        subtitle: '15 minutes pour explorer vos besoins et voir si on peut vous aider.',
      },
-     // Footer
-     footer: {
-       copyright: '© 2025 Parrit.ai — Tous droits réservés',
-       legal: 'Mentions légales',
-     },
+    // Logo Bar
+    logoBar: {
+      title: 'L\'expertise Parrit au service des leaders :',
+    },
+    // About
+    about: {
+      title: 'Qui est derrière Parrit ?',
+      text: 'De la Silicon Valley (ex-Lime) aux grands comptes français. Linn Manette apporte une culture de l\'automatisation sans compromis pour transformer vos opérations.',
+      tagline: 'L\'IA Agentique, sans le bullshit.',
+    },
+    // Trust Results
+    trustResults: {
+      title: 'Résultats Garantis',
+      items: [
+        { title: 'ROI mesuré sous 30 jours', text: 'Chaque projet est conçu pour un retour sur investissement rapide et mesurable.' },
+        { title: 'Support expert 7j/7', text: 'Une équipe technique disponible pour vous accompagner à chaque étape.' },
+        { title: 'RGPD Compliant', text: 'Sécurité des données et conformité européenne garanties.' },
+      ],
+    },
+    // Footer
+    footer: {
+      copyright: '© 2025 Parrit.ai — Tous droits réservés',
+      legal: 'Mentions légales',
+      positioning: 'Parrit.ai — L\'IA Agentique au service du ROI.',
+    },
       // Lead Capture Modal
       modal: {
         title: 'Décrivez votre blocage, je vous réponds sous 24h avec la solution',
@@ -261,11 +281,31 @@
        title: 'Book your discovery call',
        subtitle: '15 minutes to explore your needs and see if we can help.',
      },
-     // Footer
-     footer: {
-       copyright: '© 2025 Parrit.ai — All rights reserved',
-       legal: 'Legal notice',
-     },
+    // Logo Bar
+    logoBar: {
+      title: 'Parrit expertise serving industry leaders:',
+    },
+    // About
+    about: {
+      title: 'Who is behind Parrit?',
+      text: 'From Silicon Valley (ex-Lime) to major French corporations. Linn Manette brings a no-compromise automation culture to transform your operations.',
+      tagline: 'Agentic AI, without the BS.',
+    },
+    // Trust Results
+    trustResults: {
+      title: 'Guaranteed Results',
+      items: [
+        { title: 'ROI measured within 30 days', text: 'Every project is designed for fast, measurable return on investment.' },
+        { title: 'Expert support 7/7', text: 'A technical team available to support you at every step.' },
+        { title: 'GDPR Compliant', text: 'Data security and European compliance guaranteed.' },
+      ],
+    },
+    // Footer
+    footer: {
+      copyright: '© 2025 Parrit.ai — All rights reserved',
+      legal: 'Legal notice',
+      positioning: 'Parrit.ai — Agentic AI serving ROI.',
+    },
       // Lead Capture Modal
       modal: {
         title: 'Describe your bottleneck, I\'ll respond within 24h with the solution',
@@ -401,11 +441,31 @@
        title: '预约您的发现通话',
        subtitle: '15分钟探索您的需求，看看我们能否帮助您。',
      },
-     // Footer
-     footer: {
-       copyright: '© 2025 Parrit.ai — 版权所有',
-       legal: '法律声明',
-     },
+    // Logo Bar
+    logoBar: {
+      title: 'Parrit 专业服务行业领袖：',
+    },
+    // About
+    about: {
+      title: '谁在 Parrit 背后？',
+      text: '从硅谷（前Lime）到法国大型企业。Linn Manette 带来毫不妥协的自动化文化，改变您的运营。',
+      tagline: '智能代理AI，没有废话。',
+    },
+    // Trust Results
+    trustResults: {
+      title: '保证结果',
+      items: [
+        { title: '30天内衡量ROI', text: '每个项目都为快速、可衡量的投资回报而设计。' },
+        { title: '7天/周专家支持', text: '技术团队随时为您提供支持。' },
+        { title: 'GDPR合规', text: '保证数据安全和欧洲合规性。' },
+      ],
+    },
+    // Footer
+    footer: {
+      copyright: '© 2025 Parrit.ai — 版权所有',
+      legal: '法律声明',
+      positioning: 'Parrit.ai — 智能代理AI服务于ROI。',
+    },
       // Lead Capture Modal
       modal: {
         title: '描述您的障碍，我将在24小时内回复解决方案',
@@ -494,10 +554,23 @@
      title: string;
      subtitle: string;
    };
-   footer: {
-     copyright: string;
-     legal: string;
-   };
+    logoBar: {
+      title: string;
+    };
+    about: {
+      title: string;
+      text: string;
+      tagline: string;
+    };
+    trustResults: {
+      title: string;
+      items: readonly { title: string; text: string }[];
+    };
+    footer: {
+      copyright: string;
+      legal: string;
+      positioning: string;
+    };
     modal: {
       title: string;
       subtitle: string;

@@ -18,8 +18,14 @@
        proof: 'Prospection automatisée • Agents IA sur-mesure • Coaching inclus',
        ctaPrimary: 'Réserver 15 min — Gratuit',
        ctaSecondary: 'Voir les offres',
-       scrollIndicator: 'Découvrir les offres',
-     },
+        scrollIndicator: 'Découvrir les offres',
+        socialProof: 'Approuvé par des experts de :',
+      },
+      // Offers section
+      offersSection: {
+        title: 'Nos offres',
+        subtitle: 'Des solutions conçues pour un ROI immédiat.',
+      },
      // Offers
      offers: {
        pay: {
@@ -126,11 +132,16 @@
       title: 'L\'expertise Parrit au service des leaders :',
     },
     // About
-    about: {
-      title: 'Qui est derrière Parrit ?',
-      text: 'De la Silicon Valley (ex-Lime) aux grands comptes français. Paul Larmaraud apporte une culture de l\'automatisation sans compromis pour transformer vos opérations.',
-      tagline: 'L\'IA Agentique, sans le bullshit.',
-    },
+     about: {
+       title: 'De San Francisco à Paris',
+       text: 'De la Silicon Valley (ex-Lime) aux grands comptes français. Paul Larmaraud apporte une culture de l\'automatisation sans compromis pour transformer vos opérations.',
+       tagline: 'La méthode Silicon Valley, appliquée à votre business.',
+       timeline: {
+         step1: 'San Francisco — Lime. Culture de l\'hyper-croissance et de l\'automatisation à grande échelle.',
+         step2: 'Paris — Consulting grands comptes. Déploiement de solutions IA pour des leaders français.',
+         step3: 'Parrit.ai — L\'IA Agentique au service du ROI. Solutions sur-mesure, coaching inclus.',
+       },
+     },
     // Trust Results
     trustResults: {
       title: 'Résultats Garantis',
@@ -178,9 +189,13 @@
        proof: 'Automated prospecting • Custom AI agents • Coaching included',
        ctaPrimary: 'Book 15 min — Free',
        ctaSecondary: 'See offers',
-       scrollIndicator: 'Discover offers',
-     },
-     // Offers
+        scrollIndicator: 'Discover offers',
+        socialProof: 'Approved by experts from:',
+      },
+      offersSection: {
+        title: 'Our offers',
+        subtitle: 'Solutions designed for immediate ROI.',
+      },
      offers: {
        pay: {
          title: 'PaY — Your SAP AI Assistant',
@@ -286,11 +301,16 @@
       title: 'Parrit expertise serving industry leaders:',
     },
     // About
-    about: {
-      title: 'Who is behind Parrit?',
-      text: 'From Silicon Valley (ex-Lime) to major French corporations. Paul Larmaraud brings a no-compromise automation culture to transform your operations.',
-      tagline: 'Agentic AI, without the BS.',
-    },
+     about: {
+       title: 'From San Francisco to Paris',
+       text: 'From Silicon Valley (ex-Lime) to major French corporations. Paul Larmaraud brings a no-compromise automation culture to transform your operations.',
+       tagline: 'The Silicon Valley method, applied to your business.',
+       timeline: {
+         step1: 'San Francisco — Lime. Hyper-growth culture and large-scale automation.',
+         step2: 'Paris — Enterprise consulting. Deploying AI solutions for French industry leaders.',
+         step3: 'Parrit.ai — Agentic AI serving ROI. Custom solutions, coaching included.',
+       },
+     },
     // Trust Results
     trustResults: {
       title: 'Guaranteed Results',
@@ -338,8 +358,13 @@
        proof: '自动化获客 • 定制AI代理 • 包含辅导',
        ctaPrimary: '预约15分钟 — 免费',
        ctaSecondary: '查看服务',
-       scrollIndicator: '探索服务',
-     },
+        scrollIndicator: '探索服务',
+        socialProof: '获得以下专家认可：',
+      },
+      offersSection: {
+        title: '我们的服务',
+        subtitle: '为即时ROI设计的解决方案。',
+      },
      // Offers
      offers: {
        pay: {
@@ -446,11 +471,16 @@
       title: 'Parrit 专业服务行业领袖：',
     },
     // About
-    about: {
-      title: '谁在 Parrit 背后？',
-      text: '从硅谷（前Lime）到法国大型企业。Paul Larmaraud 带来毫不妥协的自动化文化，改变您的运营。',
-      tagline: '智能代理AI，没有废话。',
-    },
+     about: {
+       title: '从旧金山到巴黎',
+       text: '从硅谷（前Lime）到法国大型企业。Paul Larmaraud 带来毫不妥协的自动化文化，改变您的运营。',
+       tagline: '硅谷方法，应用于您的业务。',
+       timeline: {
+         step1: '旧金山 — Lime。超高速增长文化和大规模自动化。',
+         step2: '巴黎 — 大型企业咨询。为法国行业领袖部署AI解决方案。',
+         step3: 'Parrit.ai — 智能代理AI服务于ROI。定制解决方案，包含辅导。',
+       },
+     },
     // Trust Results
     trustResults: {
       title: '保证结果',
@@ -496,9 +526,14 @@
      proof: string;
      ctaPrimary: string;
      ctaSecondary: string;
-     scrollIndicator: string;
-   };
-   offers: {
+      scrollIndicator: string;
+      socialProof: string;
+    };
+    offersSection: {
+      title: string;
+      subtitle: string;
+    };
+    offers: {
      pay: {
        title: string;
        subtitle: string;
@@ -557,11 +592,16 @@
     logoBar: {
       title: string;
     };
-    about: {
-      title: string;
-      text: string;
-      tagline: string;
-    };
+     about: {
+       title: string;
+       text: string;
+       tagline: string;
+       timeline: {
+         step1: string;
+         step2: string;
+         step3: string;
+       };
+     };
     trustResults: {
       title: string;
       items: readonly { title: string; text: string }[];

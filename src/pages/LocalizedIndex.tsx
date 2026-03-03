@@ -19,10 +19,10 @@ interface LocalizedIndexProps {
 const LocalizedIndex = ({ lang }: LocalizedIndexProps) => {
   return (
     <LanguageProvider lang={lang}>
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-background noise-bg">
         <div className="min-h-screen flex flex-col">
           <Header />
-          <div className="pt-16 flex-shrink-0" />
+          <div className="pt-14 flex-shrink-0" />
           <div className="flex-1 flex flex-col">
             <HeroSection />
           </div>

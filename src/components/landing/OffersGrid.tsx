@@ -22,6 +22,7 @@ interface Offer {
   mention?: string;
   legalMention?: string;
   recommended?: boolean;
+  featured?: boolean;
 }
 
 export const OffersGrid = () => {
@@ -31,18 +32,18 @@ export const OffersGrid = () => {
 
   const offers: Offer[] = [
     {
-      id: "pay",
-      icon: Bot,
-      title: t.offers.pay.title,
-      subtitle: t.offers.pay.subtitle,
-      description: t.offers.pay.description,
-      badge: t.offers.pay.badge,
-      badgeColor: "#4F46E5",
-      cta: t.offers.pay.cta,
-      ctaAction: "modal",
-      bullets: [...t.offers.pay.bullets],
-      mention: t.offers.pay.mention,
-      legalMention: t.offers.pay.legalMention,
+      id: "agentique",
+      icon: Puzzle,
+      title: t.offers.agentique.title,
+      subtitle: t.offers.agentique.subtitle,
+      description: t.offers.agentique.description,
+      badge: t.offers.agentique.badge,
+      cta: t.offers.agentique.cta,
+      ctaAction: "scroll",
+      bullets: [...t.offers.agentique.bullets],
+      mention: t.offers.agentique.mention,
+      recommended: true,
+      featured: true,
     },
     {
       id: "prospection",
@@ -57,17 +58,18 @@ export const OffersGrid = () => {
       mention: t.offers.prospection.mention,
     },
     {
-      id: "agentique",
-      icon: Puzzle,
-      title: t.offers.agentique.title,
-      subtitle: t.offers.agentique.subtitle,
-      description: t.offers.agentique.description,
-      badge: t.offers.agentique.badge,
-      cta: t.offers.agentique.cta,
-      ctaAction: "scroll",
-      bullets: [...t.offers.agentique.bullets],
-      mention: t.offers.agentique.mention,
-      recommended: true,
+      id: "pay",
+      icon: Bot,
+      title: t.offers.pay.title,
+      subtitle: t.offers.pay.subtitle,
+      description: t.offers.pay.description,
+      badge: t.offers.pay.badge,
+      badgeColor: "#6366F1",
+      cta: t.offers.pay.cta,
+      ctaAction: "modal",
+      bullets: [...t.offers.pay.bullets],
+      mention: t.offers.pay.mention,
+      legalMention: t.offers.pay.legalMention,
     },
     {
       id: "formation",
@@ -96,7 +98,15 @@ export const OffersGrid = () => {
     <>
       <section id="offres" className="py-16 md:py-24 px-4">
         <div className="max-w-[1140px] mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+          <h2 className="text-2xl md:text-3xl font-bold text-foreground text-center mb-3 tracking-tight">
+            {t.offersSection?.title || 'Nos offres'}
+          </h2>
+          <p className="text-sm text-muted-foreground text-center mb-12 max-w-lg mx-auto">
+            {t.offersSection?.subtitle || 'Des solutions conçues pour un ROI immédiat.'}
+          </p>
+
+          {/* Bento Grid: featured takes 2 cols */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {offers.map((offer, index) => (
               <OfferCard
                 key={offer.id}
@@ -115,6 +125,7 @@ export const OffersGrid = () => {
                 onCtaClick={() => handleCtaClick(offer)}
                 staggerIndex={index}
                 recommended={offer.recommended}
+                featured={offer.featured}
               />
             ))}
           </div>

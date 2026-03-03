@@ -8,12 +8,13 @@ export const TrustResults = () => {
   const { t } = useLanguage();
 
   return (
-    <section className="py-16 md:py-24 px-4 bg-secondary">
+    <section className="py-16 md:py-24 px-4">
       <div className="max-w-[1140px] mx-auto text-center">
-        <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-12">
+        <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3 tracking-tight">
           {t.trustResults.title}
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           {t.trustResults.items.map((item, index) => {
             const Icon = icons[index];
             return <TrustCard key={index} icon={Icon} title={item.title} text={item.text} index={index} />;
@@ -30,14 +31,14 @@ const TrustCard = ({ icon: Icon, title, text, index }: { icon: typeof TrendingUp
   return (
     <div
       ref={ref}
-      className={`p-8 rounded-xl bg-card border border-border transition-all duration-500 stagger-${index + 1} ${
+      className={`bento-glow glass-card p-8 rounded-xl text-center transition-all duration-500 stagger-${index + 1} ${
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
       }`}
     >
       <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mx-auto mb-5">
-        <Icon className="w-6 h-6 text-primary" />
+        <Icon className="w-5 h-5 text-primary" />
       </div>
-      <h3 className="text-lg font-semibold text-foreground mb-2">{title}</h3>
+      <h3 className="text-base font-bold text-foreground mb-2 tracking-tight">{title}</h3>
       <p className="text-sm text-muted-foreground leading-relaxed">{text}</p>
     </div>
   );

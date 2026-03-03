@@ -14,17 +14,16 @@ import { LanguageProvider } from "@/i18n/LanguageContext";
 const Index = () => {
   return (
     <LanguageProvider lang="fr">
-      <div className="min-h-screen bg-background">
-        {/* Hero wrapper */}
+      <div className="min-h-screen bg-background noise-bg">
+        {/* Hero */}
         <div className="min-h-screen flex flex-col">
           <Header />
-          <div className="pt-16 flex-shrink-0" />
+          <div className="pt-14 flex-shrink-0" />
           <div className="flex-1 flex flex-col">
             <HeroSection />
           </div>
         </div>
         
-        {/* Content below the fold */}
         <LogoBar />
         <OffersGrid />
         <AboutSection />

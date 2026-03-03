@@ -1,22 +1,44 @@
- import { useLanguage } from "@/i18n/LanguageContext";
- 
+import { useLanguage } from "@/i18n/LanguageContext";
+import { Linkedin } from "lucide-react";
+
 export const Footer = () => {
-   const { t } = useLanguage();
- 
+  const { t } = useLanguage();
+
   return (
-    <footer className="py-6 px-4 md:px-5 border-t border-primary/20 text-center">
-      <div className="flex justify-center items-center gap-6 flex-wrap">
-        <p className="text-muted-foreground text-sm m-0">
-           {t.footer.copyright}
-        </p>
-        <a 
-          href="https://docs.google.com/document/d/1q6Pq_KgNOZAkn1fE7WwD-phGn_26HVU_/edit"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-muted-foreground/80 text-sm no-underline hover:text-primary transition-colors"
-        >
-           {t.footer.legal}
-        </a>
+    <footer className="py-10 px-4 border-t border-border">
+      <div className="max-w-[1140px] mx-auto">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+          {/* Left - Positioning */}
+          <div className="text-center md:text-left">
+            <p className="text-sm font-semibold text-foreground mb-1">
+              {t.footer.positioning}
+            </p>
+            <p className="text-xs text-muted-foreground">
+              {t.footer.copyright}
+            </p>
+          </div>
+          
+          {/* Right - Links */}
+          <div className="flex items-center gap-6">
+            <a 
+              href="https://docs.google.com/document/d/1q6Pq_KgNOZAkn1fE7WwD-phGn_26HVU_/edit"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs text-muted-foreground hover:text-foreground transition-colors"
+            >
+              {t.footer.legal}
+            </a>
+            <a 
+              href="https://www.linkedin.com/in/linnmanette/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-muted-foreground hover:text-primary transition-colors"
+              aria-label="LinkedIn"
+            >
+              <Linkedin className="w-4 h-4" />
+            </a>
+          </div>
+        </div>
       </div>
     </footer>
   );

@@ -63,34 +63,27 @@ export const HeroSection = () => {
             </Button>
           </div>
 
-          {/* Social proof logos */}
+          {/* Social proof */}
           <div className="mt-10 pt-8 border-t border-border">
-            <p className="text-xs text-muted-foreground/50 uppercase tracking-widest mb-4 font-mono-tech">
+            <p className="text-xs text-muted-foreground/50 uppercase tracking-widest font-mono-tech">
               {t.hero.socialProof}
             </p>
-            <div className="flex flex-wrap items-center gap-6 justify-center md:justify-start">
-              <span className="text-foreground/40 text-sm font-medium tracking-tight">Lacoste</span>
-              <span className="text-foreground/40 text-sm font-medium tracking-tight">SNCF</span>
-              <span className="text-foreground/40 text-sm font-medium tracking-tight">Renault</span>
-              <span className="text-foreground/40 text-sm font-medium tracking-tight">Chamas Tacos</span>
-            </div>
           </div>
         </div>
         
         {/* Photo + Node Network */}
-        <div className="flex-shrink-0 relative w-48 sm:w-56 md:w-72 lg:w-80">
-          <NodeNetwork className="rounded-2xl" />
-          <div className="relative z-10">
-            <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-background to-transparent z-10 pointer-events-none" />
+        <div className="flex-shrink-0 relative w-48 sm:w-56 md:w-64 lg:w-72">
+          <div className="relative rounded-2xl overflow-hidden">
+            <NodeNetwork className="rounded-2xl" />
             <img 
               src={paulPhoto} 
               alt="Paul Larmaraud — Parrit.ai" 
-              className="relative w-full h-auto object-contain"
+              className="relative z-10 w-full h-auto object-contain"
               style={{ 
                 filter: "drop-shadow(0 16px 40px hsla(160, 84%, 39%, 0.1))",
-                animation: "float 5s ease-in-out infinite"
               }}
             />
+            <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-background to-transparent z-20 pointer-events-none" />
           </div>
         </div>
       </div>

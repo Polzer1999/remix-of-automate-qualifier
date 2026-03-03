@@ -126,19 +126,20 @@
        copyright: '© 2025 Parrit.ai — Tous droits réservés',
        legal: 'Mentions légales',
      },
-     // Lead Capture Modal
-     modal: {
-       title: 'Demander plus d\'infos',
-       firstName: 'Prénom',
-       email: 'Email',
-       phone: 'Téléphone',
-       need: 'Votre besoin (optionnel)',
-       submit: 'Envoyer ma demande',
-       sending: 'Envoi en cours...',
-       successTitle: 'C\'est envoyé !',
-       successMessage: 'Je vous recontacte sous 24h.',
-       close: 'Fermer',
-     },
+      // Lead Capture Modal
+      modal: {
+        title: 'Décrivez votre blocage, je vous réponds sous 24h avec la solution',
+        subtitle: 'Défi 24h : Votre Blueprint IA',
+        firstName: 'Votre prénom',
+        email: 'Votre email professionnel *',
+        problem: 'Décrivez votre problème ou blocage en détail...',
+        submit: 'Envoyer mon défi',
+        sending: 'Envoi en cours...',
+        successTitle: 'C\'est dans la boîte !',
+        successMessage: 'Linn analyse votre demande. Réponse sous 24h garantie.',
+        close: 'Fermer',
+        reassurance: 'Zéro spam. Juste une solution technique à votre problème.',
+      },
    },
    en: {
      // Header
@@ -265,19 +266,20 @@
        copyright: '© 2025 Parrit.ai — All rights reserved',
        legal: 'Legal notice',
      },
-     // Lead Capture Modal
-     modal: {
-       title: 'Request more info',
-       firstName: 'First name',
-       email: 'Email',
-       phone: 'Phone',
-       need: 'Your need (optional)',
-       submit: 'Send my request',
-       sending: 'Sending...',
-       successTitle: 'Sent!',
-       successMessage: 'I\'ll get back to you within 24h.',
-       close: 'Close',
-     },
+      // Lead Capture Modal
+      modal: {
+        title: 'Describe your bottleneck, I\'ll respond within 24h with the solution',
+        subtitle: '24h Challenge: Your AI Blueprint',
+        firstName: 'Your first name',
+        email: 'Your professional email *',
+        problem: 'Describe your problem or bottleneck in detail...',
+        submit: 'Send my challenge',
+        sending: 'Sending...',
+        successTitle: 'It\'s in the box!',
+        successMessage: 'Linn is analyzing your request. Response guaranteed within 24h.',
+        close: 'Close',
+        reassurance: 'Zero spam. Just a technical solution to your problem.',
+      },
    },
    zh: {
      // Header
@@ -404,21 +406,22 @@
        copyright: '© 2025 Parrit.ai — 版权所有',
        legal: '法律声明',
      },
-     // Lead Capture Modal
-     modal: {
-       title: '请求更多信息',
-       firstName: '名字',
-       email: '电子邮件',
-       phone: '电话',
-       need: '您的需求（可选）',
-       submit: '发送我的请求',
-       sending: '发送中...',
-       successTitle: '已发送！',
-       successMessage: '我会在24小时内回复您。',
-       close: '关闭',
-     },
-   },
- } as const;
+      // Lead Capture Modal
+      modal: {
+        title: '描述您的障碍，我将在24小时内回复解决方案',
+        subtitle: '24小时挑战：您的AI蓝图',
+        firstName: '您的名字',
+        email: '您的职业邮箱 *',
+        problem: '详细描述您的问题或障碍...',
+        submit: '发送我的挑战',
+        sending: '发送中...',
+        successTitle: '收到了！',
+        successMessage: 'Linn正在分析您的请求。保证24小时内回复。',
+        close: '关闭',
+        reassurance: '零垃圾邮件。只为您的问题提供技术解决方案。',
+      },
+    },
+  } as const;
  
  // Generic type that captures the structure but allows any string values
  export type Translations = {
@@ -495,16 +498,17 @@
      copyright: string;
      legal: string;
    };
-   modal: {
-     title: string;
-     firstName: string;
-     email: string;
-     phone: string;
-     need: string;
-     submit: string;
-     sending: string;
-     successTitle: string;
-     successMessage: string;
-     close: string;
-   };
- };
+    modal: {
+      title: string;
+      subtitle: string;
+      firstName: string;
+      email: string;
+      problem: string;
+      submit: string;
+      sending: string;
+      successTitle: string;
+      successMessage: string;
+      close: string;
+      reassurance: string;
+    };
+  };

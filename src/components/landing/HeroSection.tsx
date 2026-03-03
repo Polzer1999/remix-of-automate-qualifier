@@ -71,7 +71,7 @@ export const HeroSection = () => {
             <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-background to-transparent z-10 pointer-events-none" />
             <img 
               src={paulPhoto} 
-              alt="Linn Manette — Parrit.ai" 
+              alt="Paul Larmaraud — Parrit.ai" 
               className="relative w-full h-auto object-contain"
               style={{ 
                 filter: "drop-shadow(0 16px 32px rgba(0, 0, 0, 0.08))",

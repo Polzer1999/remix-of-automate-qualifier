@@ -128,7 +128,7 @@
     // About
     about: {
       title: 'Qui est derrière Parrit ?',
-      text: 'De la Silicon Valley (ex-Lime) aux grands comptes français. Linn Manette apporte une culture de l\'automatisation sans compromis pour transformer vos opérations.',
+      text: 'De la Silicon Valley (ex-Lime) aux grands comptes français. Paul Larmaraud apporte une culture de l\'automatisation sans compromis pour transformer vos opérations.',
       tagline: 'L\'IA Agentique, sans le bullshit.',
     },
     // Trust Results
@@ -288,7 +288,7 @@
     // About
     about: {
       title: 'Who is behind Parrit?',
-      text: 'From Silicon Valley (ex-Lime) to major French corporations. Linn Manette brings a no-compromise automation culture to transform your operations.',
+      text: 'From Silicon Valley (ex-Lime) to major French corporations. Paul Larmaraud brings a no-compromise automation culture to transform your operations.',
       tagline: 'Agentic AI, without the BS.',
     },
     // Trust Results
@@ -448,7 +448,7 @@
     // About
     about: {
       title: '谁在 Parrit 背后？',
-      text: '从硅谷（前Lime）到法国大型企业。Linn Manette 带来毫不妥协的自动化文化，改变您的运营。',
+      text: '从硅谷（前Lime）到法国大型企业。Paul Larmaraud 带来毫不妥协的自动化文化，改变您的运营。',
       tagline: '智能代理AI，没有废话。',
     },
     // Trust Results

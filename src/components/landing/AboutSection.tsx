@@ -19,7 +19,7 @@ export const AboutSection = () => {
           <div className="w-48 h-48 md:w-64 md:h-64 rounded-2xl overflow-hidden bg-secondary">
             <img
               src={paulPhoto}
-              alt="Linn Manette — Fondateur Parrit.ai"
+              alt="Paul Larmaraud — Fondateur Parrit.ai"
               className="w-full h-full object-cover"
             />
           </div>

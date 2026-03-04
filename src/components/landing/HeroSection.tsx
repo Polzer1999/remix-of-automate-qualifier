@@ -40,8 +40,8 @@ export const HeroSection = () => {
           </p>
 
           {/* Stats line */}
-          <p className="text-sm text-muted-foreground font-mono-tech mb-2">{t.hero.experience}</p>
-          <p className="text-xs text-muted-foreground/50 font-mono-tech mb-8">{t.hero.proof}</p>
+          <p className="text-sm text-muted-foreground mb-2">{t.hero.experience}</p>
+          <p className="text-xs text-muted-foreground/50 mb-8">{t.hero.proof}</p>
           
           {/* CTAs */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
@@ -65,7 +65,7 @@ export const HeroSection = () => {
 
           {/* Social proof */}
           <div className="mt-10 pt-8 border-t border-border">
-            <p className="text-xs text-muted-foreground/50 uppercase tracking-widest font-mono-tech">
+            <p className="text-xs text-muted-foreground/50 uppercase tracking-widest">
               {t.hero.socialProof}
             </p>
           </div>
@@ -93,7 +93,7 @@ export const HeroSection = () => {
         onClick={handleScrollToOffers}
         className="hidden md:flex absolute bottom-8 left-1/2 -translate-x-1/2 flex-col items-center cursor-pointer opacity-30 hover:opacity-60 transition-opacity duration-300"
       >
-        <span className="text-[10px] text-muted-foreground mb-2 tracking-[0.2em] uppercase font-mono-tech">{t.hero.scrollIndicator}</span>
+        <span className="text-[10px] text-muted-foreground mb-2 tracking-[0.2em] uppercase">{t.hero.scrollIndicator}</span>
         <ChevronDown className="w-4 h-4 text-primary animate-bounce-slow" />
       </button>
     </section>

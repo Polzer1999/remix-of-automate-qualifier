@@ -12,7 +12,7 @@ export const Footer = () => {
             <p className="text-sm font-semibold text-foreground/80 mb-1 tracking-tight">
               {t.footer.positioning}
             </p>
-            <p className="text-[10px] text-muted-foreground/50 font-mono-tech">
+            <p className="text-[10px] text-muted-foreground/50">
               {t.footer.copyright}
             </p>
           </div>
@@ -22,7 +22,7 @@ export const Footer = () => {
               href="https://docs.google.com/document/d/1q6Pq_KgNOZAkn1fE7WwD-phGn_26HVU_/edit"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[10px] text-muted-foreground/40 hover:text-foreground/60 transition-colors font-mono-tech"
+              className="text-[10px] text-muted-foreground/40 hover:text-foreground/60 transition-colors"
             >
               {t.footer.legal}
             </a>

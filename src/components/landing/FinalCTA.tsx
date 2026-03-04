@@ -28,7 +28,7 @@ export const FinalCTA = () => {
           <ArrowRight className="ml-2 w-4 h-4" />
         </Button>
         
-        <p className="text-xs text-muted-foreground/50 mt-5 font-mono-tech">
+        <p className="text-xs text-muted-foreground/50 mt-5">
           {t.finalCta.proof}
         </p>
       </div>

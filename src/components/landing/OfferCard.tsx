@@ -68,7 +68,7 @@ export const OfferCard = ({
         </div>
         {badge && (
           <span
-            className="font-mono-tech text-xs font-medium px-2.5 py-1 rounded-md border"
+            className="text-xs font-medium px-2.5 py-1 rounded-md border"
             style={badgeColor 
               ? { color: badgeColor, borderColor: `${badgeColor}33` } 
               : { color: 'hsl(160 84% 39%)', borderColor: 'hsl(160 84% 39% / 0.2)' }
@@ -99,7 +99,7 @@ export const OfferCard = ({
       {twoColumns && (
         <div className="text-sm text-muted-foreground mb-5 grid grid-cols-1 md:grid-cols-2 gap-4 flex-grow">
           <div>
-            <p className="font-mono-tech text-foreground/60 mb-2 text-[10px] uppercase tracking-wider">{twoColumns.left.title}</p>
+            <p className="text-foreground/60 mb-2 text-[10px] uppercase tracking-wider">{twoColumns.left.title}</p>
             <ul className="space-y-1.5">
               {twoColumns.left.items.map((item, index) => (
                 <li key={index} className="flex items-start gap-2">
@@ -110,7 +110,7 @@ export const OfferCard = ({
             </ul>
           </div>
           <div>
-            <p className="font-mono-tech text-foreground/60 mb-2 text-[10px] uppercase tracking-wider">{twoColumns.right.title}</p>
+            <p className="text-foreground/60 mb-2 text-[10px] uppercase tracking-wider">{twoColumns.right.title}</p>
             <ul className="space-y-1.5">
               {twoColumns.right.items.map((item, index) => (
                 <li key={index} className="flex items-start gap-2">

@@ -42,7 +42,7 @@ export const AboutSection = () => {
             <p className="text-foreground/80 text-base md:text-lg leading-relaxed mb-6">
               {t.about.text}
             </p>
-            <p className="text-xs text-primary font-mono-tech uppercase tracking-widest mb-8">
+            <p className="text-xs text-primary uppercase tracking-widest mb-8">
               {t.about.tagline}
             </p>
 
@@ -51,7 +51,7 @@ export const AboutSection = () => {
               {timelineSteps.map((step, i) => (
                 <div key={step.key} className={`relative pb-6 last:pb-0 stagger-${i + 1}`}>
                   <div className="absolute -left-[calc(0.25rem+1.5rem)] top-1 w-2 h-2 rounded-full bg-primary" />
-                  <span className="text-[10px] font-mono-tech text-muted-foreground/60 uppercase tracking-wider">{step.year}</span>
+                  <span className="text-[10px] text-muted-foreground/60 uppercase tracking-wider">{step.year}</span>
                   <p className="text-sm text-foreground/70 mt-0.5">
                     {t.about.timeline[step.key]}
                   </p>

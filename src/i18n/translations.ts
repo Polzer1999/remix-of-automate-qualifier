@@ -1,627 +1,474 @@
- export type Language = 'fr' | 'en' | 'zh';
- 
- export const translations = {
-   fr: {
-     // Header
-     nav: {
-       offers: 'Offres',
-       calendar: 'Calendrier',
-     },
-     // Hero
-     hero: {
-       badge: 'Repartez avec des insights concrets pour faire grandir votre business — que nous travaillions ensemble ou non.',
-       title1: 'Vos équipes perdent 20h/semaine',
-       title2: 'sur des tâches automatisables.',
-       subtitle: 'IA, Automatisation & Agentique',
-       subtitleEnd: 'Je construis les systèmes qui libèrent votre temps.',
-       experience: '3 ans d\'expérience sur les projets customisés d\'automatisation et d\'agents IA.',
-       proof: 'Prospection automatisée • Agents IA sur-mesure • Coaching inclus',
-       ctaPrimary: 'Réserver 15 min — Gratuit',
-       ctaSecondary: 'Voir les offres',
-        scrollIndicator: 'Découvrir les offres',
-        socialProof: 'Approuvé par des experts de :',
-      },
-      // Offers section
-      offersSection: {
-        title: 'Nos offres',
-        subtitle: 'Des solutions conçues pour un ROI immédiat.',
-      },
-     // Offers
-     offers: {
-       pay: {
-         title: 'PaY — Your SAP AI Assistant',
-         subtitle: 'Pour utilisateurs SAP & consultants',
-         description: 'Trouvez vos réponses en 10 secondes au lieu de 20 minutes.',
-         badge: 'Accès Bêta',
-         cta: 'Demander l\'accès bêta',
-         bullets: [
-           '"Comment créer une commande d\'achat ?" → Réponse instantanée',
-           '"Erreur M7001, je fais quoi ?" → Solution étape par étape',
-           'Modules MM, FI, SD couverts',
-         ],
-         mention: 'Base de connaissances validée par consultants seniors',
-         legalMention: 'PaY n\'est pas affilié à SAP SE.',
-       },
-       prospection: {
-         title: 'Prospection Signaux d\'Intention',
-         subtitle: 'On remplit votre pipeline de RDV qualifiés',
-         description: 'Vous nous donnez votre ICP, on détecte ceux qui sont prêts à acheter.',
-         badge: 'Setup 5K€',
-         cta: 'Découvrir l\'offre',
-         twoColumns: {
-           left: {
-             title: 'Ce que vous fournissez :',
-             items: [
-               'Votre client idéal (ICP)',
-               'Votre offre et ses bénéfices',
-               'Les problèmes que vous résolvez',
-             ],
-           },
-           right: {
-             title: 'Ce qu\'on livre :',
-             items: [
-               'Système de détection des signaux',
-               'Pipeline alimenté en continu',
-               'Leads chauds dans votre CRM',
-             ],
-           },
-         },
-         mention: 'Coaching acquisition inclus dans le setup',
-       },
-       agentique: {
-         title: 'Projets Agentiques Sur-Mesure',
-         subtitle: 'Solutions IA pour vos défis uniques',
-         description: 'Automatisation, agents IA, workflows complexes — on construit ce qui n\'existe pas encore.',
-         badge: 'Sur devis',
-         cta: 'Prendre RDV',
-         bullets: [
-           'Catalogues automatisés (maisons de vente aux enchères)',
-           'Assistants WhatsApp connectés à votre CRM',
-           'Process métier : franchises, juridique, RH',
-           'Génération de contenu : SEO, réseaux sociaux',
-         ],
-         mention: 'Accompagnement premium de A à Z',
-       },
-       formation: {
-         title: 'Formation & Prise de Parole',
-         subtitle: 'Montez en compétence sur l\'IA et l\'agentique',
-         description: 'Pour équipes, dirigeants, ou événements — on forme et on inspire.',
-         badge: 'Sur demande',
-         cta: 'En savoir plus',
-         bullets: [
-           'Formation déploiement d\'agents IA',
-           'Masterclass "De l\'IA à l\'Agentique"',
-           'Coaching individuel (outils, mindset, démos)',
-           'Conférences et ateliers en entreprise',
-         ],
-         mention: 'Formats adaptés à vos contraintes',
-       },
-     },
-     // Why Section
-     why: {
-       title: 'Pourquoi travailler avec Parrit.ai ?',
-       reasons: [
-         {
-           title: 'Pas de bullshit',
-           text: 'On parle vrai. Si un projet n\'a pas de sens, on vous le dit.',
-         },
-         {
-           title: 'Exécution rapide',
-           text: 'POC en 2 semaines, déploiement en 4-8 semaines selon le scope.',
-         },
-         {
-           title: 'Coaching inclus',
-           text: 'On ne livre pas juste un outil. On vous rend autonome.',
-         },
-       ],
-     },
-     // Final CTA
-     finalCta: {
-       title: 'Prêt à accélérer ?',
-       subtitle: '15 minutes pour repartir avec des pistes concrètes — que nous travaillions ensemble ou non.',
-       cta: 'Réserver un créneau',
-       proof: 'Réponse sous 24h • 100% gratuit • Sans engagement',
-     },
-     // Calendar
-     calendar: {
-       title: 'Réservez votre appel découverte',
-       subtitle: '15 minutes pour explorer vos besoins et voir si on peut vous aider.',
-     },
-    // Logo Bar
-    logoBar: {
-      title: 'L\'expertise Parrit au service des leaders :',
+export type Language = 'fr' | 'en' | 'zh';
+
+export const translations = {
+  fr: {
+    nav: {
+      offers: 'Offres',
+      systems: 'Systèmes',
+      method: 'Méthode',
+      tools: 'Outils',
+      contact: 'Contact',
     },
-    // About
-      about: {
-        title: 'Une méthode Silicon Valley, appliquée ici',
-        text: 'Après avoir travaillé pour Lime (San Francisco) et accompagné des grands comptes français, Paul Larmaraud a fondé Parrit.ai pour apporter une culture de l\'automatisation sans compromis à vos opérations.',
-        tagline: 'L\'exigence tech de la Silicon Valley, au service de votre business.',
-        timeline: {
-          step1: 'Lime (San Francisco) — Culture de l\'hyper-croissance et de l\'automatisation à grande échelle.',
-          step2: 'Paris — Consulting grands comptes. Déploiement de solutions IA pour des leaders français.',
-          step3: 'Parrit.ai — L\'IA Agentique au service du ROI. Solutions sur-mesure, coaching inclus.',
-        },
-      },
-    // Trust Results
-    trustResults: {
-      title: 'Résultats Garantis',
-      items: [
-        { title: 'ROI mesuré sous 30 jours', text: 'Chaque projet est conçu pour un retour sur investissement rapide et mesurable.' },
-        { title: 'Support expert 7j/7', text: 'Une équipe technique disponible pour vous accompagner à chaque étape.' },
-        { title: 'RGPD Compliant', text: 'Sécurité des données et conformité européenne garanties.' },
-      ],
+    hero: {
+      headline1: 'Vos équipes perdent des heures',
+      headline2: 'sur des tâches que l\'IA peut faire en',
+      highlight: 'secondes.',
+      subtitle: 'Nous intégrons l\'IA dans vos opérations. On livre des systèmes qui tournent. Pas de PowerPoint de recommandations.',
+      subtitleBold: 'Retour sur investissement dès l\'année 1.',
+      cta: 'Réserver un créneau',
     },
-    // Footer
-    footer: {
-      copyright: '© 2025 Parrit.ai — Tous droits réservés',
-      legal: 'Mentions légales',
-      positioning: 'Parrit.ai — L\'IA Agentique au service du ROI.',
-    },
-      // Lead Capture Modal
-      modal: {
-        title: 'Décrivez votre blocage, je vous réponds sous 24h avec la solution',
-        subtitle: 'Défi 24h : Votre Blueprint IA',
-        firstName: 'Votre prénom',
-        email: 'Votre email professionnel *',
-        problem: 'Décrivez votre problème ou blocage en détail...',
-        submit: 'Envoyer mon défi',
-        sending: 'Envoi en cours...',
-        successTitle: 'C\'est dans la boîte !',
-        successMessage: 'Linn analyse votre demande. Réponse sous 24h garantie.',
-        close: 'Fermer',
-        reassurance: 'Zéro spam. Juste une solution technique à votre problème.',
+    founders: {
+      paul: {
+        name: 'Paul Larmaraud',
+        role: 'Go-to-Market · Produit · Opérations',
+        desc: 'Spécialiste lancement 0→1. Ex-Lime (déploiement mondial Swap Stations, lancement Londres & Lille, formation IA des équipes). Go-to-market et déploiement de projets IA/automatisation pour des grands groupes — nucléaire, retail (Lavazza, SEB), RH, marketing.',
       },
-   },
-   en: {
-     // Header
-     nav: {
-       offers: 'Offers',
-       calendar: 'Calendar',
-     },
-     // Hero
-     hero: {
-       badge: 'Leave with actionable insights to grow your business — whether we work together or not.',
-       title1: 'Your teams waste 20h/week',
-       title2: 'on automatable tasks.',
-       subtitle: 'AI, Automation & Agentic',
-       subtitleEnd: 'I build systems that free up your time.',
-       experience: '3 years of experience on custom automation and AI agent projects.',
-       proof: 'Automated prospecting • Custom AI agents • Coaching included',
-       ctaPrimary: 'Book 15 min — Free',
-       ctaSecondary: 'See offers',
-        scrollIndicator: 'Discover offers',
-        socialProof: 'Approved by experts from:',
-      },
-      offersSection: {
-        title: 'Our offers',
-        subtitle: 'Solutions designed for immediate ROI.',
-      },
-     offers: {
-       pay: {
-         title: 'PaY — Your SAP AI Assistant',
-         subtitle: 'For SAP users & consultants',
-         description: 'Find your answers in 10 seconds instead of 20 minutes.',
-         badge: 'Beta Access',
-         cta: 'Request beta access',
-         bullets: [
-           '"How to create a purchase order?" → Instant answer',
-           '"Error M7001, what do I do?" → Step-by-step solution',
-           'MM, FI, SD modules covered',
-         ],
-         mention: 'Knowledge base validated by senior consultants',
-         legalMention: 'PaY is not affiliated with SAP SE.',
-       },
-       prospection: {
-         title: 'Intent Signal Prospecting',
-         subtitle: 'We fill your pipeline with qualified meetings',
-         description: 'You give us your ICP, we detect those ready to buy.',
-         badge: 'Setup 5K€',
-         cta: 'Learn more',
-         twoColumns: {
-           left: {
-             title: 'What you provide:',
-             items: [
-               'Your ideal customer (ICP)',
-               'Your offer and its benefits',
-               'The problems you solve',
-             ],
-           },
-           right: {
-             title: 'What we deliver:',
-             items: [
-               'Signal detection system',
-               'Continuously fed pipeline',
-               'Hot leads in your CRM',
-             ],
-           },
-         },
-         mention: 'Acquisition coaching included in setup',
-       },
-       agentique: {
-         title: 'Custom Agentic Projects',
-         subtitle: 'AI solutions for your unique challenges',
-         description: 'Automation, AI agents, complex workflows — we build what doesn\'t exist yet.',
-         badge: 'On quote',
-         cta: 'Book a call',
-         bullets: [
-           'Automated catalogs (auction houses)',
-           'WhatsApp assistants connected to your CRM',
-           'Business processes: franchises, legal, HR',
-           'Content generation: SEO, social media',
-         ],
-         mention: 'Premium support from A to Z',
-       },
-       formation: {
-         title: 'Training & Speaking',
-         subtitle: 'Level up on AI and agentic systems',
-         description: 'For teams, executives, or events — we train and inspire.',
-         badge: 'On request',
-         cta: 'Learn more',
-         bullets: [
-           'AI agent deployment training',
-           'Masterclass "From AI to Agentic"',
-           'Individual coaching (tools, mindset, demos)',
-           'Corporate conferences and workshops',
-         ],
-         mention: 'Formats adapted to your constraints',
-       },
-     },
-     // Why Section
-     why: {
-       title: 'Why work with Parrit.ai?',
-       reasons: [
-         {
-           title: 'No BS',
-           text: 'We speak the truth. If a project doesn\'t make sense, we\'ll tell you.',
-         },
-         {
-           title: 'Fast execution',
-           text: 'POC in 2 weeks, deployment in 4-8 weeks depending on scope.',
-         },
-         {
-           title: 'Coaching included',
-           text: 'We don\'t just deliver a tool. We make you autonomous.',
-         },
-       ],
-     },
-     // Final CTA
-     finalCta: {
-       title: 'Ready to accelerate?',
-       subtitle: '15 minutes to leave with actionable insights — whether we work together or not.',
-       cta: 'Book a slot',
-       proof: 'Response within 24h • 100% free • No commitment',
-     },
-     // Calendar
-     calendar: {
-       title: 'Book your discovery call',
-       subtitle: '15 minutes to explore your needs and see if we can help.',
-     },
-    // Logo Bar
-    logoBar: {
-      title: 'Parrit expertise serving industry leaders:',
-    },
-    // About
-      about: {
-        title: 'A Silicon Valley method, applied here',
-        text: 'After working for Lime (San Francisco) and supporting major French corporations, Paul Larmaraud founded Parrit.ai to bring a no-compromise automation culture to your operations.',
-        tagline: 'Silicon Valley tech standards, serving your business.',
-        timeline: {
-          step1: 'Lime (San Francisco) — Hyper-growth culture and large-scale automation.',
-          step2: 'Paris — Enterprise consulting. Deploying AI solutions for French industry leaders.',
-          step3: 'Parrit.ai — Agentic AI serving ROI. Custom solutions, coaching included.',
-        },
-      },
-    // Trust Results
-    trustResults: {
-      title: 'Guaranteed Results',
-      items: [
-        { title: 'ROI measured within 30 days', text: 'Every project is designed for fast, measurable return on investment.' },
-        { title: 'Expert support 7/7', text: 'A technical team available to support you at every step.' },
-        { title: 'GDPR Compliant', text: 'Data security and European compliance guaranteed.' },
-      ],
-    },
-    // Footer
-    footer: {
-      copyright: '© 2025 Parrit.ai — All rights reserved',
-      legal: 'Legal notice',
-      positioning: 'Parrit.ai — Agentic AI serving ROI.',
-    },
-      // Lead Capture Modal
-      modal: {
-        title: 'Describe your bottleneck, I\'ll respond within 24h with the solution',
-        subtitle: '24h Challenge: Your AI Blueprint',
-        firstName: 'Your first name',
-        email: 'Your professional email *',
-        problem: 'Describe your problem or bottleneck in detail...',
-        submit: 'Send my challenge',
-        sending: 'Sending...',
-        successTitle: 'It\'s in the box!',
-        successMessage: 'Linn is analyzing your request. Response guaranteed within 24h.',
-        close: 'Close',
-        reassurance: 'Zero spam. Just a technical solution to your problem.',
-      },
-   },
-   zh: {
-     // Header
-     nav: {
-       offers: '服务',
-       calendar: '预约',
-     },
-     // Hero
-     hero: {
-       badge: '无论我们是否合作，您都将获得具体可行的见解来发展您的业务。',
-       title1: '您的团队每周浪费20小时',
-       title2: '在可自动化的任务上。',
-       subtitle: 'AI、自动化与智能代理',
-       subtitleEnd: '我构建释放您时间的系统。',
-       experience: '3年定制自动化和AI代理项目经验。',
-       proof: '自动化获客 • 定制AI代理 • 包含辅导',
-       ctaPrimary: '预约15分钟 — 免费',
-       ctaSecondary: '查看服务',
-        scrollIndicator: '探索服务',
-        socialProof: '获得以下专家认可：',
-      },
-      offersSection: {
-        title: '我们的服务',
-        subtitle: '为即时ROI设计的解决方案。',
-      },
-     // Offers
-     offers: {
-       pay: {
-         title: 'PaY — 您的SAP AI助手',
-         subtitle: '面向SAP用户和顾问',
-         description: '10秒内找到答案，而不是20分钟。',
-         badge: 'Beta测试',
-         cta: '申请Beta访问',
-         bullets: [
-           '"如何创建采购订单？" → 即时回答',
-           '"错误M7001，我该怎么办？" → 分步解决方案',
-           '涵盖MM、FI、SD模块',
-         ],
-         mention: '知识库由资深顾问验证',
-         legalMention: 'PaY与SAP SE无关联。',
-       },
-       prospection: {
-         title: '意向信号获客',
-         subtitle: '我们为您的销售管道填充合格会议',
-         description: '您提供理想客户画像，我们识别准备购买的客户。',
-         badge: '设置费5K€',
-         cta: '了解更多',
-         twoColumns: {
-           left: {
-             title: '您提供：',
-             items: [
-               '您的理想客户(ICP)',
-               '您的产品及其优势',
-               '您解决的问题',
-             ],
-           },
-           right: {
-             title: '我们交付：',
-             items: [
-               '信号检测系统',
-               '持续供给的销售管道',
-               'CRM中的热门线索',
-             ],
-           },
-         },
-         mention: '设置费包含获客辅导',
-       },
-       agentique: {
-         title: '定制智能代理项目',
-         subtitle: '为您独特挑战提供AI解决方案',
-         description: '自动化、AI代理、复杂工作流——我们构建尚不存在的系统。',
-         badge: '定制报价',
-         cta: '预约通话',
-         bullets: [
-           '自动化目录（拍卖行）',
-           '连接CRM的WhatsApp助手',
-           '业务流程：加盟店、法务、人力资源',
-           '内容生成：SEO、社交媒体',
-         ],
-         mention: '从A到Z的优质支持',
-       },
-       formation: {
-         title: '培训与演讲',
-         subtitle: '提升AI和智能代理能力',
-         description: '面向团队、高管或活动——我们培训并激励。',
-         badge: '按需定制',
-         cta: '了解更多',
-         bullets: [
-           'AI代理部署培训',
-           '"从AI到智能代理"大师课',
-           '个人辅导（工具、思维、演示）',
-           '企业会议和研讨会',
-         ],
-         mention: '格式适应您的需求',
-       },
-     },
-     // Why Section
-     why: {
-       title: '为什么选择Parrit.ai？',
-       reasons: [
-         {
-           title: '实话实说',
-           text: '我们坦诚相告。如果项目不合理，我们会告诉您。',
-         },
-         {
-           title: '快速执行',
-           text: 'POC 2周，部署4-8周（取决于范围）。',
-         },
-         {
-           title: '包含辅导',
-           text: '我们不只是交付工具。我们让您自主。',
-         },
-       ],
-     },
-     // Final CTA
-     finalCta: {
-       title: '准备加速了吗？',
-       subtitle: '15分钟获得可行的见解——无论我们是否合作。',
-       cta: '预约时间',
-       proof: '24小时内回复 • 100%免费 • 无承诺',
-     },
-     // Calendar
-     calendar: {
-       title: '预约您的发现通话',
-       subtitle: '15分钟探索您的需求，看看我们能否帮助您。',
-     },
-    // Logo Bar
-    logoBar: {
-      title: 'Parrit 专业服务行业领袖：',
-    },
-    // About
-      about: {
-        title: '硅谷方法，在这里应用',
-        text: '在为Lime（旧金山）工作并服务法国大型企业之后，Paul Larmaraud创立了Parrit.ai，将毫不妥协的自动化文化带入您的运营。',
-        tagline: '硅谷技术标准，服务于您的业务。',
-        timeline: {
-          step1: 'Lime（旧金山）— 超高速增长文化和大规模自动化。',
-          step2: '巴黎 — 大型企业咨询。为法国行业领袖部署AI解决方案。',
-          step3: 'Parrit.ai — 智能代理AI服务于ROI。定制解决方案，包含辅导。',
-        },
-      },
-    // Trust Results
-    trustResults: {
-      title: '保证结果',
-      items: [
-        { title: '30天内衡量ROI', text: '每个项目都为快速、可衡量的投资回报而设计。' },
-        { title: '7天/周专家支持', text: '技术团队随时为您提供支持。' },
-        { title: 'GDPR合规', text: '保证数据安全和欧洲合规性。' },
-      ],
-    },
-    // Footer
-    footer: {
-      copyright: '© 2025 Parrit.ai — 版权所有',
-      legal: '法律声明',
-      positioning: 'Parrit.ai — 智能代理AI服务于ROI。',
-    },
-      // Lead Capture Modal
-      modal: {
-        title: '描述您的障碍，我将在24小时内回复解决方案',
-        subtitle: '24小时挑战：您的AI蓝图',
-        firstName: '您的名字',
-        email: '您的职业邮箱 *',
-        problem: '详细描述您的问题或障碍...',
-        submit: '发送我的挑战',
-        sending: '发送中...',
-        successTitle: '收到了！',
-        successMessage: 'Linn正在分析您的请求。保证24小时内回复。',
-        close: '关闭',
-        reassurance: '零垃圾邮件。只为您的问题提供技术解决方案。',
+      yukun: {
+        name: 'Yukun Leng 冷玉坤',
+        role: 'SAP MM/SD · Supply Chain · 10 ans',
+        desc: '10 ans d\'expérience SAP, spécialiste supply chain et gestion de flux. Consultante LVMH, manufacturing électronique en Chine. Grands groupes France et Chine, secteurs luxe et industrie.',
       },
     },
-  } as const;
- 
- // Generic type that captures the structure but allows any string values
- export type Translations = {
-   nav: { offers: string; calendar: string };
-   hero: {
-     badge: string;
-     title1: string;
-     title2: string;
-     subtitle: string;
-     subtitleEnd: string;
-     experience: string;
-     proof: string;
-     ctaPrimary: string;
-     ctaSecondary: string;
-      scrollIndicator: string;
-      socialProof: string;
-    };
+    constat: {
+      label: 'des projets IA échouent',
+      title: 'Pas à cause de la technologie.',
+      text1: 'Parce que le besoin n\'était pas clair. Parce que personne n\'a posé les bonnes questions avant de coder. Parce qu\'on a livré un outil sans comprendre le process.',
+      text2: 'Nos expertises métier (luxe, retail, industrie, supply chain) et tech (product, itération rapide) nous permettent de poser les bonnes questions avant de coder.',
+      punchline1: 'Nous, on commence par là.',
+      punchline2: 'Le cadrage d\'abord. La techno ensuite.',
+    },
     offersSection: {
-      title: string;
-      subtitle: string;
-    };
+      title: 'Ce que nous faisons',
+    },
     offers: {
-     pay: {
-       title: string;
-       subtitle: string;
-       description: string;
-       badge: string;
-       cta: string;
-       bullets: readonly string[];
-       mention: string;
-       legalMention: string;
-     };
-     prospection: {
-       title: string;
-       subtitle: string;
-       description: string;
-       badge: string;
-       cta: string;
-       twoColumns: {
-         left: { title: string; items: readonly string[] };
-         right: { title: string; items: readonly string[] };
-       };
-       mention: string;
-     };
-     agentique: {
-       title: string;
-       subtitle: string;
-       description: string;
-       badge: string;
-       cta: string;
-       bullets: readonly string[];
-       mention: string;
-     };
-     formation: {
-       title: string;
-       subtitle: string;
-       description: string;
-       badge: string;
-       cta: string;
-       bullets: readonly string[];
-       mention: string;
-     };
-   };
-   why: {
-     title: string;
-     reasons: readonly { title: string; text: string }[];
-   };
-   finalCta: {
-     title: string;
-     subtitle: string;
-     cta: string;
-     proof: string;
-   };
-   calendar: {
-     title: string;
-     subtitle: string;
-   };
-    logoBar: {
-      title: string;
-    };
-     about: {
-       title: string;
-       text: string;
-       tagline: string;
-       timeline: {
-         step1: string;
-         step2: string;
-         step3: string;
-       };
-     };
-    trustResults: {
-      title: string;
-      items: readonly { title: string; text: string }[];
-    };
+      pay: {
+        title: 'PaY',
+        description: 'Assistant IA pour SAP — modules MM, SD, FI. Pour consultants et utilisateurs. Réduit le recours aux consultants externes, rend le travail quotidien plus efficace.',
+        badge: 'Produit SaaS',
+        cta: 'Demander une démo',
+        tiers: [
+          { name: 'Questions-Réponses', desc: 'Réponses SAP en langage naturel pour les utilisateurs finaux' },
+          { name: 'Conseils Experts', desc: 'Recommandations avancées pour les consultants SAP seniors' },
+          { name: 'Modules & Utilisateurs', desc: 'MM, SD, FI. S\'adapte au rôle : utilisateur final ou consultant SAP.' },
+        ],
+      },
+      agentique: {
+        title: 'Agentique & Automatisation Sur-Mesure',
+        description: 'Workflows, chatbots, intégrations custom. On automatise et rend intelligent vos process métier de bout en bout. Formation de vos équipes incluse dans chaque projet.',
+        badge: 'Sur devis',
+        cta: 'Discuter de votre projet',
+        bullets: [
+          'Agents IA et workflows automatisés',
+          'Intégrations custom (ERP, CRM, WhatsApp…)',
+          'Formation et coaching inclus',
+          'Itération rapide et mise en production',
+        ],
+      },
+    },
+    caseStudies: {
+      title: 'Systèmes customisés en production',
+      badge: 'ROI vérifié',
+      cases: [
+        {
+          sector: 'Restauration · Réseau en forte croissance · Dubaï',
+          title: 'Process d\'ouverture de nouvelles franchises automatisé',
+          before: 'Chaque ouverture gérée par email et mémoire humaine. 10+ étapes par franchise. Oublis récurrents, retards.',
+          after: 'Board Monday.com (32 colonnes, 5 groupes) + Workflow N8N : routing WhatsApp par rôle, détection retards J+1, alertes 3 niveaux.',
+          metrics: [
+            { value: '÷4', label: 'temps par ouverture' },
+            { value: '0', label: 'dossier oublié' },
+          ],
+          stack: 'Monday.com · N8N · Twilio · SMTP',
+        },
+        {
+          sector: 'Formation · Organisme national · SharePoint',
+          title: 'Consolidation stagiaires automatisée',
+          before: '16 organismes envoient chacun un fichier Excel + PDF. Consolidé à la main : 2 à 4 jours par cycle.',
+          after: 'Pipeline N8N + Python : import auto 16 fichiers → normalisation → vérification croisée → consolidation → rapport d\'anomalies.',
+          metrics: [
+            { value: '2-4j', label: 'gagnés par cycle' },
+            { value: '16', label: 'sources consolidées' },
+          ],
+          stack: 'SharePoint · N8N · Python · OpenPyXL',
+        },
+        {
+          sector: 'Industrie · Textile · Process d\'achat',
+          title: 'Facturation & devis automatisés',
+          before: 'Ressaisie manuelle dans l\'ERP puis le CRM. 30 min par facture, 30 factures/jour. Erreurs, doublons.',
+          after: 'Email → extraction IA → pré-remplissage ERP+CRM → notification relecture. 30 secondes au lieu de 30 minutes.',
+          metrics: [
+            { value: '30s', label: 'par facture (vs 30 min)' },
+            { value: '30/j', label: 'volume traité' },
+          ],
+          stack: 'Email · IA Extraction · ERP · CRM',
+        },
+        {
+          sector: 'Luxe · Maison de vente aux enchères · Suisse',
+          title: 'Estimation d\'objets par IA',
+          before: 'Chaque objet estimé manuellement par un expert. Des semaines pour 200+ lots.',
+          after: 'Pipeline IA : photo → analyse Vision LLM + Google Vision → recherche comparables → estimation argumentée avec score de confiance.',
+          metrics: [
+            { value: '÷5', label: 'temps d\'estimation' },
+            { value: '200+', label: 'lots par vente' },
+          ],
+          stack: 'Claude · Google Vision · Qdrant · LangGraph · Python',
+        },
+      ],
+    },
+    method: {
+      title: 'Notre méthode',
+      steps: [
+        { title: 'Définition & Audit', desc: 'Cartographie de vos flux, définition des User Stories, calcul du ROI par automatisation. Les bonnes questions avant le code.', timeline: 'Semaine 1-2' },
+        { title: 'Priorisation', desc: 'Sélection de la première automatisation par rapidité de déploiement et ROI. Tests utilisateurs et itération inclus.', timeline: 'Semaine 2-4' },
+        { title: 'Déploiement', desc: 'Mise en production des automatisations. Itération et validation avec les utilisateurs finaux incluses.', timeline: 'Mois 1-3' },
+        { title: 'Amélioration & Coaching', desc: 'Monitoring, optimisation, nouvelles automatisations. Formation continue et coaching inclus dans chaque projet.', timeline: 'Continu' },
+      ],
+      diff: 'Ce qui nous différencie : on livre la première automatisation dès la semaine 2 — pas un audit de 3 mois. Vous apprenez en faisant, pas en écoutant.',
+    },
+    stack: {
+      label: 'Notre stack',
+      title: 'Agnostiques par conviction',
+      subtitle: 'Quelques-uns des outils que nous utilisons pour nos déploiements et auxquels nous connectons vos systèmes. Veille constante sur les nouvelles innovations.',
+      cards: [
+        { title: 'Experts LLM & Prompt Engineering', desc: 'Nous maîtrisons les capacités et limites de chaque modèle (Claude, GPT, Gemini, Qwen, Grok). Spécialistes en conception d\'instructions, itération de prompts et architecture d\'agents IA.' },
+        { title: 'Intégrateurs multi-environnement', desc: 'Microsoft, Google, environnements chinois (Alibaba Cloud, Tencent, Baidu). On connecte vos outils existants entre eux — ERP, CRM, SharePoint, WhatsApp, WeChat.' },
+      ],
+      integration: 'Intégration dans vos outils existants — Nous nous connectons à tous les outils dotés d\'une API : Outlook, Teams, Gmail, Google Workspace, WeChat, QQ, Slack, WhatsApp, SharePoint, Salesforce, SAP, et l\'ensemble de vos suites bureautiques.',
+    },
+    contact: {
+      title1: 'Parlons de',
+      title2: 'votre projet.',
+      subtitle: 'Un premier échange de 30 minutes, sans engagement. On prépare une analyse de votre secteur avant l\'appel.',
+      promises: [
+        'Diagnostic de vos process actuels',
+        'Identification des quick wins',
+        'Estimation ROI chiffrée',
+        'Insights concrets — même si on ne travaille pas ensemble',
+      ],
+      cta: 'Réserver un créneau',
+    },
     footer: {
-      copyright: string;
-      legal: string;
-      positioning: string;
-    };
+      copyright: '© 2026 Parrit.ai — IA, Automatisation & Solutions Agentiques',
+      legal: 'Mentions légales',
+    },
     modal: {
-      title: string;
-      subtitle: string;
-      firstName: string;
-      email: string;
-      problem: string;
-      submit: string;
-      sending: string;
-      successTitle: string;
-      successMessage: string;
-      close: string;
-      reassurance: string;
-    };
-  };
+      title: 'Décrivez votre besoin, je vous réponds sous 24h',
+      subtitle: 'Défi 24h : Votre Blueprint IA',
+      firstName: 'Votre prénom',
+      email: 'Votre email professionnel *',
+      problem: 'Décrivez votre problème ou besoin en détail...',
+      submit: 'Envoyer',
+      sending: 'Envoi en cours...',
+      successTitle: 'C\'est envoyé !',
+      successMessage: 'Paul analyse votre demande. Réponse sous 24h garantie.',
+      close: 'Fermer',
+      reassurance: 'Zéro spam. Juste une solution technique à votre problème.',
+    },
+  },
+  en: {
+    nav: {
+      offers: 'Services',
+      systems: 'Systems',
+      method: 'Method',
+      tools: 'Tools',
+      contact: 'Contact',
+    },
+    hero: {
+      headline1: 'Your teams waste hours',
+      headline2: 'on tasks AI can do in',
+      highlight: 'seconds.',
+      subtitle: 'We integrate AI into your operations. We deliver systems that run. No recommendation PowerPoints.',
+      subtitleBold: 'ROI from year 1.',
+      cta: 'Book a slot',
+    },
+    founders: {
+      paul: {
+        name: 'Paul Larmaraud',
+        role: 'Go-to-Market · Product · Operations',
+        desc: '0→1 launch specialist. Ex-Lime (worldwide Swap Stations deployment, London & Lille launches, AI team training). Go-to-market and AI/automation project deployment for large enterprises — nuclear, retail (Lavazza, SEB), HR, marketing.',
+      },
+      yukun: {
+        name: 'Yukun Leng 冷玉坤',
+        role: 'SAP MM/SD · Supply Chain · 10 years',
+        desc: '10 years SAP experience, supply chain and flow management specialist. LVMH consultant, electronic manufacturing in China. Large enterprises in France and China, luxury and industrial sectors.',
+      },
+    },
+    constat: {
+      label: 'of AI projects fail',
+      title: 'Not because of the technology.',
+      text1: 'Because the need wasn\'t clear. Because nobody asked the right questions before coding. Because a tool was delivered without understanding the process.',
+      text2: 'Our business (luxury, retail, industry, supply chain) and tech (product, rapid iteration) expertise allows us to ask the right questions before coding.',
+      punchline1: 'We start there.',
+      punchline2: 'Framing first. Tech second.',
+    },
+    offersSection: {
+      title: 'What we do',
+    },
+    offers: {
+      pay: {
+        title: 'PaY',
+        description: 'AI assistant for SAP — MM, SD, FI modules. For consultants and users. Reduces reliance on external consultants, makes daily work more efficient.',
+        badge: 'SaaS Product',
+        cta: 'Request a demo',
+        tiers: [
+          { name: 'Q&A', desc: 'SAP answers in natural language for end users' },
+          { name: 'Expert Advice', desc: 'Advanced recommendations for senior SAP consultants' },
+          { name: 'Modules & Users', desc: 'MM, SD, FI. Adapts to role: end user or SAP consultant.' },
+        ],
+      },
+      agentique: {
+        title: 'Custom Agentic & Automation',
+        description: 'Workflows, chatbots, custom integrations. We automate and make your business processes intelligent end-to-end. Team training included in every project.',
+        badge: 'On quote',
+        cta: 'Discuss your project',
+        bullets: [
+          'AI agents and automated workflows',
+          'Custom integrations (ERP, CRM, WhatsApp…)',
+          'Training and coaching included',
+          'Rapid iteration and production deployment',
+        ],
+      },
+    },
+    caseStudies: {
+      title: 'Custom systems in production',
+      badge: 'Verified ROI',
+      cases: [
+        {
+          sector: 'Restaurant · Fast-growing network · Dubai',
+          title: 'Automated new franchise opening process',
+          before: 'Each opening managed by email and human memory. 10+ steps per franchise. Recurring oversights, delays.',
+          after: 'Monday.com board (32 columns, 5 groups) + N8N Workflow: WhatsApp routing by role, D+1 delay detection, 3-level alerts.',
+          metrics: [{ value: '÷4', label: 'time per opening' }, { value: '0', label: 'forgotten file' }],
+          stack: 'Monday.com · N8N · Twilio · SMTP',
+        },
+        {
+          sector: 'Training · National organization · SharePoint',
+          title: 'Automated trainee consolidation',
+          before: '16 regional orgs each send an Excel + PDF. Hand-consolidated: 2-4 days per cycle.',
+          after: 'N8N + Python pipeline: auto-import 16 files → normalization → cross-check → consolidation → anomaly report.',
+          metrics: [{ value: '2-4d', label: 'saved per cycle' }, { value: '16', label: 'sources consolidated' }],
+          stack: 'SharePoint · N8N · Python · OpenPyXL',
+        },
+        {
+          sector: 'Industry · Textile · Purchasing',
+          title: 'Automated invoicing & quotes',
+          before: 'Manual re-entry into ERP then CRM. 30 min per invoice, 30 invoices/day. Errors, duplicates.',
+          after: 'Email → AI extraction → ERP+CRM pre-fill → review notification. 30 seconds instead of 30 minutes.',
+          metrics: [{ value: '30s', label: 'per invoice (vs 30 min)' }, { value: '30/d', label: 'volume processed' }],
+          stack: 'Email · AI Extraction · ERP · CRM',
+        },
+        {
+          sector: 'Luxury · Auction house · Switzerland',
+          title: 'AI object appraisal',
+          before: 'Each object manually appraised by an expert. Weeks for 200+ lots.',
+          after: 'AI pipeline: photo → Vision LLM analysis + Google Vision → comparable search → argued estimate with confidence score.',
+          metrics: [{ value: '÷5', label: 'appraisal time' }, { value: '200+', label: 'lots per sale' }],
+          stack: 'Claude · Google Vision · Qdrant · LangGraph · Python',
+        },
+      ],
+    },
+    method: {
+      title: 'Our method',
+      steps: [
+        { title: 'Definition & Audit', desc: 'Mapping your flows, defining User Stories, calculating ROI per automation. The right questions before code.', timeline: 'Week 1-2' },
+        { title: 'Prioritization', desc: 'Selecting the first automation by deployment speed and ROI. User testing and iteration included.', timeline: 'Week 2-4' },
+        { title: 'Deployment', desc: 'Production deployment of automations. Iteration and validation with end users included.', timeline: 'Month 1-3' },
+        { title: 'Improvement & Coaching', desc: 'Monitoring, optimization, new automations. Continuous training and coaching included in every project.', timeline: 'Ongoing' },
+      ],
+      diff: 'What sets us apart: we deliver the first automation by week 2 — not a 3-month audit. You learn by doing, not by listening.',
+    },
+    stack: {
+      label: 'Our stack',
+      title: 'Agnostic by conviction',
+      subtitle: 'Some of the tools we use for our deployments and to which we connect your systems. Constant watch on new innovations.',
+      cards: [
+        { title: 'LLM & Prompt Engineering Experts', desc: 'We master the capabilities and limits of each model (Claude, GPT, Gemini, Qwen, Grok). Specialists in instruction design, prompt iteration and AI agent architecture.' },
+        { title: 'Multi-environment integrators', desc: 'Microsoft, Google, Chinese environments (Alibaba Cloud, Tencent, Baidu). We connect your existing tools — ERP, CRM, SharePoint, WhatsApp, WeChat.' },
+      ],
+      integration: 'Integration with your existing tools — We connect to all API-enabled tools: Outlook, Teams, Gmail, Google Workspace, WeChat, QQ, Slack, WhatsApp, SharePoint, Salesforce, SAP, and all your office suites.',
+    },
+    contact: {
+      title1: 'Let\'s talk about',
+      title2: 'your project.',
+      subtitle: 'A first 30-minute exchange, no commitment. We prepare an analysis of your sector before the call.',
+      promises: [
+        'Diagnosis of your current processes',
+        'Quick win identification',
+        'Quantified ROI estimate',
+        'Concrete insights — even if we don\'t work together',
+      ],
+      cta: 'Book a slot',
+    },
+    footer: {
+      copyright: '© 2026 Parrit.ai — AI, Automation & Agentic Solutions',
+      legal: 'Legal notice',
+    },
+    modal: {
+      title: 'Describe your need, I\'ll respond within 24h',
+      subtitle: '24h Challenge: Your AI Blueprint',
+      firstName: 'Your first name',
+      email: 'Your professional email *',
+      problem: 'Describe your problem or need in detail...',
+      submit: 'Send',
+      sending: 'Sending...',
+      successTitle: 'Sent!',
+      successMessage: 'Paul is analyzing your request. Response guaranteed within 24h.',
+      close: 'Close',
+      reassurance: 'Zero spam. Just a technical solution to your problem.',
+    },
+  },
+  zh: {
+    nav: {
+      offers: '服务',
+      systems: '系统',
+      method: '方法',
+      tools: '工具',
+      contact: '联系',
+    },
+    hero: {
+      headline1: '您的团队浪费数小时',
+      headline2: '在AI可以完成的任务上，仅需',
+      highlight: '几秒钟。',
+      subtitle: '我们将AI集成到您的运营中。交付可运行的系统。没有推荐PPT。',
+      subtitleBold: '第一年即可获得投资回报。',
+      cta: '预约时间',
+    },
+    founders: {
+      paul: {
+        name: 'Paul Larmaraud',
+        role: '市场推广 · 产品 · 运营',
+        desc: '0→1启动专家。前Lime（全球Swap Stations部署、伦敦和里尔启动、团队AI培训）。为大型企业部署AI/自动化项目——核能、零售（Lavazza、SEB）、人力资源、市场营销。',
+      },
+      yukun: {
+        name: 'Yukun Leng 冷玉坤',
+        role: 'SAP MM/SD · 供应链 · 10年',
+        desc: '10年SAP经验，供应链和流程管理专家。LVMH顾问，中国电子制造。法国和中国大型企业，奢侈品和工业领域。',
+      },
+    },
+    constat: {
+      label: '的AI项目失败',
+      title: '不是因为技术。',
+      text1: '因为需求不清晰。因为没有人在编码之前提出正确的问题。因为交付了一个工具，却不了解流程。',
+      text2: '我们的业务（奢侈品、零售、工业、供应链）和技术（产品、快速迭代）专业知识使我们能够在编码之前提出正确的问题。',
+      punchline1: '我们从这里开始。',
+      punchline2: '先框架。后技术。',
+    },
+    offersSection: {
+      title: '我们的服务',
+    },
+    offers: {
+      pay: {
+        title: 'PaY',
+        description: 'SAP的AI助手——MM、SD、FI模块。面向顾问和用户。减少对外部顾问的依赖，使日常工作更高效。',
+        badge: 'SaaS产品',
+        cta: '申请演示',
+        tiers: [
+          { name: '问答', desc: '用自然语言为最终用户提供SAP回答' },
+          { name: '专家建议', desc: '为资深SAP顾问提供高级建议' },
+          { name: '模块与用户', desc: 'MM、SD、FI。适应角色：最终用户或SAP顾问。' },
+        ],
+      },
+      agentique: {
+        title: '定制智能代理与自动化',
+        description: '工作流、聊天机器人、自定义集成。我们端到端地自动化和智能化您的业务流程。每个项目都包含团队培训。',
+        badge: '定制报价',
+        cta: '讨论您的项目',
+        bullets: [
+          'AI代理和自动化工作流',
+          '自定义集成（ERP、CRM、WhatsApp…）',
+          '包含培训和辅导',
+          '快速迭代和生产部署',
+        ],
+      },
+    },
+    caseStudies: {
+      title: '生产中的定制系统',
+      badge: '验证ROI',
+      cases: [
+        {
+          sector: '餐饮 · 快速增长网络 · 迪拜',
+          title: '新特许经营开业流程自动化',
+          before: '每次开业通过邮件和人工记忆管理。每个特许经营10+步骤。经常性遗漏和延迟。',
+          after: 'Monday.com看板（32列，5组）+ N8N工作流：按角色WhatsApp路由，D+1延迟检测，3级警报。',
+          metrics: [{ value: '÷4', label: '每次开业时间' }, { value: '0', label: '遗忘文件' }],
+          stack: 'Monday.com · N8N · Twilio · SMTP',
+        },
+        {
+          sector: '培训 · 全国组织 · SharePoint',
+          title: '学员整合自动化',
+          before: '16个地区组织各发送Excel + PDF。手动整合：每周期2-4天。',
+          after: 'N8N + Python管道：自动导入16个文件→标准化→交叉验证→整合→异常报告。',
+          metrics: [{ value: '2-4天', label: '每周期节省' }, { value: '16', label: '整合来源' }],
+          stack: 'SharePoint · N8N · Python · OpenPyXL',
+        },
+        {
+          sector: '工业 · 纺织 · 采购',
+          title: '发票和报价自动化',
+          before: '手动重新输入ERP然后CRM。每张发票30分钟，每天30张。错误和重复。',
+          after: '邮件→AI提取→ERP+CRM预填→审核通知。30秒代替30分钟。',
+          metrics: [{ value: '30秒', label: '每张发票（vs 30分钟）' }, { value: '30/天', label: '处理量' }],
+          stack: '邮件 · AI提取 · ERP · CRM',
+        },
+        {
+          sector: '奢侈品 · 拍卖行 · 瑞士',
+          title: 'AI物品估价',
+          before: '每件物品由专家手动估价。200+件需要数周。',
+          after: 'AI管道：照片→Vision LLM分析 + Google Vision→可比搜索→带置信度评分的论证估价。',
+          metrics: [{ value: '÷5', label: '估价时间' }, { value: '200+', label: '每次拍卖件数' }],
+          stack: 'Claude · Google Vision · Qdrant · LangGraph · Python',
+        },
+      ],
+    },
+    method: {
+      title: '我们的方法',
+      steps: [
+        { title: '定义与审计', desc: '映射您的流程，定义用户故事，计算每个自动化的ROI。编码前的正确问题。', timeline: '第1-2周' },
+        { title: '优先排序', desc: '按部署速度和ROI选择第一个自动化。包含用户测试和迭代。', timeline: '第2-4周' },
+        { title: '部署', desc: '自动化的生产部署。包含与最终用户的迭代和验证。', timeline: '第1-3月' },
+        { title: '改进与辅导', desc: '监控、优化、新自动化。每个项目都包含持续培训和辅导。', timeline: '持续' },
+      ],
+      diff: '我们的不同之处：第2周就交付第一个自动化——不是3个月的审计。通过实践学习，而不是听讲。',
+    },
+    stack: {
+      label: '我们的技术栈',
+      title: '信念驱动的技术无关',
+      subtitle: '我们用于部署和连接您系统的部分工具。持续关注新创新。',
+      cards: [
+        { title: 'LLM和提示工程专家', desc: '我们掌握每个模型的能力和局限性（Claude、GPT、Gemini、Qwen、Grok）。指令设计、提示迭代和AI代理架构专家。' },
+        { title: '多环境集成商', desc: '微软、谷歌、中国环境（阿里云、腾讯、百度）。我们连接您现有的工具——ERP、CRM、SharePoint、WhatsApp、微信。' },
+      ],
+      integration: '与您现有工具集成——我们连接所有具有API的工具：Outlook、Teams、Gmail、Google Workspace、微信、QQ、Slack、WhatsApp、SharePoint、Salesforce、SAP及所有办公套件。',
+    },
+    contact: {
+      title1: '让我们谈谈',
+      title2: '您的项目。',
+      subtitle: '30分钟的首次交流，无承诺。我们在通话前准备您行业的分析。',
+      promises: [
+        '当前流程诊断',
+        '快速成效识别',
+        '量化ROI估算',
+        '具体见解——即使我们不合作',
+      ],
+      cta: '预约时间',
+    },
+    footer: {
+      copyright: '© 2026 Parrit.ai — AI、自动化与智能代理解决方案',
+      legal: '法律声明',
+    },
+    modal: {
+      title: '描述您的需求，24小时内回复',
+      subtitle: '24小时挑战：您的AI蓝图',
+      firstName: '您的名字',
+      email: '您的职业邮箱 *',
+      problem: '详细描述您的问题或需求...',
+      submit: '发送',
+      sending: '发送中...',
+      successTitle: '已发送！',
+      successMessage: 'Paul正在分析您的请求。保证24小时内回复。',
+      close: '关闭',
+      reassurance: '零垃圾邮件。只为您的问题提供技术解决方案。',
+    },
+  },
+} as const;
+
+export type Translations = typeof translations.fr;

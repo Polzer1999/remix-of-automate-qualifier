@@ -1,15 +1,11 @@
 import { useEffect, useRef } from "react";
 
-/**
- * Animated node network background — symbolizes "Agentic AI"
- */
 export const NodeNetwork = ({ className = "" }: { className?: string }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
@@ -41,11 +37,9 @@ export const NodeNetwork = ({ className = "" }: { className?: string }) => {
       const rect = canvas.getBoundingClientRect();
       ctx.clearRect(0, 0, rect.width, rect.height);
 
-      // Update & draw nodes
       for (const node of nodes) {
         node.x += node.vx;
         node.y += node.vy;
-
         if (node.x < 0 || node.x > rect.width) node.vx *= -1;
         if (node.y < 0 || node.y > rect.height) node.vy *= -1;
 
@@ -54,11 +48,10 @@ export const NodeNetwork = ({ className = "" }: { className?: string }) => {
 
         ctx.beginPath();
         ctx.arc(node.x, node.y, node.r + pulse, 0, Math.PI * 2);
-        ctx.fillStyle = `hsla(160, 84%, 39%, ${alpha})`;
+        ctx.fillStyle = `hsla(72, 100%, 50%, ${alpha})`;
         ctx.fill();
       }
 
-      // Draw connections
       const maxDist = 120;
       for (let i = 0; i < nodes.length; i++) {
         for (let j = i + 1; j < nodes.length; j++) {
@@ -70,7 +63,7 @@ export const NodeNetwork = ({ className = "" }: { className?: string }) => {
             ctx.beginPath();
             ctx.moveTo(nodes[i].x, nodes[i].y);
             ctx.lineTo(nodes[j].x, nodes[j].y);
-            ctx.strokeStyle = `hsla(160, 84%, 39%, ${alpha})`;
+            ctx.strokeStyle = `hsla(72, 100%, 50%, ${alpha})`;
             ctx.lineWidth = 0.5;
             ctx.stroke();
           }
@@ -84,10 +77,7 @@ export const NodeNetwork = ({ className = "" }: { className?: string }) => {
     initNodes();
     animationId = requestAnimationFrame(draw);
 
-    const handleResize = () => {
-      resize();
-      initNodes();
-    };
+    const handleResize = () => { resize(); initNodes(); };
     window.addEventListener("resize", handleResize);
 
     return () => {

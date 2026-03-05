@@ -1,133 +1,59 @@
 import { useState } from "react";
-import { Bot, Rocket, Puzzle, GraduationCap } from "lucide-react";
-import { OfferCard } from "./OfferCard";
+import { Bot, Puzzle } from "lucide-react";
 import { LeadCaptureModal, OfferType } from "./LeadCaptureModal";
 import { useLanguage } from "@/i18n/LanguageContext";
-
-interface Offer {
-  id: OfferType;
-  icon: typeof Bot;
-  title: string;
-  subtitle: string;
-  description: string;
-  badge?: string;
-  badgeColor?: string;
-  cta: string;
-  ctaAction: "modal" | "scroll";
-  bullets?: string[];
-  twoColumns?: {
-    left: { title: string; items: readonly string[] };
-    right: { title: string; items: readonly string[] };
-  };
-  mention?: string;
-  legalMention?: string;
-  recommended?: boolean;
-  featured?: boolean;
-}
+import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
+import { OfferCard } from "./OfferCard";
 
 export const OffersGrid = () => {
   const { t } = useLanguage();
-  const [selectedOffer, setSelectedOffer] = useState<Offer | null>(null);
+  const { ref, isVisible } = useIntersectionObserver({ threshold: 0.1 });
+  const [selectedOffer, setSelectedOffer] = useState<{ id: OfferType; title: string } | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const offers: Offer[] = [
-    {
-      id: "agentique",
-      icon: Puzzle,
-      title: t.offers.agentique.title,
-      subtitle: t.offers.agentique.subtitle,
-      description: t.offers.agentique.description,
-      badge: t.offers.agentique.badge,
-      cta: t.offers.agentique.cta,
-      ctaAction: "scroll",
-      bullets: [...t.offers.agentique.bullets],
-      mention: t.offers.agentique.mention,
-      recommended: true,
-      featured: true,
-    },
-    {
-      id: "prospection",
-      icon: Rocket,
-      title: t.offers.prospection.title,
-      subtitle: t.offers.prospection.subtitle,
-      description: t.offers.prospection.description,
-      badge: t.offers.prospection.badge,
-      cta: t.offers.prospection.cta,
-      ctaAction: "modal",
-      twoColumns: t.offers.prospection.twoColumns,
-      mention: t.offers.prospection.mention,
-    },
-    {
-      id: "pay",
-      icon: Bot,
-      title: t.offers.pay.title,
-      subtitle: t.offers.pay.subtitle,
-      description: t.offers.pay.description,
-      badge: t.offers.pay.badge,
-      badgeColor: "#6366F1",
-      cta: t.offers.pay.cta,
-      ctaAction: "modal",
-      bullets: [...t.offers.pay.bullets],
-      mention: t.offers.pay.mention,
-      legalMention: t.offers.pay.legalMention,
-    },
-    {
-      id: "formation",
-      icon: GraduationCap,
-      title: t.offers.formation.title,
-      subtitle: t.offers.formation.subtitle,
-      description: t.offers.formation.description,
-      badge: t.offers.formation.badge,
-      cta: t.offers.formation.cta,
-      ctaAction: "modal",
-      bullets: [...t.offers.formation.bullets],
-      mention: t.offers.formation.mention,
-    },
-  ];
+  const handlePayClick = () => {
+    setSelectedOffer({ id: "pay", title: t.offers.pay.title });
+    setIsModalOpen(true);
+  };
 
-  const handleCtaClick = (offer: Offer) => {
-    if (offer.ctaAction === "scroll") {
-      document.getElementById("calendrier")?.scrollIntoView({ behavior: "smooth", block: "start" });
-    } else {
-      setSelectedOffer(offer);
-      setIsModalOpen(true);
-    }
+  const handleAgentiqueClick = () => {
+    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
     <>
-      <section id="offres" className="py-16 md:py-24 px-4">
-        <div className="max-w-[1140px] mx-auto">
-          <h2 className="text-2xl md:text-3xl font-bold text-foreground text-center mb-3 tracking-tight">
-            {t.offersSection?.title || 'Nos offres'}
-          </h2>
-          <p className="text-sm text-muted-foreground text-center mb-12 max-w-lg mx-auto">
-            {t.offersSection?.subtitle || 'Des solutions conçues pour un ROI immédiat.'}
+      <section id="offres" className="py-20 md:py-28 px-4 md:px-8">
+        <div
+          ref={ref}
+          className={`max-w-[1400px] mx-auto transition-all duration-700 ${
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+          }`}
+        >
+          <p className="text-primary text-xs font-semibold uppercase tracking-[4px] mb-12">
+            {t.offersSection.title}
           </p>
 
-          {/* Bento Grid: featured takes 2 cols */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            {offers.map((offer, index) => (
-              <OfferCard
-                key={offer.id}
-                icon={offer.icon}
-                title={offer.title}
-                subtitle={offer.subtitle}
-                description={offer.description}
-                badge={offer.badge}
-                badgeColor={offer.badgeColor}
-                cta={offer.cta}
-                ctaAction={offer.ctaAction}
-                bullets={offer.bullets}
-                mention={offer.mention}
-                legalMention={offer.legalMention}
-                twoColumns={offer.twoColumns}
-                onCtaClick={() => handleCtaClick(offer)}
-                staggerIndex={index}
-                recommended={offer.recommended}
-                featured={offer.featured}
-              />
-            ))}
+            <OfferCard
+              number="01"
+              icon={Bot}
+              title={t.offers.pay.title}
+              description={t.offers.pay.description}
+              tag={t.offers.pay.badge}
+              tiers={t.offers.pay.tiers}
+              cta={t.offers.pay.cta}
+              onCtaClick={handlePayClick}
+            />
+            <OfferCard
+              number="02"
+              icon={Puzzle}
+              title={t.offers.agentique.title}
+              description={t.offers.agentique.description}
+              tag={t.offers.agentique.badge}
+              bullets={[...t.offers.agentique.bullets]}
+              cta={t.offers.agentique.cta}
+              onCtaClick={handleAgentiqueClick}
+            />
           </div>
         </div>
       </section>
